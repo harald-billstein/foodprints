@@ -27,7 +27,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
   private void init() {
 
-    int history = 5;
+    var history = 5;
 
     CollectionOfVotes collectionOfMeatVotes;
     CollectionOfVotes collectionOfChickenVotes;
