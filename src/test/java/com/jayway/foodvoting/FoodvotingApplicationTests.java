@@ -5,19 +5,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.servlet.Filter;
-
-import com.jayway.foodvoting.configuration.SecurityConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -55,13 +49,13 @@ public class FoodvotingApplicationTests {
 
 
     @Test
-    public void testNotFoundWithInvalidAuth() throws Exception { // TOOD Rename
+    public void testNonExistingWithInvalidAuth() throws Exception {
         mvc.perform( get("/nonexisting").with(httpBasic(INVALID_USER, INVALID_PASSWORD)) )
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testNotFoundWithAnonymousUser() throws Exception { // TOOD Rename
+    public void testNonExistingWithAnonymousUser() throws Exception {
         mvc.perform( get("/nonexisting").with(anonymous()) )
                 .andExpect(status().isUnauthorized());
     }
