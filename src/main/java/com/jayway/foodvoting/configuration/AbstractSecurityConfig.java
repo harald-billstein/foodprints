@@ -36,7 +36,8 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.requiresChannel().anyRequest().requiresSecure()
+                .and().authorizeRequests().anyRequest().authenticated()
                 .and()
                 .httpBasic().realmName("FoodVoting")
                 .and()
