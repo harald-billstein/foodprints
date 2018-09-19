@@ -43,20 +43,20 @@ public class FoodvotingApplicationTests {
 
 	@Test
 	public void testNotFoundWithValidAuth() throws Exception {
-        mvc.perform( get("/nonexisting").with(httpBasic(VALID_USER, VALID_PASSWORD)) )
+        mvc.perform( get("/nonexisting").secure( true ).with(httpBasic(VALID_USER, VALID_PASSWORD)) )
                 .andExpect(status().isNotFound());
     }
 
 
     @Test
     public void testNonExistingWithInvalidAuth() throws Exception {
-        mvc.perform( get("/nonexisting").with(httpBasic(INVALID_USER, INVALID_PASSWORD)) )
+        mvc.perform( get("/nonexisting").secure( true ).with(httpBasic(INVALID_USER, INVALID_PASSWORD)) )
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     public void testNonExistingWithAnonymousUser() throws Exception {
-        mvc.perform( get("/nonexisting").with(anonymous()) )
+        mvc.perform( get("/nonexisting").secure( true ).with(anonymous()) )
                 .andExpect(status().isUnauthorized());
     }
 

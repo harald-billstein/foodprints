@@ -22,8 +22,9 @@ public class SecurityConfigDev extends AbstractSecurityConfig {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     super.configure(http);
-    http.authorizeRequests().antMatchers("/h2*").permitAll().and()
-        .authorizeRequests().antMatchers("/console/**").permitAll();
+    http.authorizeRequests().antMatchers("/h2*").permitAll()
+            .and()
+            .authorizeRequests().antMatchers("/console/**").permitAll();
 
     http.csrf().disable();
     http.headers().frameOptions().disable();
