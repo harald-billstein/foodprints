@@ -28,7 +28,7 @@ public class VoteHandler {
     if (inputCheck(vote)) {
       CreateVotePickIfNeeded(vote);
 
-      CollectionOfVotes collection = votingRepositoryIMP.getTodyasVoteCategory(getEnum(vote));
+      CollectionOfVotes collection = votingRepositoryIMP.getTodyasVoteCategory(FoodPicks.valueOf(vote));
       int votes = collection.getVotes() + 1;
       collection.setVotes(votes);
       votingRepositoryIMP.saveCollectionOfVotes(collection);
@@ -80,27 +80,8 @@ public class VoteHandler {
       CollectionOfVotes collectionOfVotes = new CollectionOfVotes();
       collectionOfVotes.setLocalDate(LocalDate.now());
       collectionOfVotes.setVotes(0);
-      collectionOfVotes.setFoodPick(getEnum(input));
+      collectionOfVotes.setFoodPick(FoodPicks.valueOf(input));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVotes);
-    }
-  }
-
-  private FoodPicks getEnum(String input) {
-
-    switch (input.toUpperCase()) {
-      case "VEGAN":
-        return FoodPicks.VEGAN;
-      case "VEGETARIAN":
-        return FoodPicks.VEGETARIAN;
-      case "FISH":
-        return FoodPicks.FISH;
-      case "CHICKEN":
-        return FoodPicks.CHICKEN;
-      case "MEAT":
-        return FoodPicks.MEAT;
-      default:
-        LOGGER.warn("ENUM NOT FOUND - ERROR 11");
-        return null;
     }
   }
 }
