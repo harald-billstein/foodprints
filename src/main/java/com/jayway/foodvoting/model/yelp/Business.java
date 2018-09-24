@@ -23,7 +23,7 @@ public class Business {
   private double distance;
 
 
-  @JsonIgnore
+  
   public String getId() {
     return id;
   }
