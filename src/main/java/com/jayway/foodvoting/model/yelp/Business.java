@@ -1,5 +1,6 @@
-package com.jayway.foodvoting.service;
+package com.jayway.foodvoting.model.yelp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 public class Business {
@@ -21,6 +22,8 @@ public class Business {
   private String display_phone;
   private double distance;
 
+
+  @JsonIgnore
   public String getId() {
     return id;
   }

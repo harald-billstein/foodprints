@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.service;
+package com.jayway.foodvoting.model.yelp;
 
 import java.util.List;
 
