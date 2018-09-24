@@ -1,6 +1,7 @@
 package com.jayway.foodvoting.endpoints;
 
-import com.jayway.foodvoting.model.VoteResponse;
+import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
+import com.jayway.foodvoting.service.RestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -13,11 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestaurantsSuggestionEndpoint {
 
   private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+  private RestaurantService restaurantService;
+
+  public RestaurantsSuggestionEndpoint(RestaurantService restaurantService) {
+    this.restaurantService = restaurantService;
+  }
 
   @GetMapping(value = "/restaurants/suggestions")
-  public ResponseEntity<VoteResponse> getRestaurants() {
+  public ResponseEntity<RestaurantSuggestionResponse> getRestaurants() {
     LOGGER.info("ENDPOINT TRIGGERED : /restaurants/suggestions");
-    return null;
+
+    return restaurantService.getBusinessOfTheDay();
   }
 
 }
