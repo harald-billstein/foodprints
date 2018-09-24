@@ -50,7 +50,6 @@ public class RestaurantService {
     return getResponse(suggestedRestaurant);
   }
 
-
   private ResponseEntity<RestaurantSuggestionResponse> getResponse(Business suggestedRestaurant) {
 
     RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
@@ -60,7 +59,5 @@ public class RestaurantService {
 
     return ResponseEntity.ok(restaurantSuggestionResponse);
   }
-
-
 }
 
