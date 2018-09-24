@@ -19,7 +19,7 @@ public class YelpRestaurantFetcher {
   private String resource = "/businesses";
   private String action = "/search";
   private String location = "Klara Östra Kyrkogata";
-  private String term = "vegan";
+  private String term = "vegetarian";
   private String radius = "500";
   private String categories = "restaurants";
   private String token = "Bearer wXDO-HlZMD8J7OO0uS6H9E_oAqd5QC2b7JxZ3ms1eEj3RFcHEN8CcVqHKSnpSymT2VZm80Pppb5pXQOZodbTiW1W9lN-tKYrDIbDEjWKYYsHSUvy4a2ip-kc5fKgW3Yx";
