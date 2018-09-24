@@ -12,7 +12,7 @@ public class RestaurantFilter {
 
     List<Business> filteredRestaurants = new ArrayList<>();
     for (Business tempBusiness : unFilteredRestaurants.blockFirst().getBusinesses()) {
-      if (tempBusiness.getRating() >= 4) {
+      if (tempBusiness.getRating() >= 4 && tempBusiness.getLocation().getAddress1().length() > 0) {
         filteredRestaurants.add(tempBusiness);
       }
     }
