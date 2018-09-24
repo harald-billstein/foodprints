@@ -20,11 +20,9 @@ public class RestaurantsSuggestionEndpoint {
     this.restaurantService = restaurantService;
   }
 
-  @GetMapping(value = "/restaurants/suggestions")
-  public ResponseEntity<RestaurantSuggestionResponse> getRestaurants() {
-    LOGGER.info("ENDPOINT TRIGGERED : /restaurants/suggestions");
-
+  @GetMapping(value = "/restaurants/suggestion")
+  public ResponseEntity<RestaurantSuggestionResponse> getRestaurant() {
+    LOGGER.info("ENDPOINT : SUGGESTION");
     return restaurantService.getBusinessOfTheDay();
   }
-
 }
