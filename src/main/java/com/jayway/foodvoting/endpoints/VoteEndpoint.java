@@ -24,7 +24,7 @@ public class VoteEndpoint {
 
   @PostMapping(value = "/votes/")
   public ResponseEntity<VoteResponse> vote(@RequestParam String vote) {
-    LOGGER.info("ENDPOINT TRIGGERED : " + vote);
+    LOGGER.info("ENDPOINT : VOTE : " + vote);
     return voteHandler.registerVote(vote);
   }
 }
