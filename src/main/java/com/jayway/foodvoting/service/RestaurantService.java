@@ -5,49 +5,43 @@ import com.jayway.foodvoting.model.yelp.Business;
 import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.util.List;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RestaurantService {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantService.class);
+
   private YelpRestaurantFetcher yelpRestaurantFetcher;
   private Business suggestedRestaurant;
-  private String lastSuggestedRestaurant;
 
   public RestaurantService(YelpRestaurantFetcher yelpRestaurantFetcher) {
     this.yelpRestaurantFetcher = yelpRestaurantFetcher;
   }
 
   public ResponseEntity<RestaurantSuggestionResponse> getBusinessOfTheDay() {
+    LOGGER.info("GET BUSINESS OF THE DAY");
 
     List<Business> restaurants = RestaurantFilter
         .RestaurantGradeFilter(yelpRestaurantFetcher.getRestaurants());
 
     int randomInt = new Random().nextInt((restaurants.size()));
 
-    if (suggestedRestaurant == null) {
-      suggestedRestaurant = restaurants.get(randomInt);
-      lastSuggestedRestaurant = restaurants.get(randomInt).getName();
-    } else {
-
-      if (lastSuggestedRestaurant.equalsIgnoreCase(restaurants.get(randomInt).getName())) {
-        randomInt++;
-
-        if (randomInt >= restaurants.size()) {
-          randomInt = 0;
-        }
-
-        suggestedRestaurant = restaurants.get(randomInt);
-        lastSuggestedRestaurant = restaurants.get(randomInt).getName();
-      } else {
-        suggestedRestaurant = restaurants.get(randomInt);
-        lastSuggestedRestaurant = restaurants.get(randomInt).getName();
+    if (getSuggestedRestaurant() != null && getSuggestedRestaurant()
+        .equals(restaurants.get(randomInt))) {
+      randomInt++;
+      if (randomInt >= restaurants.size()) {
+        randomInt = 0;
       }
-      suggestedRestaurant = restaurants.get(randomInt);
-      lastSuggestedRestaurant = restaurants.get(randomInt).getName();
+      setSuggestedRestaurant(restaurants.get(randomInt));
+    } else {
+      setSuggestedRestaurant(restaurants.get(randomInt));
     }
-    return getResponse(suggestedRestaurant);
+
+    return getResponse(getSuggestedRestaurant());
   }
 
   private ResponseEntity<RestaurantSuggestionResponse> getResponse(Business suggestedRestaurant) {
@@ -58,6 +52,18 @@ public class RestaurantService {
     restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
 
     return ResponseEntity.ok(restaurantSuggestionResponse);
+  }
+
+  private Business getSuggestedRestaurant() {
+    synchronized (this) {
+      return suggestedRestaurant;
+    }
+  }
+
+  private void setSuggestedRestaurant(Business suggestedRestaurant) {
+    synchronized (this) {
+      this.suggestedRestaurant = suggestedRestaurant;
+    }
   }
 }
 
