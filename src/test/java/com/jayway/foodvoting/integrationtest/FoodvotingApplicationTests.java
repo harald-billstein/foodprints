@@ -1,14 +1,11 @@
 package com.jayway.foodvoting;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
@@ -20,26 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles(profiles = {"dev"})
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FoodvotingApplicationTests {
-
-    private static final String VALID_USER = "testuser";
-    private static final String VALID_PASSWORD = "password123";
-
-    private static final String INVALID_USER = "invaliduser";
-    private static final String INVALID_PASSWORD = "invalidpassword123";
-
-    @Autowired
-    private WebApplicationContext context;
-
-    private MockMvc mvc;
-
-
-    @Before
-    public void setUpMockMvc(){
-        mvc = MockMvcBuilders.webAppContextSetup(context)
-                .apply(SecurityMockMvcConfigurers.springSecurity())
-                .build();
-    }
+public class FoodvotingApplicationTests extends IntegrationTest {
 
 	@Test
 	public void testNotFoundWithValidAuth() throws Exception {
