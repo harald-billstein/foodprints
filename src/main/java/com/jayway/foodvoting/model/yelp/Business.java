@@ -1,6 +1,5 @@
 package com.jayway.foodvoting.model.yelp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
 public class Business {
@@ -23,7 +22,6 @@ public class Business {
   private double distance;
 
 
-  
   public String getId() {
     return id;
   }
@@ -150,5 +148,12 @@ public class Business {
 
   public void setDistance(double distance) {
     this.distance = distance;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    Business business = (Business) obj;
+    return (business.getClass() == this.getClass()) && business.getName()
+        .equalsIgnoreCase(getName());
   }
 }
