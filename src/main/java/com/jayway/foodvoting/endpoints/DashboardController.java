@@ -11,11 +11,9 @@ public class DashboardController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VoteEndpoint.class);
 
-  @RequestMapping({"/", "/index"})
+  @RequestMapping({"/"})
   public ModelAndView getDashBoard(ModelAndView modelAndView) {
     LOGGER.info("INDEX ACCESSED!");
-
-    //ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("index.html");
     return modelAndView;
   }
