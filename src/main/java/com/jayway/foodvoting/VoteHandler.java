@@ -27,8 +27,8 @@ public class VoteHandler {
 
     if (inputCheck(vote)) {
       CreateVotePickIfNeeded(vote);
-
-      CollectionOfVotes collection = votingRepositoryIMP.getTodyasVoteCategory(FoodPicks.valueOf(vote));
+      CollectionOfVotes collection = votingRepositoryIMP
+          .getTodyasVoteCategory(FoodPicks.valueOf(vote));
       int votes = collection.getVotes() + 1;
       collection.setVotes(votes);
       votingRepositoryIMP.saveCollectionOfVotes(collection);
@@ -54,8 +54,6 @@ public class VoteHandler {
       if (foodPick.name().equalsIgnoreCase(input)) {
         LOGGER.info("MATCH FOUND!");
         match = true;
-      } else {
-        match = false;
       }
     }
     return match;
