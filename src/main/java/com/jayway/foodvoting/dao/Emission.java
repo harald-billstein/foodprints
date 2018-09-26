@@ -50,4 +50,12 @@ public class Emission {
     public int hashCode() {
         return Objects.hash(category);
     }
+
+    @Override
+    public String toString() {
+        return "Emission{" +
+                "category='" + category + '\'' +
+                ", co2e=" + co2e +
+                '}';
+    }
 }
