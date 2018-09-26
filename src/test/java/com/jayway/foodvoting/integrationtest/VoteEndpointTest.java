@@ -21,8 +21,6 @@ public class VoteEndpointTest extends IntegrationTest {
   @Autowired
   private WebApplicationContext context;
   private String url = "https://localhost:8443/v1/votes/";
-  private String userName = "testuser";
-  private String password = "password123";
 
   @Before
   public void setUpMockMvc() {
