@@ -73,7 +73,7 @@ public class VoteHandler {
     if (categorys.size() <= 5) {
       for (CollectionOfVotes category : categorys) {
         LOGGER.info(category.getCategory().getCategory().toString());
-        if (category.getCategory().toString().equalsIgnoreCase(input)) {
+        if (category.getCategory().getCategory().name().equalsIgnoreCase(input)) {
           LOGGER.info("CREATE NOT NEEDED CATEGORY FOUND");
           foundEntry = true;
         }
