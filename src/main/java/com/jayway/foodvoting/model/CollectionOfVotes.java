@@ -1,21 +1,34 @@
 package com.jayway.foodvoting.model;
 
+import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.enums.FoodPicks;
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "collection_of_votes")
 public class CollectionOfVotes {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private int ID;
+
   private LocalDate localDate;
-  private String foodPick;
+
+  @ManyToOne
+  @JoinColumn(name="category", table="collection_of_votes")
+  private Emission category;
+
   private int votes;
+
+  public CollectionOfVotes(){}
+
+  public CollectionOfVotes(LocalDate localDate, Emission category, int votes) {
+    this.ID = ID;
+    this.localDate = localDate;
+    this.category = category;
+    this.votes = votes;
+  }
 
   public int getID() {
     return ID;
@@ -33,12 +46,12 @@ public class CollectionOfVotes {
     this.localDate = localDate;
   }
 
-  public String getFoodPick() {
-    return foodPick;
+  public Emission getCategory() {
+    return category;
   }
 
-  public void setFoodPick(FoodPicks foodPick) {
-    this.foodPick = foodPick.name();
+  public void setCategory(Emission category) {
+    this.category = category;
   }
 
   public int getVotes() {

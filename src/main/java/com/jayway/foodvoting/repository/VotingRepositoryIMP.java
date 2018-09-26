@@ -15,13 +15,16 @@ public class VotingRepositoryIMP {
   private static final Logger LOGGER = LoggerFactory.getLogger(VotingRepositoryIMP.class);
 
   private VoteingRepository voteingRepository;
+  private FoodTypeRepository foodTypeRepository;
 
-  public VotingRepositoryIMP(VoteingRepository voteingRepository) {
+  public VotingRepositoryIMP(VoteingRepository voteingRepository,
+      FoodTypeRepository foodTypeRepository) {
     this.voteingRepository = voteingRepository;
+    this.foodTypeRepository = foodTypeRepository;
   }
 
   public CollectionOfVotes saveCollectionOfVotes(CollectionOfVotes collectionOfVotes) {
-    LOGGER.info("SAVING:::" + collectionOfVotes.getFoodPick());
+    LOGGER.info("SAVING:::" + collectionOfVotes.getCategory());
     return voteingRepository.save(collectionOfVotes);
   }
 
@@ -39,18 +42,21 @@ public class VotingRepositoryIMP {
   }
 
   public CollectionOfVotes getTodyasVoteCategory(FoodPicks foodPick) {
-    LOGGER.info(foodPick.name());
     var allVotes = voteingRepository.findAll().iterator();
-    CollectionOfVotes cat;
+    CollectionOfVotes cat = null;
 
     while (allVotes.hasNext()) {
       cat = allVotes.next();
-      if (cat.getLocalDate().isEqual(LocalDate.now()) && cat.getFoodPick()
+      if (cat.getLocalDate().isEqual(LocalDate.now()) && cat.getCategory().getCategory().name()
           .equalsIgnoreCase(foodPick.name())) {
         return cat;
       }
     }
-    return null;
 
+    if (cat != null) {
+      return cat;
+    } else {
+      throw new RuntimeException("Category in Database is null");
+    }
   }
 }
