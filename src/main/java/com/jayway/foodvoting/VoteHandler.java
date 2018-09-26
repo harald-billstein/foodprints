@@ -1,8 +1,11 @@
 package com.jayway.foodvoting;
 
+import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.enums.FoodPicks;
 import com.jayway.foodvoting.model.CollectionOfVotes;
 import com.jayway.foodvoting.model.VoteResponse;
+import com.jayway.foodvoting.repository.FoodTypeRepository;
+import com.jayway.foodvoting.repository.VoteingRepository;
 import com.jayway.foodvoting.repository.VotingRepositoryIMP;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,9 +20,13 @@ public class VoteHandler {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VoteHandler.class);
   private VotingRepositoryIMP votingRepositoryIMP;
+  private VoteingRepository voteingRepository;
+  private FoodTypeRepository foodTypeRepository;
 
-  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP) {
+  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP, VoteingRepository voteingRepository, FoodTypeRepository foodTypeRepository) {
     this.votingRepositoryIMP = votingRepositoryIMP;
+    this.voteingRepository = voteingRepository;
+    this.foodTypeRepository = foodTypeRepository;
   }
 
   public ResponseEntity<VoteResponse> registerVote(String vote) {
@@ -67,8 +74,8 @@ public class VoteHandler {
 
     if (categorys.size() <= 5) {
       for (CollectionOfVotes category : categorys) {
-        LOGGER.info(category.getFoodPick());
-        if (category.getFoodPick().equalsIgnoreCase(input)) {
+        LOGGER.info(category.getCategory().getCategory().toString());
+        if (category.getCategory().toString().equalsIgnoreCase(input)) {
           LOGGER.info("CREATE NOT NEEDED CATEGORY FOUND");
           foundEntry = true;
         }
@@ -80,7 +87,7 @@ public class VoteHandler {
       CollectionOfVotes collectionOfVotes = new CollectionOfVotes();
       collectionOfVotes.setLocalDate(LocalDate.now());
       collectionOfVotes.setVotes(0);
-      collectionOfVotes.setFoodPick(FoodPicks.valueOf(input));
+      collectionOfVotes.setCategory(foodTypeRepository.findByCategory(input));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVotes);
     }
   }

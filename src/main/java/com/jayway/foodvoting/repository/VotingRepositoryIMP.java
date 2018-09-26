@@ -15,13 +15,15 @@ public class VotingRepositoryIMP {
   private static final Logger LOGGER = LoggerFactory.getLogger(VotingRepositoryIMP.class);
 
   private VoteingRepository voteingRepository;
+  private FoodTypeRepository foodTypeRepository;
 
-  public VotingRepositoryIMP(VoteingRepository voteingRepository) {
+  public VotingRepositoryIMP(VoteingRepository voteingRepository, FoodTypeRepository foodTypeRepository) {
     this.voteingRepository = voteingRepository;
+    this.foodTypeRepository = foodTypeRepository;
   }
 
   public CollectionOfVotes saveCollectionOfVotes(CollectionOfVotes collectionOfVotes) {
-    LOGGER.info("SAVING:::" + collectionOfVotes.getFoodPick());
+    LOGGER.info("SAVING:::" + collectionOfVotes.getCategory());
     return voteingRepository.save(collectionOfVotes);
   }
 
@@ -45,7 +47,7 @@ public class VotingRepositoryIMP {
 
     while (allVotes.hasNext()) {
       cat = allVotes.next();
-      if (cat.getLocalDate().isEqual(LocalDate.now()) && cat.getFoodPick()
+      if (cat.getLocalDate().isEqual(LocalDate.now()) && cat.getCategory().toString()
           .equalsIgnoreCase(foodPick.name())) {
         return cat;
       }
