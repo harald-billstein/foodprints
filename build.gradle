@@ -4,16 +4,33 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
     }
+}
+
+plugins {
+    id "com.moowork.node" version "1.1.1"
+}
+
+node {
+    version = '5.7.0'
+    npmVersion = '3.9.2'
+    download = true
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+
+jar {
+    baseName = 'reactjs-spring-data-rest-gradle'
+    version = '0.0.1-SNAPSHOT'
+}
 
 group = 'com.jayway'
 version = '0.0.1-SNAPSHOT'
@@ -28,6 +45,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     runtime('com.h2database:h2')
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
@@ -40,3 +58,18 @@ dependencies {
 bootRun {
     systemProperties System.properties
 }
+
+
+task webpack(type: NodeTask, dependsOn: 'npmInstall') {
+    script = project.file('node_modules/.bin/webpack')
+}
+task webpackClean(type: Delete) {
+    delete './src/main/resources/static/built'
+}
+clean.dependsOn webpackClean
+
+task npmClean (type: Delete) { delete './node_modules' }
+
+processResources.dependsOn 'webpack'
+
+task cleanAll(dependsOn: [clean, npmClean] )
