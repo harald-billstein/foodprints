@@ -19,7 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles(profiles = {"dev"})
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RestaurantsSuggestionEndpointTest {
+public class VoteEndpointTest {
 
   @Autowired
   private WebApplicationContext context;
