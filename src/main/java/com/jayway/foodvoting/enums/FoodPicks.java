@@ -1,7 +1,8 @@
 package com.jayway.foodvoting.enums;
 
 public enum FoodPicks {
-  MEAT,
+  BEEF,
+  PORK,
   CHICKEN,
   FISH,
   VEGETARIAN,
