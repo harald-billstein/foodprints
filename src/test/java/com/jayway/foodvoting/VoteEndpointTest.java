@@ -73,9 +73,18 @@ public class VoteEndpointTest {
   }
 
   @Test
-  public void testVoteMeat() throws Exception {
+  public void testVoteBeef() throws Exception {
     mvc.perform(post(url)
-        .param("vote", "MEAT")
+        .param("vote", "BEEF")
+        .secure(true)
+        .with(httpBasic(userName, password)))
+        .andExpect(status().isOk());
+  }
+
+  @Test
+  public void testVotePork() throws Exception {
+    mvc.perform(post(url)
+        .param("vote", "PORK")
         .secure(true)
         .with(httpBasic(userName, password)))
         .andExpect(status().isOk());
