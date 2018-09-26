@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.controller;
+package com.jayway.foodvoting.integrationtest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.junit.Assert.*;

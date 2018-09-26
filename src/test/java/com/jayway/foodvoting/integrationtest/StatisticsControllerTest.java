@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.controller;
+package com.jayway.foodvoting.integrationtest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
