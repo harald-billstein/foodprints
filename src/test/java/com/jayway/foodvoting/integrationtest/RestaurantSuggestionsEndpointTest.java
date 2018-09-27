@@ -1,14 +1,11 @@
 package com.jayway.foodvoting.integrationtest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.foodvoting.model.yelp.Business;
+import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
 import com.jayway.foodvoting.model.yelp.Restaurants;
 import com.jayway.foodvoting.service.YelpRestaurantFetcher;
-import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.io.IOException;
-import java.util.List;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -16,21 +13,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.ResultActions;
 
 @SpringBootTest
 @ActiveProfiles(profiles = {"dev"})
 @RunWith(SpringRunner.class)
-public class RestaurantSuggestionsEndpointTest {
+public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
 
   private static final int MIN_RATING = 3;
-  private static final int MIN_VOTES = 5;
+  private static final int MIN_NAME = 2;
   private static final int MIN_ADDRESS_LENGTH = 5;
+
+  private static final String PATH = "https://localhost:8443/v1/restaurants/suggestion";
 
   @MockBean
   private YelpRestaurantFetcher yelpRestaurantFetcher;
   private String jsonBusinesses = RestaurantsJsonWrapper.getRestaurantSuggestionsEndpointJSON();
 
-  @Before
   public void setUpMock() {
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -43,30 +42,34 @@ public class RestaurantSuggestionsEndpointTest {
   }
 
   @Test
-  public void fetchRestaurantsTest() {
-    Assert.assertNotNull(yelpRestaurantFetcher.getRestaurants());
-  }
+  public void fetchRestaurantsTest() throws Exception {
+    setUpMock();
+    ObjectMapper objectMapper = new ObjectMapper();
 
-  @Test
-  public void filterWeedingCheck() {
-    Restaurants restaurants = yelpRestaurantFetcher.getRestaurants();
-    List<Business> unFiltered = restaurants.getBusinesses();
-    List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(restaurants);
-    Assert.assertTrue(unFiltered.size() > filtered.size());
-  }
+    RestaurantSuggestionResponse firstResultObject;
+    RestaurantSuggestionResponse secondResultObject;
 
-  @Test
-  public void filterResultChecker() {
-    Restaurants restaurants = yelpRestaurantFetcher.getRestaurants();
-    List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(restaurants);
+    String firstJsonResponse;
+    String secondJsonResponse;
 
-    for (Business business : filtered) {
-      Assert.assertTrue("Rating test failed at : " + business.getName(),
-          business.getRating() > MIN_RATING);
-      Assert.assertTrue("Vote count failed at : " + business.getName(),
-          business.getReview_count() > MIN_VOTES);
-      Assert.assertTrue("Address not present at : " + business.getName(),
-          business.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH);
-    }
+    ResultActions firstResult;
+    ResultActions secondResult;
+
+    firstResult = this.mvcPerformValidGet(PATH);
+    secondResult = this.mvcPerformValidGet(PATH);
+
+    firstJsonResponse = firstResult.andReturn().getResponse().getContentAsString();
+    secondJsonResponse = secondResult.andReturn().getResponse().getContentAsString();
+
+    firstResultObject = objectMapper
+        .readValue(firstJsonResponse, RestaurantSuggestionResponse.class);
+    secondResultObject = objectMapper
+        .readValue(secondJsonResponse, RestaurantSuggestionResponse.class);
+
+    Assert.assertTrue(firstResultObject.getAddress().length() > MIN_ADDRESS_LENGTH);
+    Assert.assertTrue(firstResultObject.getName().length() > MIN_NAME);
+    Assert.assertTrue(firstResultObject.getGrade() > MIN_RATING);
+
+    Assert.assertNotEquals(firstResultObject.getName(), secondResultObject.getName());
   }
 }
