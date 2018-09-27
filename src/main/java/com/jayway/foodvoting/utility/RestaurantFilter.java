@@ -14,13 +14,13 @@ public class RestaurantFilter {
   private static final int MIN_RATING = 3;
   private static final int MIN_VOTES = 5;
 
-  public static List<Business> RestaurantGradeFilter(Flux<Restaurants> unFilteredRestaurants) {
+  public static List<Business> RestaurantGradeFilter(Restaurants unFilteredRestaurants) {
 
     List<Business> filteredRestaurants = new ArrayList<>();
     LOGGER.info("RESTAURANT FILTER : RESTAURANTS FOUND : "
-        + unFilteredRestaurants.blockFirst().getBusinesses().size());
+        + unFilteredRestaurants.getBusinesses().size());
 
-    for (Business tempBusiness : unFilteredRestaurants.blockFirst().getBusinesses()) {
+    for (Business tempBusiness : unFilteredRestaurants.getBusinesses()) {
       if (tempBusiness.getRating() >= MIN_RATING
           && tempBusiness.getLocation().getAddress1().length() > 0
           && tempBusiness.getReview_count() > MIN_VOTES) {
