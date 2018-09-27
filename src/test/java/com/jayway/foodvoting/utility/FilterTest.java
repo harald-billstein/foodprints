@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.foodvoting.integrationtest.RestaurantsJsonWrapper;
 import com.jayway.foodvoting.model.yelp.Business;
 import com.jayway.foodvoting.model.yelp.Restaurants;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class FilterTest {
   @Test
   public void filterWeedingCheck() {
     List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
-    Assert.assertTrue(unfilteredRestaurants.getBusinesses().size() > filtered.size());
+    Assert.assertTrue(unfilteredRestaurants.getBusinesses().size() >= filtered.size());
   }
 
   @Test
@@ -49,4 +50,15 @@ public class FilterTest {
           business.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH);
     }
   }
+
+  @Test
+  public void filterNoMatchingRestaurantsChecker() {
+    Restaurants restaurants = new Restaurants();
+    ArrayList<Business> businesses = new ArrayList<>();
+    restaurants.setBusinesses(businesses);
+
+    Assert.assertNull(RestaurantFilter.RestaurantGradeFilter(restaurants));
+  }
+
+
 }
