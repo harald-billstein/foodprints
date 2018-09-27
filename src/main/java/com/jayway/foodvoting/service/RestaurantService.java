@@ -2,6 +2,7 @@ package com.jayway.foodvoting.service;
 
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
 import com.jayway.foodvoting.model.yelp.Business;
+import com.jayway.foodvoting.model.yelp.Restaurants;
 import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.util.List;
 import java.util.Random;
@@ -25,33 +26,46 @@ public class RestaurantService {
   public ResponseEntity<RestaurantSuggestionResponse> getBusinessOfTheDay() {
     LOGGER.info("GET BUSINESS OF THE DAY");
 
-    List<Business> restaurants = RestaurantFilter
-        .RestaurantGradeFilter(yelpRestaurantFetcher.getRestaurants());
-
-    int randomInt = new Random().nextInt((restaurants.size()));
-
-    if (getSuggestedRestaurant() != null && getSuggestedRestaurant()
-        .equals(restaurants.get(randomInt))) {
-      randomInt++;
-      if (randomInt >= restaurants.size()) {
-        randomInt = 0;
-      }
-      setSuggestedRestaurant(restaurants.get(randomInt));
-    } else {
-      setSuggestedRestaurant(restaurants.get(randomInt));
+    Restaurants unfilteredRestaurants = yelpRestaurantFetcher.getRestaurants();
+    if (unfilteredRestaurants == null) {
+      LOGGER.warn("NO RESTAURANTS FOUND");
+      return getResponse(null);
     }
 
+    List<Business> filteredRestaurants = RestaurantFilter
+        .RestaurantGradeFilter(unfilteredRestaurants);
+
+    if (filteredRestaurants == null) {
+      LOGGER.warn("NO RESTAURANTS LEFT AFTER WEED OUT");
+      return getResponse(null);
+    }
+
+    int randomInt = new Random().nextInt((filteredRestaurants.size()));
+
+    if (getSuggestedRestaurant() != null && getSuggestedRestaurant()
+        .equals(filteredRestaurants.get(randomInt))) {
+      randomInt++;
+      if (randomInt >= filteredRestaurants.size()) {
+        randomInt = 0;
+      }
+      setSuggestedRestaurant(filteredRestaurants.get(randomInt));
+    } else {
+      setSuggestedRestaurant(filteredRestaurants.get(randomInt));
+    }
     return getResponse(getSuggestedRestaurant());
   }
 
   private ResponseEntity<RestaurantSuggestionResponse> getResponse(Business suggestedRestaurant) {
 
-    RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
-    restaurantSuggestionResponse.setAddress(suggestedRestaurant.getLocation().getAddress1());
-    restaurantSuggestionResponse.setGrade(suggestedRestaurant.getRating());
-    restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
-
-    return ResponseEntity.ok(restaurantSuggestionResponse);
+    if (suggestedRestaurant != null) {
+      RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
+      restaurantSuggestionResponse.setAddress(suggestedRestaurant.getLocation().getAddress1());
+      restaurantSuggestionResponse.setGrade(suggestedRestaurant.getRating());
+      restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
+      return ResponseEntity.ok(restaurantSuggestionResponse);
+    } else {
+      return ResponseEntity.noContent().build();
+    }
   }
 
   private Business getSuggestedRestaurant() {
