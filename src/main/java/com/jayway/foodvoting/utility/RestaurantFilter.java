@@ -17,18 +17,18 @@ public class RestaurantFilter {
   public static List<Business> RestaurantGradeFilter(Restaurants unFilteredRestaurants) {
 
     List<Business> filteredRestaurants = new ArrayList<>();
-    LOGGER.info("RESTAURANT FILTER : RESTAURANTS FOUND : "
+    LOGGER.debug("RESTAURANT FILTER : RESTAURANTS FOUND : "
         + unFilteredRestaurants.getBusinesses().size());
 
     for (Business tempBusiness : unFilteredRestaurants.getBusinesses()) {
       if (tempBusiness.getRating() >= MIN_RATING
           && tempBusiness.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH
           && tempBusiness.getReview_count() > MIN_VOTES) {
-        LOGGER.info("RESTAURANT PASSED INSPECTION : " + tempBusiness.getName());
+        LOGGER.debug("RESTAURANT PASSED INSPECTION : " + tempBusiness.getName());
         filteredRestaurants.add(tempBusiness);
       }
     }
-    LOGGER.info("RESTAURANT FILTER : RESTAURANTS QUALIFIES : " + filteredRestaurants.size());
+    LOGGER.debug("RESTAURANT FILTER : RESTAURANTS QUALIFIES : " + filteredRestaurants.size());
     return filteredRestaurants;
   }
 }
