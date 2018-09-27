@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 
 public class RestaurantFilter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantFilter.class);
   private static final int MIN_RATING = 3;
   private static final int MIN_VOTES = 5;
+  private static final int MIN_ADDRESS_LENGTH = 5;
 
   public static List<Business> RestaurantGradeFilter(Restaurants unFilteredRestaurants) {
 
@@ -22,7 +22,7 @@ public class RestaurantFilter {
 
     for (Business tempBusiness : unFilteredRestaurants.getBusinesses()) {
       if (tempBusiness.getRating() >= MIN_RATING
-          && tempBusiness.getLocation().getAddress1().length() > 0
+          && tempBusiness.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH
           && tempBusiness.getReview_count() > MIN_VOTES) {
         LOGGER.info("RESTAURANT PASSED INSPECTION : " + tempBusiness.getName());
         filteredRestaurants.add(tempBusiness);
