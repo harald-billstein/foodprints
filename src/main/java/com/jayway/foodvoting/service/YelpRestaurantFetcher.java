@@ -22,7 +22,7 @@ public class YelpRestaurantFetcher {
   private String radius = "500";
   private String categories = "restaurants";
   private String token = "Bearer wXDO-HlZMD8J7OO0uS6H9E_oAqd5QC2b7JxZ3ms1eEj3RFcHEN8CcVqHKSnpSymT2VZm80Pppb5pXQOZodbTiW1W9lN-tKYrDIbDEjWKYYsHSUvy4a2ip-kc5fKgW3Yx";
-  private Mono<Restaurants> restaurants;
+  private Restaurants restaurants;
   private Object key = new Object();
 
   public YelpRestaurantFetcher() {
@@ -34,30 +34,35 @@ public class YelpRestaurantFetcher {
   private void updateBusinessList() {
     LOGGER.info("UPDATING BUSINESS LIST");
 
-    WebClient client = WebClient.create(baseURL);
+    try {
+      WebClient client = WebClient.create(baseURL);
 
-    Mono<Restaurants> restaurants = client.get()
-        .uri(uriBuilder -> uriBuilder.path(resource + action)
-            .queryParam("location", location)
-            .queryParam("term", term)
-            .queryParam("radius", radius)
-            .queryParam("categories", categories)
-            .build())
-        .header("Authorization", token)
-        .retrieve()
-        .onStatus(HttpStatus::isError, clientResponse -> Mono.error(new Throwable("API DOWN")))
-        .bodyToMono(Restaurants.class);
+      Mono<Restaurants> restaurants = client.get()
+              .uri(uriBuilder -> uriBuilder.path(resource + action)
+                      .queryParam("location", location)
+                      .queryParam("term", term)
+                      .queryParam("radius", radius)
+                      .queryParam("categories", categories)
+                      .build())
+              .header("Authorization", token)
+              .retrieve()
+              .onStatus(HttpStatus::isError, clientResponse ->
+                      Mono.error(new RuntimeException("Http status is " + clientResponse.statusCode() + ", unable to contact "  + resource + action)))
+              .bodyToMono(Restaurants.class);
 
-    setRestaurants(restaurants);
+      setRestaurants(restaurants.block());
+    } catch (RuntimeException e) {
+      LOGGER.error(e.getMessage(), e);
+    }
   }
 
   public Restaurants getRestaurants() {
     synchronized (key) {
-      return restaurants.block();
+      return restaurants;
     }
   }
 
-  private void setRestaurants(Mono<Restaurants> restaurants) {
+  private void setRestaurants(Restaurants restaurants) {
     synchronized (key) {
       this.restaurants = restaurants;
     }
