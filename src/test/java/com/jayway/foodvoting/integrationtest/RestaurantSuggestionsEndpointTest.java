@@ -8,6 +8,7 @@ import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -29,26 +30,25 @@ public class RestaurantSuggestionsEndpointTest {
   private YelpRestaurantFetcher yelpRestaurantFetcher;
   private String jsonBusinesses = RestaurantsJsonWrapper.getRestaurantSuggestionsEndpointJSON();
 
-  public Restaurants getRestaurants() {
+  @Before
+  public void setUpMock() {
     ObjectMapper objectMapper = new ObjectMapper();
-    Restaurants restaurants = null;
+
     try {
-      restaurants = objectMapper.readValue(jsonBusinesses, Restaurants.class);
+      Mockito.when(yelpRestaurantFetcher.getRestaurants())
+          .thenReturn(objectMapper.readValue(jsonBusinesses, Restaurants.class));
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return restaurants;
   }
 
   @Test
   public void fetchRestaurantsTest() {
-    Mockito.when(yelpRestaurantFetcher.getRestaurants()).thenReturn(getRestaurants());
     Assert.assertNotNull(yelpRestaurantFetcher.getRestaurants());
   }
 
   @Test
   public void filterWeedingCheck() {
-    Mockito.when(yelpRestaurantFetcher.getRestaurants()).thenReturn(getRestaurants());
     Restaurants restaurants = yelpRestaurantFetcher.getRestaurants();
     List<Business> unFiltered = restaurants.getBusinesses();
     List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(restaurants);
@@ -57,7 +57,6 @@ public class RestaurantSuggestionsEndpointTest {
 
   @Test
   public void filterResultChecker() {
-    Mockito.when(yelpRestaurantFetcher.getRestaurants()).thenReturn(getRestaurants());
     Restaurants restaurants = yelpRestaurantFetcher.getRestaurants();
     List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(restaurants);
 
