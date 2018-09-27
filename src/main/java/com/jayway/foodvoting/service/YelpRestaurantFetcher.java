@@ -38,17 +38,19 @@ public class YelpRestaurantFetcher {
       WebClient client = WebClient.create(baseURL);
 
       Mono<Restaurants> restaurants = client.get()
-              .uri(uriBuilder -> uriBuilder.path(resource + action)
-                      .queryParam("location", location)
-                      .queryParam("term", term)
-                      .queryParam("radius", radius)
-                      .queryParam("categories", categories)
-                      .build())
-              .header("Authorization", token)
-              .retrieve()
-              .onStatus(HttpStatus::isError, clientResponse ->
-                      Mono.error(new RuntimeException("Http status is " + clientResponse.statusCode() + ", unable to contact "  + resource + action)))
-              .bodyToMono(Restaurants.class);
+          .uri(uriBuilder -> uriBuilder.path(resource + action)
+              .queryParam("location", location)
+              .queryParam("term", term)
+              .queryParam("radius", radius)
+              .queryParam("categories", categories)
+              .build())
+          .header("Authorization", token)
+          .retrieve()
+          .onStatus(HttpStatus::isError, clientResponse ->
+              Mono.error(new RuntimeException(
+                  "Http status is " + clientResponse.statusCode() + ", unable to contact "
+                      + resource + action)))
+          .bodyToMono(Restaurants.class);
 
       setRestaurants(restaurants.block());
     } catch (RuntimeException e) {
@@ -58,7 +60,8 @@ public class YelpRestaurantFetcher {
 
   public Restaurants getRestaurants() {
     synchronized (key) {
-      return restaurants; // TODO Should return a deep copy to avoid concurrency problems.
+      Restaurants deepCopyOfRestaurants = this.restaurants;
+      return deepCopyOfRestaurants;
     }
   }
 
