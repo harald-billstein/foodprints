@@ -36,3 +36,7 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     compile 'org.springframework.boot:spring-boot-starter-webflux'
 }
+
+bootRun {
+    systemProperties System.properties
+}
