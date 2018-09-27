@@ -58,7 +58,7 @@ public class YelpRestaurantFetcher {
 
   public Restaurants getRestaurants() {
     synchronized (key) {
-      return restaurants;
+      return restaurants; // TODO Should return a deep copy to avoid concurrency problems.
     }
   }
 
