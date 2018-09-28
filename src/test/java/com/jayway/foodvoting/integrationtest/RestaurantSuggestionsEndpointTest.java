@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.foodvoting.model.Restaurant;
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
 import com.jayway.foodvoting.service.YelpRestaurantFetcher;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
