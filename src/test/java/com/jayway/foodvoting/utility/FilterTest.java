@@ -49,6 +49,6 @@ public class FilterTest {
   @Test
   public void filterNoMatchingRestaurantsChecker() {
     List<Restaurant> restaurants = new ArrayList<>();
-    Assert.assertNull(RestaurantFilter.RestaurantGradeFilter(restaurants));
+    Assert.assertTrue(RestaurantFilter.RestaurantGradeFilter(restaurants).size() <= 0);
   }
 }

@@ -80,14 +80,14 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
     setUpMock(true);
 
     ResultActions result = this.mvcPerformValidGet(PATH);
-    long response = result.andReturn().getResponse().getStatus();
+    HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
     Assert.assertEquals(HttpStatus.NO_CONTENT, response);
   }
 
   @Test
   public void fetchRestaurantsBadUrlTest() throws Exception {
     ResultActions result = this.mvcPerformValidGet(BAD_PATH);
-    long response = result.andReturn().getResponse().getStatus();
+    HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
     Assert.assertEquals(HttpStatus.NOT_FOUND, response);
   }
 }
