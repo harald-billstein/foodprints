@@ -2,7 +2,7 @@ package com.jayway.foodvoting.model.yelp;
 
 import java.util.List;
 
-public class Restaurants {
+public class YelpRestaurants {
 
   private List<Business> businesses;
   private int total;
