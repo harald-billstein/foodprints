@@ -1,9 +1,8 @@
 package com.jayway.foodvoting.utility;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.foodvoting.integrationtest.RestaurantsJsonWrapper;
-import com.jayway.foodvoting.model.yelp.Business;
-import com.jayway.foodvoting.model.yelp.Restaurants;
+import com.jayway.foodvoting.integrationtest.RestaurantsResource;
+import com.jayway.foodvoting.model.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
@@ -16,16 +15,15 @@ public class FilterTest {
   private static final int MIN_VOTES = 5;
   private static final int MIN_ADDRESS_LENGTH = 5;
 
-  private Restaurants unfilteredRestaurants;
+  private List<Restaurant> unfilteredRestaurants;
 
   @Before
   public void setupRestaurantLists() {
     ObjectMapper objectMapper = new ObjectMapper();
+    List<Restaurant> restaurantList = new ArrayList<>();
 
     try {
-      unfilteredRestaurants = objectMapper
-          .readValue(RestaurantsJsonWrapper.getRestaurantSuggestionsEndpointJSON(),
-              Restaurants.class);
+      unfilteredRestaurants = RestaurantsResource.getRestaurantResource();
     } catch (Exception e) {
       e.getStackTrace();
     }
@@ -33,32 +31,27 @@ public class FilterTest {
 
   @Test
   public void filterWeedingCheck() {
-    List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
-    Assert.assertTrue(unfilteredRestaurants.getBusinesses().size() >= filtered.size());
+    List<Restaurant> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
+    Assert.assertTrue(unfilteredRestaurants.size() >= filtered.size());
   }
 
   @Test
   public void filterResultChecker() {
-    List<Business> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
+    List<Restaurant> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
 
-    for (Business business : filtered) {
-      Assert.assertTrue("Rating test failed at : " + business.getName(),
-          business.getRating() > MIN_RATING);
-      Assert.assertTrue("Vote count failed at : " + business.getName(),
-          business.getReview_count() > MIN_VOTES);
-      Assert.assertTrue("Address not present at : " + business.getName(),
-          business.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH);
+    for (Restaurant restaurant : filtered) {
+      Assert.assertTrue("Rating test failed at : " + restaurant.getName(),
+          restaurant.getRating() > MIN_RATING);
+      Assert.assertTrue("Vote count failed at : " + restaurant.getName(),
+          restaurant.getReviewCount() > MIN_VOTES);
+      Assert.assertTrue("Address not present at : " + restaurant.getName(),
+          restaurant.getAddress().length() > MIN_ADDRESS_LENGTH);
     }
   }
 
   @Test
   public void filterNoMatchingRestaurantsChecker() {
-    Restaurants restaurants = new Restaurants();
-    ArrayList<Business> businesses = new ArrayList<>();
-    restaurants.setBusinesses(businesses);
-
+    List<Restaurant> restaurants = new ArrayList<>();
     Assert.assertNull(RestaurantFilter.RestaurantGradeFilter(restaurants));
   }
-
-
 }

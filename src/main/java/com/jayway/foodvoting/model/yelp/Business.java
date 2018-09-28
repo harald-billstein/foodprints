@@ -21,7 +21,6 @@ public class Business {
   private String display_phone;
   private double distance;
 
-
   public String getId() {
     return id;
   }

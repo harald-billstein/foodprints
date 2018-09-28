@@ -1,10 +1,11 @@
 package com.jayway.foodvoting.integrationtest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.foodvoting.model.Restaurant;
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
-import com.jayway.foodvoting.model.yelp.Restaurants;
 import com.jayway.foodvoting.service.YelpRestaurantFetcher;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,21 +32,15 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
 
   @MockBean
   private YelpRestaurantFetcher yelpRestaurantFetcher;
-  private String jsonBusinesses = RestaurantsJsonWrapper.getRestaurantSuggestionsEndpointJSON();
 
   public void setUpMock(boolean brokenLink) {
 
     if (!brokenLink) {
-      ObjectMapper objectMapper = new ObjectMapper();
-      Restaurants restaurants = new Restaurants();
-      try {
-        Mockito.when(yelpRestaurantFetcher.getRestaurants())
-            .thenReturn(objectMapper.readValue(jsonBusinesses, restaurants.getClass()));
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      List<Restaurant> restaurants = RestaurantsResource.getRestaurantResource();
+      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants())
+          .thenReturn(restaurants);
     } else {
-      Mockito.when(yelpRestaurantFetcher.getRestaurants())
+      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants())
           .thenReturn(null);
     }
   }
