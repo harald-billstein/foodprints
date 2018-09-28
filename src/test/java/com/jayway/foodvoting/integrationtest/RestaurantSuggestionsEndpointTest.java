@@ -94,4 +94,15 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
     Assert.assertTrue(resultObject.getGrade() >= MIN_RATING);
     Assert.assertTrue(resultObject.getAddress().length() >= MIN_ADDRESS_LENGTH);
   }
+
+  @Test
+  public void fetchRestaurantsSingleResultListReceivedSuggestionsTest2() throws Exception {
+    setUpMock(false, RestaurantsResource.getOneRestaurantThatWontPassFilterResource());
+
+    ResultActions result = this.mvcPerformValidGet(PATH);
+    HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
+
+    Assert.assertEquals(HttpStatus.NO_CONTENT, response);
+
+  }
 }
