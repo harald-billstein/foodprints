@@ -1,6 +1,5 @@
 package com.jayway.foodvoting.utility;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.foodvoting.integrationtest.RestaurantsResource;
 import com.jayway.foodvoting.model.Restaurant;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ public class FilterTest {
 
   @Before
   public void setupRestaurantLists() {
-    ObjectMapper objectMapper = new ObjectMapper();
-    List<Restaurant> restaurantList = new ArrayList<>();
 
     try {
       unfilteredRestaurants = RestaurantsResource.getRestaurantResource();
