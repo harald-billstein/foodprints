@@ -1,6 +1,9 @@
 package com.jayway.foodvoting.service;
 
-import com.jayway.foodvoting.model.yelp.Restaurants;
+import com.jayway.foodvoting.model.Restaurant;
+import com.jayway.foodvoting.model.yelp.YelpRestaurants;
+import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -20,9 +23,9 @@ public class YelpRestaurantFetcher {
   private String location = "Klara Östra Kyrkogata";
   private String term = "vegetarian";
   private String radius = "500";
-  private String categories = "restaurants";
+  private String categories = "yelpRestaurants";
   private String token = "Bearer wXDO-HlZMD8J7OO0uS6H9E_oAqd5QC2b7JxZ3ms1eEj3RFcHEN8CcVqHKSnpSymT2VZm80Pppb5pXQOZodbTiW1W9lN-tKYrDIbDEjWKYYsHSUvy4a2ip-kc5fKgW3Yx";
-  private Restaurants restaurants;
+  private YelpRestaurants yelpRestaurants;
   private Object key = new Object();
 
   public YelpRestaurantFetcher() {
@@ -37,7 +40,7 @@ public class YelpRestaurantFetcher {
     try {
       WebClient client = WebClient.create(baseURL);
 
-      Mono<Restaurants> restaurants = client.get()
+      Mono<YelpRestaurants> restaurants = client.get()
           .uri(uriBuilder -> uriBuilder.path(resource + action)
               .queryParam("location", location)
               .queryParam("term", term)
@@ -50,24 +53,40 @@ public class YelpRestaurantFetcher {
               Mono.error(new RuntimeException(
                   "Http status is " + clientResponse.statusCode() + ", unable to contact "
                       + resource + action)))
-          .bodyToMono(Restaurants.class);
+          .bodyToMono(YelpRestaurants.class);
 
-      setRestaurants(restaurants.block());
+      setYelpRestaurants(restaurants.block());
     } catch (RuntimeException e) {
       LOGGER.error(e.getMessage(), e);
     }
   }
 
-  public Restaurants getRestaurants() {
+  public List<Restaurant> getYelpRestaurants() {
     synchronized (key) {
-      Restaurants deepCopyOfRestaurants = this.restaurants;
-      return deepCopyOfRestaurants;
+      return deepCopyOfRestaurants(this.yelpRestaurants);
     }
   }
 
-  private void setRestaurants(Restaurants restaurants) {
+  private void setYelpRestaurants(YelpRestaurants yelpRestaurants) {
     synchronized (key) {
-      this.restaurants = restaurants;
+      this.yelpRestaurants = yelpRestaurants;
     }
   }
+
+  private List<Restaurant> deepCopyOfRestaurants(YelpRestaurants yelpRestaurants) {
+    List<Restaurant> restaurants = new ArrayList<>();
+
+    for (int i = 0; i < yelpRestaurants.getBusinesses().size(); i++) {
+      Restaurant restaurant = new Restaurant();
+      restaurant.setAddress(yelpRestaurants.getBusinesses().get(i).getLocation().getAddress1());
+      restaurant.setName(yelpRestaurants.getBusinesses().get(i).getName());
+      restaurant.setRating(yelpRestaurants.getBusinesses().get(i).getRating());
+      restaurant.setReviewCount(yelpRestaurants.getBusinesses().get(i).getReview_count());
+
+      restaurants.add(restaurant);
+    }
+
+    return restaurants;
+  }
+
 }
