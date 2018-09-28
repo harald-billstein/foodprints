@@ -30,21 +30,18 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   @MockBean
   private YelpRestaurantFetcher yelpRestaurantFetcher;
 
-  public void setUpMock(boolean brokenLink) {
+  public void setUpMock(boolean brokenLink, List<Restaurant> restaurants) {
 
-    if (!brokenLink) {
-      List<Restaurant> restaurants = RestaurantsResource.getRestaurantResource();
-      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants())
-          .thenReturn(restaurants);
+    if (brokenLink) {
+      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants()).thenReturn(null);
     } else {
-      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants())
-          .thenReturn(null);
+      Mockito.when(yelpRestaurantFetcher.getYelpRestaurants()).thenReturn(restaurants);
     }
   }
 
   @Test
   public void fetchRestaurantsTest() throws Exception {
-    setUpMock(false);
+    setUpMock(false, RestaurantsResource.getManyRestaurantsResource());
     ObjectMapper objectMapper = new ObjectMapper();
 
     RestaurantSuggestionResponse firstResultObject;
@@ -76,10 +73,25 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
 
   @Test
   public void fetchRestaurantsNoSuggestionsTest() throws Exception {
-    setUpMock(true);
+    setUpMock(true, null);
 
     ResultActions result = this.mvcPerformValidGet(PATH);
     HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
     Assert.assertEquals(HttpStatus.NO_CONTENT, response);
+  }
+
+  @Test
+  public void fetchRestaurantsEmptyListReceivedSuggestionsTest() throws Exception {
+    setUpMock(false, RestaurantsResource.getOneRestaurantResource());
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    ResultActions result = this.mvcPerformValidGet(PATH);
+    String jsonResponse = result.andReturn().getResponse().getContentAsString();
+    RestaurantSuggestionResponse resultObject = objectMapper
+        .readValue(jsonResponse, RestaurantSuggestionResponse.class);
+
+    Assert.assertTrue(resultObject.getName().length() >= MIN_NAME);
+    Assert.assertTrue(resultObject.getGrade() >= MIN_RATING);
+    Assert.assertTrue(resultObject.getAddress().length() >= MIN_ADDRESS_LENGTH);
   }
 }
