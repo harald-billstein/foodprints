@@ -20,7 +20,7 @@ public class FilterTest {
   public void setupRestaurantLists() {
 
     try {
-      unfilteredRestaurants = RestaurantsResource.getRestaurantResource();
+      unfilteredRestaurants = RestaurantsResource.getManyRestaurantsResource();
     } catch (Exception e) {
       e.getStackTrace();
     }
