@@ -29,10 +29,7 @@ public class RestaurantFilter {
     }
     LOGGER.debug("RESTAURANT FILTER : RESTAURANTS QUALIFIES : " + filteredRestaurants.size());
 
-    if (filteredRestaurants.size() > 0) {
-      return filteredRestaurants;
-    } else {
-      return null;
-    }
+    return filteredRestaurants;
+
   }
 }
