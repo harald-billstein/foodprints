@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.ResultActions;
@@ -23,8 +24,6 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   private static final int MIN_RATING = 3;
   private static final int MIN_NAME = 2;
   private static final int MIN_ADDRESS_LENGTH = 5;
-  private static final long NO_CONTENT_RESPONSE = 204;
-  private static final long BAD_PATH_RESPONSE = 404;
 
   private static final String PATH = "https://localhost:8443/v1/restaurants/suggestion";
   private static final String BAD_PATH = "https://localhost:8443/bad/path";
@@ -82,13 +81,13 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
 
     ResultActions result = this.mvcPerformValidGet(PATH);
     long response = result.andReturn().getResponse().getStatus();
-    Assert.assertEquals(NO_CONTENT_RESPONSE, response);
+    Assert.assertEquals(HttpStatus.NO_CONTENT, response);
   }
 
   @Test
   public void fetchRestaurantsBadUrlTest() throws Exception {
     ResultActions result = this.mvcPerformValidGet(BAD_PATH);
     long response = result.andReturn().getResponse().getStatus();
-    Assert.assertEquals(BAD_PATH_RESPONSE, response);
+    Assert.assertEquals(HttpStatus.NOT_FOUND, response);
   }
 }
