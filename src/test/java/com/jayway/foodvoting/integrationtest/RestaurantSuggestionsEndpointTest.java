@@ -26,7 +26,6 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   private static final int MIN_ADDRESS_LENGTH = 5;
 
   private static final String PATH = "https://localhost:8443/v1/restaurants/suggestion";
-  private static final String BAD_PATH = "https://localhost:8443/bad/path";
 
   @MockBean
   private YelpRestaurantFetcher yelpRestaurantFetcher;
@@ -82,12 +81,5 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
     ResultActions result = this.mvcPerformValidGet(PATH);
     HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
     Assert.assertEquals(HttpStatus.NO_CONTENT, response);
-  }
-
-  @Test
-  public void fetchRestaurantsBadUrlTest() throws Exception {
-    ResultActions result = this.mvcPerformValidGet(BAD_PATH);
-    HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
-    Assert.assertEquals(HttpStatus.NOT_FOUND, response);
   }
 }
