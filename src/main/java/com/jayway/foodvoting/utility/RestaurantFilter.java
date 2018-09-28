@@ -1,7 +1,6 @@
 package com.jayway.foodvoting.utility;
 
-import com.jayway.foodvoting.model.yelp.Business;
-import com.jayway.foodvoting.model.yelp.Restaurants;
+import com.jayway.foodvoting.model.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -14,18 +13,18 @@ public class RestaurantFilter {
   private static final int MIN_VOTES = 5;
   private static final int MIN_ADDRESS_LENGTH = 5;
 
-  public static List<Business> RestaurantGradeFilter(Restaurants unFilteredRestaurants) {
+  public static List<Restaurant> RestaurantGradeFilter(List<Restaurant> unFilteredRestaurants) {
 
-    List<Business> filteredRestaurants = new ArrayList<>();
+    List<Restaurant> filteredRestaurants = new ArrayList<>();
     LOGGER.debug("RESTAURANT FILTER : RESTAURANTS FOUND : "
-        + unFilteredRestaurants.getBusinesses().size());
+        + unFilteredRestaurants.size());
 
-    for (Business tempBusiness : unFilteredRestaurants.getBusinesses()) {
-      if (tempBusiness.getRating() >= MIN_RATING
-          && tempBusiness.getLocation().getAddress1().length() > MIN_ADDRESS_LENGTH
-          && tempBusiness.getReview_count() > MIN_VOTES) {
-        LOGGER.debug("RESTAURANT PASSED INSPECTION : " + tempBusiness.getName());
-        filteredRestaurants.add(tempBusiness);
+    for (Restaurant tempRestaurant : unFilteredRestaurants) {
+      if (tempRestaurant.getRating() >= MIN_RATING
+          && tempRestaurant.getAddress().length() > MIN_ADDRESS_LENGTH
+          && tempRestaurant.getReviewCount() > MIN_VOTES) {
+        LOGGER.debug("RESTAURANT PASSED INSPECTION : " + tempRestaurant.getName());
+        filteredRestaurants.add(tempRestaurant);
       }
     }
     LOGGER.debug("RESTAURANT FILTER : RESTAURANTS QUALIFIES : " + filteredRestaurants.size());
