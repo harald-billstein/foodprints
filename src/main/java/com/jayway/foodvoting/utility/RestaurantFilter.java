@@ -20,9 +20,10 @@ public class RestaurantFilter {
         + unFilteredRestaurants.size());
 
     for (Restaurant tempRestaurant : unFilteredRestaurants) {
+
       if (tempRestaurant.getRating() >= MIN_RATING
-          && tempRestaurant.getAddress().length() > MIN_ADDRESS_LENGTH
-          && tempRestaurant.getReviewCount() > MIN_VOTES) {
+          && tempRestaurant.getAddress().length() >= MIN_ADDRESS_LENGTH
+          && tempRestaurant.getReviewCount() >= MIN_VOTES) {
         LOGGER.debug("RESTAURANT PASSED INSPECTION : " + tempRestaurant.getName());
         filteredRestaurants.add(tempRestaurant);
       }
