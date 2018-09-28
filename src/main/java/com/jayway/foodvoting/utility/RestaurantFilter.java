@@ -13,7 +13,7 @@ public class RestaurantFilter {
   private static final int MIN_VOTES = 5;
   private static final int MIN_ADDRESS_LENGTH = 5;
 
-  public static List<Restaurant> RestaurantGradeFilter(List<Restaurant> unFilteredRestaurants) {
+  public static List<Restaurant> restaurantGradeFilter(List<Restaurant> unFilteredRestaurants) {
 
     List<Restaurant> filteredRestaurants = new ArrayList<>();
     LOGGER.debug("RESTAURANT FILTER : RESTAURANTS FOUND : "

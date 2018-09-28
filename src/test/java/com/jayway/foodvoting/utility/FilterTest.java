@@ -28,13 +28,13 @@ public class FilterTest {
 
   @Test
   public void filterWeedingCheck() {
-    List<Restaurant> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
+    List<Restaurant> filtered = RestaurantFilter.restaurantGradeFilter(unfilteredRestaurants);
     Assert.assertTrue(unfilteredRestaurants.size() >= filtered.size());
   }
 
   @Test
   public void filterResultChecker() {
-    List<Restaurant> filtered = RestaurantFilter.RestaurantGradeFilter(unfilteredRestaurants);
+    List<Restaurant> filtered = RestaurantFilter.restaurantGradeFilter(unfilteredRestaurants);
 
     for (Restaurant restaurant : filtered) {
       Assert.assertTrue("Rating test failed at : " + restaurant.getName(),
@@ -49,6 +49,6 @@ public class FilterTest {
   @Test
   public void filterNoMatchingRestaurantsChecker() {
     List<Restaurant> restaurants = new ArrayList<>();
-    Assert.assertTrue(RestaurantFilter.RestaurantGradeFilter(restaurants).size() <= 0);
+    Assert.assertTrue(RestaurantFilter.restaurantGradeFilter(restaurants).size() <= 0);
   }
 }
