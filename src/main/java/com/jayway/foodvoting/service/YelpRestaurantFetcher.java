@@ -17,7 +17,7 @@ public class YelpRestaurantFetcher {
 
   private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-  private String baseURL = "https://api.yelp.com/v3";
+  private String baseURL = "https://api.yelp.com/v333";
   private String resource = "/businesses";
   private String action = "/search";
   private String location = "Klara Östra Kyrkogata";
@@ -76,14 +76,16 @@ public class YelpRestaurantFetcher {
   private List<Restaurant> deepCopyOfRestaurants(YelpRestaurants yelpRestaurants) {
     List<Restaurant> restaurants = new ArrayList<>();
 
-    for (int i = 0; i < yelpRestaurants.getBusinesses().size(); i++) {
-      Restaurant restaurant = new Restaurant();
-      restaurant.setAddress(yelpRestaurants.getBusinesses().get(i).getLocation().getAddress1());
-      restaurant.setName(yelpRestaurants.getBusinesses().get(i).getName());
-      restaurant.setRating(yelpRestaurants.getBusinesses().get(i).getRating());
-      restaurant.setReviewCount(yelpRestaurants.getBusinesses().get(i).getReview_count());
+    if (yelpRestaurants != null) {
+      for (int i = 0; i < yelpRestaurants.getBusinesses().size(); i++) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setAddress(yelpRestaurants.getBusinesses().get(i).getLocation().getAddress1());
+        restaurant.setName(yelpRestaurants.getBusinesses().get(i).getName());
+        restaurant.setRating(yelpRestaurants.getBusinesses().get(i).getRating());
+        restaurant.setReviewCount(yelpRestaurants.getBusinesses().get(i).getReview_count());
 
-      restaurants.add(restaurant);
+        restaurants.add(restaurant);
+      }
     }
 
     return restaurants;

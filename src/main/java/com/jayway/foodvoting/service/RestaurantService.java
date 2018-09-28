@@ -34,7 +34,7 @@ public class RestaurantService {
     List<Restaurant> filteredRestaurants = RestaurantFilter
         .restaurantGradeFilter(unfilteredRestaurants);
 
-    if (filteredRestaurants == null) {
+    if (filteredRestaurants.size() <= 0) {
       LOGGER.warn("NO RESTAURANTS LEFT AFTER WEED OUT");
       return null;
     }
