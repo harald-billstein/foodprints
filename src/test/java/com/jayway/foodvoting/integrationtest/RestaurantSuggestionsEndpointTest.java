@@ -81,8 +81,8 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   }
 
   @Test
-  public void fetchRestaurantsEmptyListReceivedSuggestionsTest() throws Exception {
-    setUpMock(false, RestaurantsResource.getOneRestaurantResource());
+  public void fetchRestaurantsSingleResultListReceivedSuggestionsTest() throws Exception {
+    setUpMock(false, RestaurantsResource.getOneRestaurantThatWillPassFilterResource());
     ObjectMapper objectMapper = new ObjectMapper();
 
     ResultActions result = this.mvcPerformValidGet(PATH);

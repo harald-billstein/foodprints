@@ -21,7 +21,7 @@ public class RestaurantsResource {
     return restaurants;
   }
 
-  public static List<Restaurant> getOneRestaurantResource() {
+  public static List<Restaurant> getOneRestaurantThatWillPassFilterResource() {
 
     List<Restaurant> restaurants = new ArrayList<>();
 
@@ -30,6 +30,20 @@ public class RestaurantsResource {
     restaurant.setAddress("TestAddress");
     restaurant.setName("TestName");
     restaurant.setReviewCount(5);
+    restaurants.add(restaurant);
+
+    return restaurants;
+  }
+
+  public static List<Restaurant> getOneRestaurantThatWontPassFilterResource() {
+
+    List<Restaurant> restaurants = new ArrayList<>();
+
+    Restaurant restaurant = new Restaurant();
+    restaurant.setRating(2);
+    restaurant.setAddress("TestAddres");
+    restaurant.setName("TestName");
+    restaurant.setReviewCount(2);
     restaurants.add(restaurant);
 
     return restaurants;
