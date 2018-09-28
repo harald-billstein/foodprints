@@ -1,8 +1,7 @@
 package com.jayway.foodvoting.service;
 
+import com.jayway.foodvoting.model.Restaurant;
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
-import com.jayway.foodvoting.model.yelp.Business;
-import com.jayway.foodvoting.model.yelp.Restaurants;
 import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +16,7 @@ public class RestaurantService {
   private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantService.class);
 
   private YelpRestaurantFetcher yelpRestaurantFetcher;
-  private Business suggestedRestaurant;
+  private Restaurant suggestedRestaurant;
 
   public RestaurantService(YelpRestaurantFetcher yelpRestaurantFetcher) {
     this.yelpRestaurantFetcher = yelpRestaurantFetcher;
@@ -26,13 +25,13 @@ public class RestaurantService {
   public ResponseEntity<RestaurantSuggestionResponse> getBusinessOfTheDay() {
     LOGGER.info("GET BUSINESS OF THE DAY");
 
-    Restaurants unfilteredRestaurants = yelpRestaurantFetcher.getRestaurants();
+    List<Restaurant> unfilteredRestaurants = yelpRestaurantFetcher.getYelpRestaurants();
     if (unfilteredRestaurants == null) {
       LOGGER.warn("NO RESTAURANTS FOUND");
       return getResponse(null);
     }
 
-    List<Business> filteredRestaurants = RestaurantFilter
+    List<Restaurant> filteredRestaurants = RestaurantFilter
         .RestaurantGradeFilter(unfilteredRestaurants);
 
     if (filteredRestaurants == null) {
@@ -55,11 +54,11 @@ public class RestaurantService {
     return getResponse(getSuggestedRestaurant());
   }
 
-  private ResponseEntity<RestaurantSuggestionResponse> getResponse(Business suggestedRestaurant) {
+  private ResponseEntity<RestaurantSuggestionResponse> getResponse(Restaurant suggestedRestaurant) {
 
     if (suggestedRestaurant != null) {
       RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
-      restaurantSuggestionResponse.setAddress(suggestedRestaurant.getLocation().getAddress1());
+      restaurantSuggestionResponse.setAddress(suggestedRestaurant.getAddress());
       restaurantSuggestionResponse.setGrade(suggestedRestaurant.getRating());
       restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
       return ResponseEntity.ok(restaurantSuggestionResponse);
@@ -68,13 +67,13 @@ public class RestaurantService {
     }
   }
 
-  private Business getSuggestedRestaurant() {
+  private Restaurant getSuggestedRestaurant() {
     synchronized (this) {
       return suggestedRestaurant;
     }
   }
 
-  private void setSuggestedRestaurant(Business suggestedRestaurant) {
+  private void setSuggestedRestaurant(Restaurant suggestedRestaurant) {
     synchronized (this) {
       this.suggestedRestaurant = suggestedRestaurant;
     }
