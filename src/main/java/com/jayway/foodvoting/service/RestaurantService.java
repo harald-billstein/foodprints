@@ -1,13 +1,11 @@
 package com.jayway.foodvoting.service;
 
 import com.jayway.foodvoting.model.Restaurant;
-import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
 import com.jayway.foodvoting.utility.RestaurantFilter;
 import java.util.List;
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
