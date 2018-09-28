@@ -22,13 +22,13 @@ public class RestaurantService {
     this.yelpRestaurantFetcher = yelpRestaurantFetcher;
   }
 
-  public ResponseEntity<RestaurantSuggestionResponse> getBusinessOfTheDay() {
+  public Restaurant getBusinessOfTheDay() {
     LOGGER.info("GET BUSINESS OF THE DAY");
 
     List<Restaurant> unfilteredRestaurants = yelpRestaurantFetcher.getYelpRestaurants();
     if (unfilteredRestaurants == null) {
       LOGGER.warn("NO RESTAURANTS FOUND");
-      return getResponse(null);
+      return null;
     }
 
     List<Restaurant> filteredRestaurants = RestaurantFilter
@@ -36,7 +36,7 @@ public class RestaurantService {
 
     if (filteredRestaurants == null) {
       LOGGER.warn("NO RESTAURANTS LEFT AFTER WEED OUT");
-      return getResponse(null);
+      return null;
     }
 
     int randomInt = new Random().nextInt((filteredRestaurants.size()));
@@ -51,20 +51,7 @@ public class RestaurantService {
     } else {
       setSuggestedRestaurant(filteredRestaurants.get(randomInt));
     }
-    return getResponse(getSuggestedRestaurant());
-  }
-
-  private ResponseEntity<RestaurantSuggestionResponse> getResponse(Restaurant suggestedRestaurant) {
-
-    if (suggestedRestaurant != null) {
-      RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
-      restaurantSuggestionResponse.setAddress(suggestedRestaurant.getAddress());
-      restaurantSuggestionResponse.setGrade(suggestedRestaurant.getRating());
-      restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
-      return ResponseEntity.ok(restaurantSuggestionResponse);
-    } else {
-      return ResponseEntity.noContent().build();
-    }
+    return getSuggestedRestaurant();
   }
 
   private Restaurant getSuggestedRestaurant() {
