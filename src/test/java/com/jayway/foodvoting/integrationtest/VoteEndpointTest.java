@@ -2,6 +2,7 @@ package com.jayway.foodvoting.integrationtest;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jayway.foodvoting.model.VoteRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,37 +32,37 @@ public class VoteEndpointTest extends IntegrationTest {
 
   @Test
   public void testVoteVegan() throws Exception {
-    mvcPerformValidPost(url, "vote", "VEGAN", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("VEGAN"));
   }
 
   @Test
   public void testVoteVegetarian() throws Exception {
-    mvcPerformValidPost(url, "vote", "VEGETARIAN", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("VEGETARIAN"));
   }
 
   @Test
   public void testVoteFish() throws Exception {
-    mvcPerformValidPost(url, "vote", "FISH", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("FISH"));
   }
 
   @Test
   public void testVoteChicken() throws Exception {
-    mvcPerformValidPost(url, "vote", "CHICKEN", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("CHICKEN"));
   }
 
   @Test
   public void testVoteBeef() throws Exception {
-    mvcPerformValidPost(url, "vote", "BEEF", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("BEEF"));
   }
 
   @Test
   public void testVotePork() throws Exception {
-    mvcPerformValidPost(url, "vote", "PORK", status().isOk());
+    mvcPerformValidPost(url, status().isOk(), getVoteRequest("PORK"));
   }
 
   @Test
   public void testInvalidVote() throws Exception {
-    mvcPerformValidPost(url, "vote", "invalidPick", status().isIAmATeapot());
+    mvcPerformValidPost(url, status().isIAmATeapot(), getVoteRequest("invalidPick"));
   }
 
   @Test
@@ -72,5 +73,11 @@ public class VoteEndpointTest extends IntegrationTest {
   @Test
   public void testBadCredentials() throws Exception {
     mvcPerformAuthorizationFailurePost(url, "vote", "PORK", status().isUnauthorized());
+  }
+
+  public VoteRequest getVoteRequest(String vote) {
+    VoteRequest voteRequest = new VoteRequest();
+    voteRequest.setVote(vote);
+    return voteRequest;
   }
 }

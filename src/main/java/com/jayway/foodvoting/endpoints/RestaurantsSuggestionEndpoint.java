@@ -1,5 +1,6 @@
 package com.jayway.foodvoting.endpoints;
 
+import com.jayway.foodvoting.model.Restaurant;
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;
 import com.jayway.foodvoting.service.RestaurantService;
 import org.slf4j.Logger;
@@ -23,6 +24,20 @@ public class RestaurantsSuggestionEndpoint {
   @GetMapping(value = "/restaurants/suggestion")
   public ResponseEntity<RestaurantSuggestionResponse> getRestaurant() {
     LOGGER.info("ENDPOINT : SUGGESTION");
-    return restaurantService.getBusinessOfTheDay();
+
+    return getResponse(restaurantService.getBusinessOfTheDay());
+  }
+
+  private ResponseEntity<RestaurantSuggestionResponse> getResponse(Restaurant suggestedRestaurant) {
+
+    if (suggestedRestaurant != null) {
+      RestaurantSuggestionResponse restaurantSuggestionResponse = new RestaurantSuggestionResponse();
+      restaurantSuggestionResponse.setAddress(suggestedRestaurant.getAddress());
+      restaurantSuggestionResponse.setGrade(suggestedRestaurant.getRating());
+      restaurantSuggestionResponse.setName(suggestedRestaurant.getName());
+      return ResponseEntity.ok(restaurantSuggestionResponse);
+    } else {
+      return ResponseEntity.noContent().build();
+    }
   }
 }
