@@ -40,7 +40,7 @@ public class FilterTest {
       Assert.assertTrue("Rating test failed at : " + restaurant.getName(),
           restaurant.getRating() > MIN_RATING);
       Assert.assertTrue("Vote count failed at : " + restaurant.getName(),
-          restaurant.getReviewCount() > MIN_VOTES);
+          restaurant.getReviewCount() >= MIN_VOTES);
       Assert.assertTrue("Address not present at : " + restaurant.getName(),
           restaurant.getAddress().length() > MIN_ADDRESS_LENGTH);
     }
