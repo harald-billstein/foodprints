@@ -17,7 +17,7 @@ public class YelpRestaurantFetcher {
 
   private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-  private String baseURL = "https://api.yelp.com/v333";
+  private String baseURL = "https://api.yelp.com/v3";
   private String resource = "/businesses";
   private String action = "/search";
   private String location = "Klara Östra Kyrkogata";
