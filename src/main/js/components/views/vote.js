@@ -28,7 +28,7 @@ export default class Vote extends React.Component {
                 <h1 id="headerName"> Unknown. </h1>
                 <ul id="voteList">
                     {this.state.foods.map(food => (
-                    <li> {food}. </li>))}
+                    <li id="li"> {food}. </li>))}
                 </ul>
             </div>
         )

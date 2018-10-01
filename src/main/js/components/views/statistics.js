@@ -22,6 +22,10 @@ class Header extends React.Component {
         this.restUrl = "https://localhost:8443/v1/restaurants/suggestion";
     }
 
+    updateSuggestion() {
+
+    }
+
     componentDidMount() {
         fetch(this.restUrl)
             .then(response => response.json())
@@ -80,13 +84,13 @@ class StatsTable extends React.Component {
             <div id="statsTable">
                 <div>
                   <ul id="statOptions">
-                    <li id="li"><a id="a" href="/stats"> all. </a> </li>
+                    <li id="li"><a id="a" href="/stats/all"> all </a> </li>
                     {this.state.foods.map(food => (
-                    <li id="li"><a id="a" href="/stats"> {food}. </a> </li>))}
+                    <li id="li"><a id="a" href="/stats/{food}"> {food} </a> </li>))}
                   </ul>
                 </div>
                 <div>
-                    <h1 id="statTable"> HÄR SKA DE VA NÅT JA EJ KAN </h1>
+                    <h1 id="statTable"> LÄGG IN STATS </h1>
                 </div>
             </div>
           </div>
@@ -117,10 +121,10 @@ class StatsInfo extends React.Component {
         return(
           <div className="statOptions">
               <ul id="statOptions">
-                <li id="li"><a id="a" href="/stats"> all. </a> </li>
-                <li id="li"><a id="a" href="/stats"> day. </a> </li>
-                <li id="li"><a id="a" href="/stats"> week. </a> </li>
-                <li id="li"><a id="a" href="/stats"> month. </a> </li>
+                <li id="li"><a id="a" href="/stats"> all </a> </li>
+                <li id="li"><a id="a" href="/stats"> day </a> </li>
+                <li id="li"><a id="a" href="/stats"> week </a> </li>
+                <li id="li"><a id="a" href="/stats"> month </a> </li>
               </ul>
           </div>
         )
