@@ -96,7 +96,7 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   }
 
   @Test
-  public void fetchRestaurantsSingleResultListReceivedSuggestionsTest2() throws Exception {
+  public void fetchRestaurantsSingleResultListNotPassingFilter() throws Exception {
     setUpMock(false, RestaurantsResource.getOneRestaurantThatWontPassFilterResource());
 
     ResultActions result = this.mvcPerformValidGet(PATH);
