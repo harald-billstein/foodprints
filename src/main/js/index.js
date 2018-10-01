@@ -7,6 +7,7 @@ import Statistics from './components/views/statistics';
 
 require('./stylesheets/base.scss');
 require('./stylesheets/vote.scss');
+require('./stylesheets/stats.scss');
 
 ReactDOM.render((
     <Router>
