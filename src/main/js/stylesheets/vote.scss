@@ -1,6 +1,12 @@
-
+$headerSize: 5em;
+$headerMargin: 40px;
 
 #voteList {
   list-style: none;
   text-transform: lowercase;
+}
+
+#headerName {
+    font-size: $headerSize;
+    margin: $headerMargin;
 }

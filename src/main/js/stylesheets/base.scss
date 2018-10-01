@@ -1,4 +1,6 @@
 $font: "San Francisco Display Medium";
+$headerSize: 5em;
+$headerMargin: 40px;
 
 @font-face {
   font-family: "San Francisco Display Medium";
@@ -11,6 +13,7 @@ body {
   background: white;
   font-family: $font;
 }
+
 
 
 

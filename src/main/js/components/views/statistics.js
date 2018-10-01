@@ -34,8 +34,8 @@ class Header extends React.Component {
         return(
             <div className="header">
                 <div id="row">
-                    <div id="col"> <h1 id="headerName"> Unknown. </h1> </div>
-                    <div id="pushRight">
+                    <div> <h1 id="headerName"> Unknown. </h1> </div>
+                    <div id="headerRestSuggestion">
                         <ul id="restList">
                             <li> Featured Restaurant: </li>
                             <li> { this.state.restSuggestion.name } </li>

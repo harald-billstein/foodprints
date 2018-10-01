@@ -25,7 +25,7 @@ export default class Vote extends React.Component {
     render() {
         return (
             <div className="voteList">
-                <h1> Unknown. </h1>
+                <h1 id="headerName"> Unknown. </h1>
                 <ul id="voteList">
                     {this.state.foods.map(food => (
                     <li> {food}. </li>))}

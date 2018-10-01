@@ -1,26 +1,24 @@
-
+$headerSize: 5em;
+$headerMargin: 40px;
 
 #header {
-    font-size: large;
     color: white;
-}
-
-#headerName {
-    font-size: 3em;
 }
 
 #row {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-#col {
-    flex: 25%;
-    max-width: 25%;
+#headerName {
+    font-size: $headerSize;
+    margin: $headerMargin;
 }
 
-#pushRight {
-    margin-left:auto;
+#headerRestSuggestion {
+    margin-left: auto;
+    margin-right: $headerMargin;
 }
 
 #restList {
