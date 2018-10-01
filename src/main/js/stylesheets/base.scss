@@ -1,5 +1,10 @@
-$font: "Times New Roman";
+$font: "SF pro display medium";
 
+
+@font-face {
+    font-family: "SF pro display medium";
+    src: local("./Fonts/SF-Pro-Display-Medium.otf") format("opentype");
+}
 
 body {
   background: white;
