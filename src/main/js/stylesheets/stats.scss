@@ -1,0 +1,63 @@
+
+
+#header {
+    font-size: large;
+    color: white;
+}
+
+#headerName {
+    font-size: 3em;
+}
+
+#row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#col {
+    flex: 25%;
+    max-width: 25%;
+}
+
+#pushRight {
+    margin-left:auto;
+}
+
+#restList {
+  list-style: none;
+}
+
+#statOptions {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  padding: 10px;
+  margin: 20px;
+  list-style: none;
+  text-transform: lowercase;
+  font-size: large;
+}
+
+#li {
+  a {
+    color: grey;
+    text-decoration: none;
+    &:hover {
+      color: dark-grey;
+    }
+    &:active {
+      color: black;
+    }
+  }
+}
+
+#statsTable {
+    margin-top: 200px;
+    margin-bottom: 100px;
+}
+
+#statTable {
+    font-size: 2em;
+    position: relative;
+    top: 100px;
+}
