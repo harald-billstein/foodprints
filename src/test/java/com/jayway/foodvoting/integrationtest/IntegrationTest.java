@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.foodvoting.model.VoteRequest;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,12 +52,20 @@ public abstract class IntegrationTest {
         .perform(get(path).secure(true).with(httpBasic(VALID_USER, VALID_PASSWORD)).params(params));
   }
 
-  protected void mvcPerformValidPost(String path, String paramKey, String paramValue,
-      ResultMatcher resultMatcher)
+  protected void mvcPerformValidPost(String path, ResultMatcher resultMatcher,
+      VoteRequest voteRequest)
       throws Exception {
-    mvc.perform(post(path).param(paramKey, paramValue).secure(true)
-        .with(httpBasic(VALID_USER, VALID_PASSWORD))).andExpect(resultMatcher);
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    objectMapper.writeValueAsString(voteRequest);
+    mvc.perform(post(path)
+        .content(objectMapper.writeValueAsString(voteRequest))
+        .header("Content-type", "application/json")
+        .secure(true)
+        .with(httpBasic(VALID_USER, VALID_PASSWORD)))
+        .andExpect(resultMatcher);
   }
+
 
   protected void mvcPerformAuthorizationFailurePost(String path, String paramKey, String paramValue,
       ResultMatcher resultMatcher)
