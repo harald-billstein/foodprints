@@ -1,13 +1,14 @@
 package com.jayway.foodvoting.endpoints;
 
 import com.jayway.foodvoting.VoteHandler;
+import com.jayway.foodvoting.model.VoteRequest;
 import com.jayway.foodvoting.model.VoteResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,8 +24,8 @@ public class VoteEndpoint {
   }
 
   @PostMapping(value = "/votes/")
-  public ResponseEntity<VoteResponse> vote(@RequestParam String vote) {
-    LOGGER.info("ENDPOINT : VOTE : " + vote);
-    return voteHandler.registerVote(vote);
+  public ResponseEntity<VoteResponse> vote(@RequestBody VoteRequest vote) {
+    LOGGER.info("ENDPOINT : VOTE : " + vote.getVote());
+    return voteHandler.registerVote(vote.getVote());
   }
 }

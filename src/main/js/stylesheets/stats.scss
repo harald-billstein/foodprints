@@ -1,26 +1,24 @@
-
+$headerSize: 5em;
+$margin: 40px;
 
 #header {
-    font-size: large;
     color: white;
-}
-
-#headerName {
-    font-size: 3em;
 }
 
 #row {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-#col {
-    flex: 25%;
-    max-width: 25%;
+#headerName {
+    font-size: $headerSize;
+    margin: $margin;
 }
 
-#pushRight {
-    margin-left:auto;
+#headerRestSuggestion {
+    margin-left: auto;
+    margin-right: $margin;
 }
 
 #restList {
@@ -30,15 +28,16 @@
 #statOptions {
   display: flex;
   position: absolute;
-  right: 10px;
-  padding: 10px;
-  margin: 20px;
+
+  right: 0px;
+  margin: $margin;
   list-style: none;
   text-transform: lowercase;
-  font-size: large;
+  font-size: 1.5em;
 }
 
 #li {
+  margin-left: 7px;
   a {
     color: grey;
     text-decoration: none;
@@ -54,6 +53,7 @@
 #statsTable {
     margin-top: 200px;
     margin-bottom: 100px;
+    margin-left: $margin;
 }
 
 #statTable {
