@@ -1,7 +1,6 @@
 import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faStar} from "@fortawesome/free-solid-svg-icons";
-import {faStarHalf} from "@fortawesome/free-solid-svg-icons"
+import {faStar, faStarHalf} from "@fortawesome/free-solid-svg-icons";
 
 export default class Statistics extends React.Component {
 
@@ -25,21 +24,21 @@ class Header extends React.Component {
   }
 
   getStars(grade) {
-    console.log(typeof grade + " " + grade);
 
     let test = [];
     let gradeFloored = Math.floor(grade);
-    let gradeDif =  grade - gradeFloored ;
+    let gradeDif = grade - gradeFloored;
 
-    for (let i = 1; i < grade; i++) {
+    for (let i = 0; i < gradeFloored; i++) {
       if (gradeFloored >= i) {
         test.push(<FontAwesomeIcon key={i} icon={faStar}/>);
       }
     }
 
-    if (gradeDif > 0){
+    if (gradeDif > 0) {
       test.push(<FontAwesomeIcon key={gradeDif} icon={faStarHalf}/>)
     }
+    console.log(typeof grade + " restaurant grade : " + grade);
     return test;
   }
 
@@ -53,10 +52,6 @@ class Header extends React.Component {
   };
 
   render() {
-    {
-      console.log(this.getStars(this.state.restSuggestion.grade))
-    }
-    ;
 
     return (
         <div className="header">
@@ -79,79 +74,84 @@ class Header extends React.Component {
 }
 
 class StatsTable extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            stats: [],
-            foods: []
-        };
-        this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
-        this.foodsUrl = "https://localhost:8443/v1/categories/";
-    }
+  constructor() {
+    super()
+    this.state = {
+      stats: [],
+      foods: []
+    };
+    this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
+    this.foodsUrl = "https://localhost:8443/v1/categories/";
+  }
 
-    componentDidMount() {
-        fetch(this.foodsUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({foods: data})})
-            .catch(err => console.log(err));
+  componentDidMount() {
+    fetch(this.foodsUrl)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({foods: data})
+    })
+    .catch(err => console.log(err));
 
-        fetch(this.statsUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({stats: data})})
-            .catch(err => console.log(err));
-    }
+    fetch(this.statsUrl)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({stats: data})
+    })
+    .catch(err => console.log(err));
+  }
 
-    render() {
-        return(
-          <div className="statsTable">
-            <div id="statsTable">
-                <div>
-                  <ul id="statOptions">
-                    <li id="li"><a id="a" href="/stats/all"> all </a> </li>
-                    {this.state.foods.map(food => (
-                    <li id="li"><a id="a" href="/stats/{food}"> {food} </a> </li>))}
-                  </ul>
-                </div>
-                <div>
-                    <h1 id="statTable"> LÄGG IN STATS </h1>
-                </div>
+  render() {
+    return (
+        <div className="statsTable">
+          <div id="statsTable">
+            <div>
+              <ul id="statOptions">
+                <li id="li"><a id="a" href="/stats/all"> all </a></li>
+                {this.state.foods.map(food => (
+                    <li key={food} id="li"><a id="a"
+                                              href="/stats/{food}"> {food} </a>
+                    </li>))}
+              </ul>
+            </div>
+            <div>
+              <h1 id="statTable"> LÄGG IN STATS </h1>
             </div>
           </div>
-        )
-    }
+        </div>
+    )
+  }
 }
 
 class StatsInfo extends React.Component {
 
-    constructor() {
-        super()
-        this.state = {
-            stats: [],
-            foods: []
-        };
-        this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
-    }
+  constructor() {
+    super()
+    this.state = {
+      stats: [],
+      foods: []
+    };
+    this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
+  }
 
-    componentDidMount() {
-        fetch(this.statsUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({stats: data})})
-            .catch(err => console.log(err));
-    }
+  componentDidMount() {
+    fetch(this.statsUrl)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({stats: data})
+    })
+    .catch(err => console.log(err));
+  }
 
-    render() {
-        return(
-          <div className="statOptions">
-              <ul id="statOptions">
-                <li id="li"><a id="a" href="/stats"> all </a> </li>
-                <li id="li"><a id="a" href="/stats"> day </a> </li>
-                <li id="li"><a id="a" href="/stats"> week </a> </li>
-                <li id="li"><a id="a" href="/stats"> month </a> </li>
-              </ul>
-          </div>
-        )
-    }
+  render() {
+    return (
+        <div className="statOptions">
+          <ul id="statOptions">
+            <li id="li"><a id="a" href="/stats"> all </a></li>
+            <li id="li"><a id="a" href="/stats"> day </a></li>
+            <li id="li"><a id="a" href="/stats"> week </a></li>
+            <li id="li"><a id="a" href="/stats"> month </a></li>
+          </ul>
+        </div>
+    )
+  }
 }
