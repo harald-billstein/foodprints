@@ -1,6 +1,7 @@
 import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faStarHalf} from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 
 export default class Statistics extends React.Component {
 
@@ -77,10 +78,20 @@ class StatsTable extends React.Component {
   constructor() {
     super()
     this.state = {
-      stats: [],
+      statsGoal: [],
+      statsActual: [],
       foods: []
+
     };
-    this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
+
+    this.date = {
+      toDate: moment().format('YYYY-MM-DD'),
+      fromDate: moment().subtract(7, 'days').format('YYYY-MM-DD')
+    };
+
+
+    this.statsGoal = "https://localhost:8443/v1/emission/goal?from=" + this.date.fromDate + "&to=" + this.date.toDate;
+    this.statActual = "https://localhost:8443/v1/emission/statistics?from=" + this.date.fromDate + "&to=" + this.date.toDate;
     this.foodsUrl = "https://localhost:8443/v1/categories/";
   }
 
@@ -92,12 +103,20 @@ class StatsTable extends React.Component {
     })
     .catch(err => console.log(err));
 
-    fetch(this.statsUrl)
+    fetch(this.statsGoal)
     .then(response => response.json())
     .then(data => {
-      this.setState({stats: data})
+      this.setState({statsGoal: data})
     })
     .catch(err => console.log(err));
+
+    fetch(this.statActual)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({statsActual: data})
+    })
+    .catch(err => console.log(err));
+
   }
 
   render() {
@@ -106,14 +125,30 @@ class StatsTable extends React.Component {
           <div id="statsTable">
             <div>
               <ul id="statOptions">
-                <li id="li"><a id="a" href="/stats/all"> all </a></li>
+                <li id="li"><a id="a" href="/stats/all"></a></li>
                 {this.state.foods.map(food => (
-                    <li key={food} id="li"><a id="a"
-                                              href="/stats/{food}"> {food} </a>
-                    </li>))}
+                    <li key={food} id="li"><a id="a" href="/stats/{food}"> {food} </a></li>))}
               </ul>
             </div>
             <div>
+              <ul>
+                <li>  goalCo2ePerPortion : {this.state.statsGoal.goalCo2ePerPortion}</li>
+                <li>  goalCo2e : {this.state.statsGoal.goalCo2e}</li>
+
+                <li>  totalCo2e : {this.state.statsActual.totalCo2e}</li>
+                <li>  totalPortions : {this.state.statsActual.totalPortions}</li>
+
+                <li>toDate : {this.date.toDate} </li>
+                <li>fromDate : {this.date.fromDate} </li>
+
+
+
+
+              </ul>
+
+
+
+
               <h1 id="statTable"> LÄGG IN STATS </h1>
             </div>
           </div>
