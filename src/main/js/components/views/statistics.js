@@ -1,59 +1,84 @@
 import React from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {faStarHalf} from "@fortawesome/free-solid-svg-icons"
 
 export default class Statistics extends React.Component {
 
-    render() {
-        return (
-            <div>
-                <Header />
-                <StatsTable />
-                <StatsInfo />
-            </div>
-        )
-    }
+  render() {
+    return (
+        <div>
+          <Header/>
+          <StatsTable/>
+          <StatsInfo/>
+        </div>
+    )
+  }
 }
-
 
 class Header extends React.Component {
 
-    constructor() {
-        super()
-        this.state={restSuggestion: []};
-        this.restUrl = "https://localhost:8443/v1/restaurants/suggestion";
+  constructor() {
+    super()
+    this.state = {restSuggestion: []};
+    this.restUrl = "https://localhost:8443/v1/restaurants/suggestion";
+  }
+
+  getStars(grade) {
+    console.log(typeof grade + " " + grade);
+
+    let test = [];
+    let gradeFloored = Math.floor(grade);
+    let gradeDif =  grade - gradeFloored ;
+
+    for (let i = 1; i < grade; i++) {
+      if (gradeFloored >= i) {
+        test.push(<FontAwesomeIcon key={i} icon={faStar}/>);
+      }
     }
 
-    updateSuggestion() {
-
+    if (gradeDif > 0){
+      test.push(<FontAwesomeIcon key={gradeDif} icon={faStarHalf}/>)
     }
+    return test;
+  }
 
-    componentDidMount() {
-        fetch(this.restUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({restSuggestion: data})})
-            .catch(err => console.log(err));
+  componentDidMount() {
+    fetch(this.restUrl)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({restSuggestion: data})
+    })
+    .catch(err => console.log(err))
+  };
+
+  render() {
+    {
+      console.log(this.getStars(this.state.restSuggestion.grade))
     }
+    ;
 
-    render() {
-        return(
-            <div className="header">
-                <div id="row">
-                    <div> <h1 id="headerName"> Unknown. </h1> </div>
-                    <div id="headerRestSuggestion">
-                        <ul id="restList">
-                            <li> Featured Restaurant: </li>
-                            <li> { this.state.restSuggestion.name } </li>
-                            <li> { this.state.restSuggestion.grade } </li>
-                        </ul>
-                    </div>
-                </div>
+    return (
+        <div className="header">
+          <div id="row">
+            <div><h1 id="headerName"> Unknown. </h1></div>
+            <div id="headerRestSuggestion">
+              <ul id="restList">
+
+                <li> Featured Restaurant:</li>
+                <li> {this.state.restSuggestion.name} </li>
+                <li> {this.state.restSuggestion.address} </li>
+                <li> {this.getStars(this.state.restSuggestion.grade)}</li>
+
+              </ul>
             </div>
-        )
-    }
+          </div>
+        </div>
+    )
+  }
 }
 
 class StatsTable extends React.Component {
-
     constructor() {
         super()
         this.state = {
