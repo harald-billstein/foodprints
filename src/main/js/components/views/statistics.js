@@ -97,7 +97,7 @@ class StatsTable extends React.Component {
     this.chart = {
       options: {
         chart: {
-          stacked: true,
+          stacked: false,
           id: "cO2 Emission",
           toolbar: {
             show: false
@@ -141,36 +141,50 @@ class StatsTable extends React.Component {
         }
       },
       series: [{
-        name: 'VEGAN',
-        data: [5, 4, 6, 7, 9, 3, 1]
+        name: 'VEGAN - co2e',
+        data: [29]
       }, {
-        name: 'VEGETARIAN',
-        data: [3, 4, 4, 5, 4, 6, 7]
+        name: 'VEGETARIAN - co2e',
+        data: [30.4]
       }, {
-        name: 'CHICKEN',
-        data: [2, 3, 5, 6, 9, 0, 7]
+        name: 'CHICKEN - co2e',
+        data: [120]
       }, {
-        name: 'FISH',
-        data: [2, 3, 5, 6, 9, 0, 7]
+        name: 'FISH - co2e',
+        data: [87]
       }, {
-        name: 'PORK',
-        data: [2, 3, 5, 6, 9, 0, 7]
+        name: 'PORK - co2e',
+        data: [20]
       }, {
-        name: 'BEEF',
-        data: [2, 3, 5, 6, 9, 0, 7]
+        name: 'BEEF - co2e',
+        data: [988]
       }]
     };
 
     this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=" + this.date.fromDate + "&to=" + this.date.toDate;
     this.statActualUrl = "https://localhost:8443/v1/emission/statistics?from=" + this.date.fromDate + "&to=" + this.date.toDate;
     this.categoriesUrl = "https://localhost:8443/v1/categories/";
+
+  }
+
+  updateshart() {
+    console.log('update shart was called  --  NOT DONE!! FIX!!');
+    console.log(this.chart.series.map(item =>  item.data));
+
+    {this.state.actual && this.state.actual.categoryStatistics ? <div></div> : null}
+
+    this.state.actual && this.state.actual.categoryStatistics ? console.log(this.state.actual.categoryStatistics.map(item => item.co2e)) : null;
+
+
   }
 
   componentDidMount() {
     fetch(this.statActualUrl)
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       this.setState({actual: data})
+      this.updateshart();
     })
     .catch(err => console.log(err));
 
@@ -185,6 +199,7 @@ class StatsTable extends React.Component {
     fetch(this.categoriesUrl)
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       this.setState({categories : data})})
     .catch(err => console.log(err));
   }
@@ -195,14 +210,24 @@ class StatsTable extends React.Component {
         <div className="statsTable">
           <div id="statsTable">
             <div>
-              {this.state.categories.map(food => (<a>{ food }</a> ))}
+              {this.state.categories.map(food => (<a key={food}>{ food }</a> ))}
             </div>
             <div>
-                {this.state.goal.goalCo2ePerPortion}
-                {this.state.goal.goalCo2e}
-                {this.state.actual.totalCo2e}
-                {this.state.actual.totalPortions}
-                {this.state.categoryStatistics}
+              goalCo2ePerPortion-->{this.state.goal.goalCo2ePerPortion}-->
+              goalCo2e-->{this.state.goal.goalCo2e}-->
+              totalCo2e-->{this.state.actual.totalCo2e}-->
+              totalPortions-->{this.state.actual.totalPortions}-->
+              difference-->{this.state.actual.difference}-->
+
+
+
+              categoryStatistics-->{this.state.actual && this.state.actual.categoryStatistics ?
+                <div>{this.state.actual.categoryStatistics.map(item =>
+                    <li key={item.category}>category: {item.category} co2e: {item.co2e} numPortions: {item.numPortions} portionsPercent: {item.portionsPercent} </li>
+                )}</div> : null}
+
+
+
 
                 <Chart options={this.chart.options} series={this.chart.series} type="bar" width={500} height={320}/>
             </div>
