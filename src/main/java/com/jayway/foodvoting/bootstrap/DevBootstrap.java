@@ -53,38 +53,38 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     for (int i = 0; i < history; i++) {
       collectionOfMeatVotes = new CollectionOfVotes();
-      collectionOfMeatVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
       // RANDOM INT 1-10
       collectionOfMeatVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
       collectionOfChickenVotes = new CollectionOfVotes();
-      collectionOfChickenVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfChickenVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfChickenVotes.setCategory(foodTypes.get("CHICKEN"));
       collectionOfChickenVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfChickenVotes);
 
       collectionOfFishVotes = new CollectionOfVotes();
-      collectionOfFishVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
       collectionOfFishVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
 
       collectionOfVegetarianVotes = new CollectionOfVotes();
-      collectionOfVegetarianVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfVegetarianVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfVegetarianVotes.setCategory(foodTypes.get("VEGETARIAN"));
       collectionOfVegetarianVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVegetarianVotes);
 
       collectionOfVeganVotes = new CollectionOfVotes();
-      collectionOfVeganVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfVeganVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
       collectionOfVeganVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
 
       collectionOfPorkVotes = new CollectionOfVotes();
-      collectionOfPorkVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfPorkVotes.setLocalDate(LocalDate.now().minusMonths(i));
       collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
       collectionOfPorkVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
