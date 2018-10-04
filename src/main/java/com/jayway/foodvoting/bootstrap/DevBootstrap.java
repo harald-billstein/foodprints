@@ -49,6 +49,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     CollectionOfVotes collectionOfFishVotes;
     CollectionOfVotes collectionOfVegetarianVotes;
     CollectionOfVotes collectionOfVeganVotes;
+    CollectionOfVotes collectionOfPorkVotes;
 
     for (int i = 0; i < history; i++) {
       collectionOfMeatVotes = new CollectionOfVotes();
@@ -81,6 +82,12 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
       collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
       collectionOfVeganVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
+
+      collectionOfPorkVotes = new CollectionOfVotes();
+      collectionOfPorkVotes.setLocalDate(LocalDate.now().minusDays(i));
+      collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
+      collectionOfPorkVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
     }
   }
 
