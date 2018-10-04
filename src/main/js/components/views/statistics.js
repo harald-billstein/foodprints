@@ -77,88 +77,74 @@ class Header extends React.Component {
   }
 }
 
-
-
 class StatsTable extends React.Component {
   constructor() {
     super();
 
     this.state = {
       goal: {},
-      actual: {},
-      categories: []
+      categories: [],
+      chart: {
+        options: {
+          chart: {
+            stacked: false,
+            id: "cO2 Emission",
+            toolbar: {
+              show: false
+            }
+          },
+          grid: {
+            show: false,
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val
+            },
+            textAnchor: 'middle',
+            offsetX: 0,
+            offsetY: 0,
+            style: {
+              fontSize: '10px',
+              colors: undefined
+            },
+            dropShadow: {
+              enabled: false,
+              top: 1,
+              left: 1,
+              blur: 1,
+              opacity: 0.45
+            }
+          },
+          fill: {
+            colors: ['#000000', '#222222', '#444444','#666666', '#888888', '#999999']
+          },
+          xaxis: {
+            categories: [
+              moment().subtract(11, 'months').format('MMM'),
+              moment().subtract(10, 'months').format('MMM'),
+              moment().subtract(9, 'months').format('MMM'),
+              moment().subtract(8, 'months').format('MMM'),
+              moment().subtract(7, 'months').format('MMM'),
+              moment().subtract(6, 'months').format('MMM'),
+              moment().subtract(5, 'months').format('MMM'),
+              moment().subtract(4, 'months').format('MMM'),
+              moment().subtract(3, 'months').format('MMM'),
+              moment().subtract(2, 'months').format('MMM'),
+              moment().subtract(1, 'months').format('MMM'),
+              moment().format('MMM')]
+          }
+        },
+        series: [{
+          name: 'JAN - co2e',
+          data: [1,2,3,4,5,6,7,8,9,10,11,12]
+        }]
+      }
     };
 
     this.date = {
       toDate: moment().format('YYYY-MM-DD'),
       fromDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
-    };
-
-    this.chart = {
-      options: {
-        chart: {
-          stacked: false,
-          id: "cO2 Emission",
-          toolbar: {
-            show: false
-          }
-        },
-        grid: {
-          show: false,
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val
-          },
-          textAnchor: 'middle',
-          offsetX: 0,
-          offsetY: 0,
-          style: {
-            fontSize: '10px',
-            colors: undefined
-          },
-          dropShadow: {
-            enabled: false,
-            top: 1,
-            left: 1,
-            blur: 1,
-            opacity: 0.45
-          }
-        },
-        fill: {
-          colors: ['#000000', '#222222', '#444444','#666666', '#888888', '#999999']
-        },
-        xaxis: {
-          categories: [moment().subtract(7, 'days').format('MM-DD'),
-            moment().subtract(6, 'days').format('MM-DD'),
-            moment().subtract(5, 'days').format('MM-DD'),
-            moment().subtract(4, 'days').format('MM-DD'),
-            moment().subtract(3, 'days').format('MM-DD'),
-            moment().subtract(2, 'days').format('MM-DD'),
-            moment().subtract(1, 'days').format('MM-DD'),
-            moment().format('MM-DD')]
-        }
-      },
-      series: [{
-        name: 'VEGAN - co2e',
-        data: [29]
-      }, {
-        name: 'VEGETARIAN - co2e',
-        data: [30.4]
-      }, {
-        name: 'CHICKEN - co2e',
-        data: [120]
-      }, {
-        name: 'FISH - co2e',
-        data: [87]
-      }, {
-        name: 'PORK - co2e',
-        data: [20]
-      }, {
-        name: 'BEEF - co2e',
-        data: [988]
-      }]
     };
 
     this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=" + this.date.fromDate + "&to=" + this.date.toDate;
@@ -167,69 +153,65 @@ class StatsTable extends React.Component {
 
   }
 
-  updateshart() {
-    console.log('update shart was called  --  NOT DONE!! FIX!!');
-    console.log(this.chart.series.map(item =>  item.data));
+  updateChart(actual) {
+    const {categoryStatistics} = actual || {};
 
-    {this.state.actual && this.state.actual.categoryStatistics ? <div></div> : null}
-
-    this.state.actual && this.state.actual.categoryStatistics ? console.log(this.state.actual.categoryStatistics.map(item => item.co2e)) : null;
+    const {chart} = this.state;
+    //const chart = this.state.chart
 
 
+    this.setState({
+      // create new immutible object to update state
+      chart: Object.assign({}, chart, {
+        series: chart.series.map((serie, index) => {
+          return Object.assign({}, serie, {data: [categoryStatistics[index].co2e]})
+        })
+      })
+    });
+  }
+
+  componentDidUpdate() {
+    console.log('Render');
   }
 
   componentDidMount() {
     fetch(this.statActualUrl)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      this.setState({actual: data})
-      this.updateshart();
+    .then(data => { console.log('actual: ' + data);
+      this.updateChart(data)
     })
     .catch(err => console.log(err));
 
     fetch(this.statsGoalUrl)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    .then(data => { console.log('goal: ' + data);
       this.setState({goal: data})
     })
     .catch(err => console.log(err));
 
     fetch(this.categoriesUrl)
     .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      this.setState({categories : data})})
+    .then(data => { console.log('categories: ' + data);
+      this.setState({categories : data})
+    })
     .catch(err => console.log(err));
   }
 
   render() {
+    const {categories, goal, chart = {}} = this.state;
     return (
 
         <div className="statsTable">
           <div id="statsTable">
             <div>
-              {this.state.categories.map(food => (<a key={food}>{ food }</a> ))}
+              {categories.map(food => (<a key={food}>{ food }</a> ))}
             </div>
             <div>
-              goalCo2ePerPortion-->{this.state.goal.goalCo2ePerPortion}-->
-              goalCo2e-->{this.state.goal.goalCo2e}-->
-              totalCo2e-->{this.state.actual.totalCo2e}-->
-              totalPortions-->{this.state.actual.totalPortions}-->
-              difference-->{this.state.actual.difference}-->
+              goalCo2ePerPortion-->{goal.goalCo2ePerPortion}-->
+              goalCo2e-->{goal.goalCo2e}-->
 
+              <Chart options={chart.options} series={chart.series} type="bar" width="90%" height={320}/>
 
-
-              categoryStatistics-->{this.state.actual && this.state.actual.categoryStatistics ?
-                <div>{this.state.actual.categoryStatistics.map(item =>
-                    <li key={item.category}>category: {item.category} co2e: {item.co2e} numPortions: {item.numPortions} portionsPercent: {item.portionsPercent} </li>
-                )}</div> : null}
-
-
-
-
-                <Chart options={this.chart.options} series={this.chart.series} type="bar" width={500} height={320}/>
             </div>
           </div>
         </div>
