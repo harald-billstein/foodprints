@@ -7,6 +7,8 @@ import com.jayway.foodvoting.model.CollectionOfVotes;
 import com.jayway.foodvoting.model.Statistics;
 import com.jayway.foodvoting.repository.FoodTypeRepository;
 import com.jayway.foodvoting.repository.VoteingRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -52,6 +54,8 @@ public class StatisticsServiceImpl implements StatisticsService {
         for (CategoryStatistics stat: catstat)
             stat.setPortionsPercent( (double)stat.getNumPortions() / (double)portions);
 
+        catstat =  sortResultSoFrontendLikesIt(catstat);
+
         double totalCo2e = sumCo2e(catstat);
 
         Statistics stat = new Statistics(totalCo2e, portions, catstat);
@@ -63,12 +67,53 @@ public class StatisticsServiceImpl implements StatisticsService {
         return stat;
     }
 
+
     private double sumCo2e(List<CategoryStatistics> catstat){
         double totalCo2e = 0D;
         for (CategoryStatistics stat: catstat){
             totalCo2e += stat.getCo2e();
         }
         return totalCo2e;
+    }
+    private List<CategoryStatistics> sortResultSoFrontendLikesIt(List<CategoryStatistics> catstat) {
+        // TODO clean up this mess!
+
+        CategoryStatistics[] frontendedList = new CategoryStatistics[6];
+
+        CategoryStatistics beef = new CategoryStatistics();
+        beef.setCategory("BEEF");
+
+        CategoryStatistics pork = new CategoryStatistics();
+        pork.setCategory("PORK");
+
+        CategoryStatistics chicken = new CategoryStatistics();
+        chicken.setCategory("CHICKEN");
+
+        CategoryStatistics fish = new CategoryStatistics();
+        fish.setCategory("FISH");
+
+        CategoryStatistics vegetarian = new CategoryStatistics();
+        vegetarian.setCategory("VEGETARIAN");
+
+        CategoryStatistics vegan = new CategoryStatistics();
+        vegan.setCategory("VEGAN");
+
+        frontendedList[0] = beef;
+        frontendedList[1] = pork;
+        frontendedList[2] = chicken;
+        frontendedList[3] = fish;
+        frontendedList[4] = vegetarian;
+        frontendedList[5] = vegan;
+
+        for (CategoryStatistics categoryStatistics: catstat){
+            for (int i = 0; i < frontendedList.length ; i++) {
+                if (frontendedList[i].getCategory().equals(categoryStatistics.getCategory())){
+                    frontendedList[i] = categoryStatistics;
+                }
+            }
+
+        }
+        return Arrays.asList(frontendedList);
     }
 }
 
