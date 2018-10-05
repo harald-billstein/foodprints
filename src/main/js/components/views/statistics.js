@@ -205,22 +205,10 @@ class StatsTable extends React.Component {
   render() {
     const {categories, goal, chart = {}} = this.state;
     return (
-
         <div className="statsTable">
           <div id="statsTable">
-            <div>
-
-              {categories.map(food => (<a key={food}>{food}</a>))}
-            </div>
-            <div>
-              goalCo2ePerPortion-->{goal.goalCo2ePerPortion}-->
-              goalCo2e-->{goal.goalCo2e}-->
-
               <Chart options={chart.options} series={chart.series} type="bar"
                      width="90%" height={320}/>
-
-
-            </div>
           </div>
         </div>
     )
@@ -228,77 +216,92 @@ class StatsTable extends React.Component {
 }
 
 const TimeInterval = {
-    All: 0,
-    Day: 1,
-    Week: 2,
-    Month: 3
+  All: 0,
+  Day: 1,
+  Week: 2,
+  Month: 3
 }
 
 class StatsInfo extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            stats: [],
-            timeInterval: TimeInterval.All,
-            today: moment().format('YYYY-MM-DD')
-        }
-        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
-    }
-
-
   constructor() {
-    super();
+    super()
     this.state = {
       stats: [],
-      foods: []
-    };
-    this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
+      timeInterval: TimeInterval.All,
+      today: moment().format('YYYY-MM-DD')
+    }
+    this.statsUrl = "https://localhost:8443/v1/emission/statistics";
   }
 
-
+  fetchStats() {
+    let from;
+    switch (this.state.timeInterval) {
+      case 0:
+        from = '2018-01-01';
+        break;
+      case 1:
+        from = moment().subtract(1, 'days').format('YYYY-MM-DD')
+        break;
+      case 2:
+        from = moment().subtract(7, 'days').format('YYYY-MM-DD')
+        break;
+      case 3:
+        from = moment().subtract(1, 'month').format('YYYY-MM-DD')
+        break;
+      default:
+        from = '2018-01-01';
+        break;
     }
 
-    getTotalCo2() {
-        console.log("here")
-        if (this.state.stats.totalCo2e > 1000) {
-            return  (<p> {Math.floor(this.state.stats.totalCo2/1000)} " tons." </p> )
-        } else {
-            return (<p> {Math.floor(this.state.stats.totalCo2)}  " kg." </p> )
-        }
-    }
+    fetch(this.statsUrl+ '/?from=' + from +'&to=' + this.state.today)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({stats: data})})
+    .catch(err => console.log(err));
 
-    componentDidMount() {
-        this.fetchStats();
-    }
+  }
 
-    render() {
-        return(
-          <div className="statOptions">
-            <div>
-              <ul id="statOptions">
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}><button id="button"> all </button> </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}><button id="button"> day </button> </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}><button id="button"> week </button> </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}><button id="button"> month </button> </li>
-              </ul>
+  getTotalCo2() {
+    if (this.state.stats.totalCo2e > 1000) {
+      return  (<p> {Math.floor(this.state.stats.totalCo2/1000)} " tons." </p> )
+    } else {
+      return (<p> {Math.floor(this.state.stats.totalCo2)}  " kg." </p> )
+    }
+  }
+
+  componentDidMount() {
+    this.fetchStats();
+  }
+
+  render() {
+    return(
+        <div className="statOptions">
+          <div>
+            <ul id="statOptions">
+              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}><button id="button"> all </button> </li>
+              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}><button id="button"> day </button> </li>
+              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}><button id="button"> week </button> </li>
+              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}><button id="button"> month </button> </li>
+            </ul>
+          </div>
+          <div id="co2Stats">
+            <div id="totalCo2">
+              <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
+              <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
+              <p id="coTotalUnderTitle"> carbon footprint </p>
             </div>
-            <div id="co2Stats">
-              <div id="totalCo2">
-                <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
-                <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
-                <p id="coTotalUnderTitle"> carbon footprint </p>
-              </div>
-              <div id="categoryCo2">
-                {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
-                    <div key={item.category} id="categoryTitle">
-                        <p id="categoryPortions"> {item.numPortions} portions. </p>
-                        <p id="categoryTitle"> {Math.floor(item.co2e)} kg. </p>
-                        <p id="categoryUnderTitle"> {item.category}. </p>
-                    </div>
-                 ))}
-              </div>
+            <div id="categoryCo2">
+              {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
+                  <div key={item.category} id="categoryTitle">
+                    <p id="categoryPortions"> {item.numPortions} portions. </p>
+                    <p id="categoryTitle"> {Math.floor(item.co2e)} kg. </p>
+                    <p id="categoryUnderTitle"> {item.category}. </p>
+                  </div>
+              ))}
             </div>
           </div>
-        )
-    }
+        </div>
+    )
+  }
 }
