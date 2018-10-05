@@ -20,12 +20,12 @@ public class VoteHandler {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VoteHandler.class);
   private VotingRepositoryIMP votingRepositoryIMP;
-  private VoteingRepository voteingRepository;
+  //private VoteingRepository voteingRepository;
   private FoodTypeRepository foodTypeRepository;
 
-  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP, VoteingRepository voteingRepository, FoodTypeRepository foodTypeRepository) {
+  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP, FoodTypeRepository foodTypeRepository) {
     this.votingRepositoryIMP = votingRepositoryIMP;
-    this.voteingRepository = voteingRepository;
+    //this.voteingRepository = voteingRepository;
     this.foodTypeRepository = foodTypeRepository;
   }
 
