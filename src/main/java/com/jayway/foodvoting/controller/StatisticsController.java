@@ -33,6 +33,7 @@ public class StatisticsController {
     this.statisticsForYearService = statisticsForYearService;
   }
 
+
   @GetMapping(path = "/goal")
   public EmissionGoal climateGoal(@RequestParam String from, @RequestParam String to) {
     Validate.notEmpty(from, "Requires from date");
@@ -46,10 +47,12 @@ public class StatisticsController {
     return statisticsService.findGoal(fromDate, toDate);
   }
 
+
   @GetMapping(path = "/statistics")
   public Statistics getStatistics(@RequestParam String from, @RequestParam String to) {
     Validate.notEmpty(from, "Requires from date");
     Validate.notEmpty(to, "Requires to date");
+
 
     LocalDate fromDate = LocalDate.parse(from);
     LocalDate toDate = LocalDate.parse(to);
@@ -59,7 +62,6 @@ public class StatisticsController {
     return statisticsService.calculateForCategories(fromDate, toDate);
   }
 
-
   @GetMapping(path = "/statistics/year/per/month")
   public ResponseEntity<List<EmissionPerMonthPerPortion>> getStatistics(String year) {
     if (validateYear(year)) {
@@ -68,11 +70,12 @@ public class StatisticsController {
       return ResponseEntity.badRequest().build();
     }
   }
-
+  
   private void validateDates(LocalDate from, LocalDate to) {
     long daysInPeriod = from.until(to, ChronoUnit.DAYS);
     if (daysInPeriod <= 0) {
       throw new IllegalArgumentException("Date to has to be later than date from.");
+
     }
   }
 

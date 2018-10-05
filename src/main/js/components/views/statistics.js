@@ -56,7 +56,6 @@ class Header extends React.Component {
   };
 
   render() {
-
     return (
         <div className="header">
           <div id="row">
@@ -64,7 +63,7 @@ class Header extends React.Component {
             <div id="headerRestSuggestion">
               <ul id="restList">
 
-                <li> Featured Restaurant:</li>
+                <li id="liRest"> Featured Restaurant:</li>
                 <li> {this.state.restSuggestion.name} </li>
                 <li> {this.state.restSuggestion.address} </li>
                 <li> {Header.getStars(this.state.restSuggestion.grade)}</li>
@@ -210,6 +209,7 @@ class StatsTable extends React.Component {
         <div className="statsTable">
           <div id="statsTable">
             <div>
+
               {categories.map(food => (<a key={food}>{food}</a>))}
             </div>
             <div>
@@ -219,6 +219,7 @@ class StatsTable extends React.Component {
               <Chart options={chart.options} series={chart.series} type="bar"
                      width="90%" height={320}/>
 
+
             </div>
           </div>
         </div>
@@ -226,7 +227,24 @@ class StatsTable extends React.Component {
   }
 }
 
+const TimeInterval = {
+    All: 0,
+    Day: 1,
+    Week: 2,
+    Month: 3
+}
+
 class StatsInfo extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            stats: [],
+            timeInterval: TimeInterval.All,
+            today: moment().format('YYYY-MM-DD')
+        }
+        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
+    }
+
 
   constructor() {
     super();
@@ -237,25 +255,50 @@ class StatsInfo extends React.Component {
     this.statsUrl = "https://localhost:8443/v1/restaurants/suggestion";
   }
 
-  componentDidMount() {
-    fetch(this.statsUrl)
-    .then(response => response.json())
-    .then(data => {
-      this.setState({stats: data})
-    })
-    .catch(err => console.log(err));
-  }
 
-  render() {
-    return (
-        <div className="statOptions">
-          <ul id="statOptions">
-            <li id="li"><a id="a" href="/stats"> all </a></li>
-            <li id="li"><a id="a" href="/stats"> day </a></li>
-            <li id="li"><a id="a" href="/stats"> week </a></li>
-            <li id="li"><a id="a" href="/stats"> month </a></li>
-          </ul>
-        </div>
-    )
-  }
+    }
+
+    getTotalCo2() {
+        console.log("here")
+        if (this.state.stats.totalCo2e > 1000) {
+            return  (<p> {Math.floor(this.state.stats.totalCo2/1000)} " tons." </p> )
+        } else {
+            return (<p> {Math.floor(this.state.stats.totalCo2)}  " kg." </p> )
+        }
+    }
+
+    componentDidMount() {
+        this.fetchStats();
+    }
+
+    render() {
+        return(
+          <div className="statOptions">
+            <div>
+              <ul id="statOptions">
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}><button id="button"> all </button> </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}><button id="button"> day </button> </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}><button id="button"> week </button> </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}><button id="button"> month </button> </li>
+              </ul>
+            </div>
+            <div id="co2Stats">
+              <div id="totalCo2">
+                <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
+                <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
+                <p id="coTotalUnderTitle"> carbon footprint </p>
+              </div>
+              <div id="categoryCo2">
+                {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
+                    <div key={item.category} id="categoryTitle">
+                        <p id="categoryPortions"> {item.numPortions} portions. </p>
+                        <p id="categoryTitle"> {Math.floor(item.co2e)} kg. </p>
+                        <p id="categoryUnderTitle"> {item.category}. </p>
+                    </div>
+                 ))}
+              </div>
+            </div>
+          </div>
+        )
+    }
 }

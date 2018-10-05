@@ -1,5 +1,8 @@
 $headerSize: 5em;
 $margin: 40px;
+$topMargin: 100px;
+$categoryMargin: 20px;
+$gridMargin: 10px;
 
 #header {
     color: white;
@@ -23,12 +26,17 @@ $margin: 40px;
 
 #restList {
   list-style: none;
+  text-align: right;
+  font-weight: bold;
+}
+
+#liRest {
+  font-style: italic;
 }
 
 #statOptions {
   display: flex;
   position: absolute;
-
   right: 0px;
   margin: $margin;
   list-style: none;
@@ -37,15 +45,13 @@ $margin: 40px;
 }
 
 #li {
-  margin-left: 7px;
-  a {
-    color: grey;
-    text-decoration: none;
-    &:hover {
-      color: dark-grey;
-    }
+  button {
+    text-transform: lowercase;
+    color: lightgray;
+    border: white;
+    font-size: 1em;
     &:active {
-      color: black;
+        color: black;
     }
   }
 }
@@ -59,5 +65,62 @@ $margin: 40px;
 #statTable {
     font-size: 2em;
     position: relative;
-    top: 100px;
+    top: $topMargin
+}
+
+#co2Stats {
+   display: flex;
+   position: relative;
+   top: $topMargin;
+   align-items: center;
+   font-weight: bold;
+   margin-bottom: $margin;
+}
+
+#totalCo2 {
+    margin-left: $margin;
+}
+
+#categoryCo2 {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin-left: auto;
+    margin-right: $margin;
+}
+
+#coTotalTitle {
+    font-size: 4.5em;
+    margin: 0px;
+}
+
+#totalPortions {
+    font-size: 1.5em;
+    margin: 0px;
+    text-align: right;
+}
+
+#coTotalUnderTitle {
+    font-size: 2.5em;
+    margin: 0px;
+}
+
+#categoryTitle {
+    font-size: 1.5em;
+    margin: 0px;
+    margin-left: $categoryMargin;
+}
+
+#categoryPortions {
+    margin-top: $gridMargin;
+    font-size: 0.5em;
+    margin: 0px;
+    text-align: right;
+}
+
+#categoryUnderTitle {
+    font-size: 1em;
+    margin: 0px;
+    text-transform: lowercase;
+    margin-bottom: $gridMargin;
+    margin-left: $categoryMargin;
 }
