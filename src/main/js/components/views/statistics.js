@@ -117,7 +117,8 @@ class StatsTable extends React.Component {
             }
           },
           fill: {
-            colors: ['#000000', '#222222', '#444444','#666666', '#888888', '#999999']
+            colors: ['#000000', '#222222', '#444444', '#666666', '#888888',
+              '#999999']
           },
           xaxis: {
             categories: [
@@ -137,7 +138,7 @@ class StatsTable extends React.Component {
         },
         series: [{
           name: 'JAN - co2e',
-          data: [1,2,3,4,5,6,7,8,9,10,11,12]
+          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         }]
       }
     };
@@ -147,8 +148,10 @@ class StatsTable extends React.Component {
       fromDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
     };
 
-    this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=" + this.date.fromDate + "&to=" + this.date.toDate;
-    this.statActualUrl = "https://localhost:8443/v1/emission/statistics?from=" + this.date.fromDate + "&to=" + this.date.toDate;
+    this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from="
+        + this.date.fromDate + "&to=" + this.date.toDate;
+    this.statActualUrl = "https://localhost:8443/v1/emission/statistics?from="
+        + this.date.fromDate + "&to=" + this.date.toDate;
     this.categoriesUrl = "https://localhost:8443/v1/categories/";
 
   }
@@ -159,12 +162,12 @@ class StatsTable extends React.Component {
     const {chart} = this.state;
     //const chart = this.state.chart
 
-
     this.setState({
       // create new immutible object to update state
       chart: Object.assign({}, chart, {
         series: chart.series.map((serie, index) => {
-          return Object.assign({}, serie, {data: [categoryStatistics[index].co2e]})
+          return Object.assign({}, serie,
+              {data: [categoryStatistics[index].co2e]})
         })
       })
     });
@@ -177,22 +180,25 @@ class StatsTable extends React.Component {
   componentDidMount() {
     fetch(this.statActualUrl)
     .then(response => response.json())
-    .then(data => { console.log('actual: ' + data);
+    .then(data => {
+      console.log('actual: ' + data);
       this.updateChart(data)
     })
     .catch(err => console.log(err));
 
     fetch(this.statsGoalUrl)
     .then(response => response.json())
-    .then(data => { console.log('goal: ' + data);
+    .then(data => {
+      console.log('goal: ' + data);
       this.setState({goal: data})
     })
     .catch(err => console.log(err));
 
     fetch(this.categoriesUrl)
     .then(response => response.json())
-    .then(data => { console.log('categories: ' + data);
-      this.setState({categories : data})
+    .then(data => {
+      console.log('categories: ' + data);
+      this.setState({categories: data})
     })
     .catch(err => console.log(err));
   }
@@ -204,13 +210,14 @@ class StatsTable extends React.Component {
         <div className="statsTable">
           <div id="statsTable">
             <div>
-              {categories.map(food => (<a key={food}>{ food }</a> ))}
+              {categories.map(food => (<a key={food}>{food}</a>))}
             </div>
             <div>
               goalCo2ePerPortion-->{goal.goalCo2ePerPortion}-->
               goalCo2e-->{goal.goalCo2e}-->
 
-              <Chart options={chart.options} series={chart.series} type="bar" width="90%" height={320}/>
+              <Chart options={chart.options} series={chart.series} type="bar"
+                     width="90%" height={320}/>
 
             </div>
           </div>
