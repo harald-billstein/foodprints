@@ -121,63 +121,51 @@ class StatsTable extends React.Component {
           },
           xaxis: {
             categories: [
-              moment().subtract(11, 'months').format('MMM'),
-              moment().subtract(10, 'months').format('MMM'),
-              moment().subtract(9, 'months').format('MMM'),
-              moment().subtract(8, 'months').format('MMM'),
-              moment().subtract(7, 'months').format('MMM'),
-              moment().subtract(6, 'months').format('MMM'),
-              moment().subtract(5, 'months').format('MMM'),
-              moment().subtract(4, 'months').format('MMM'),
-              moment().subtract(3, 'months').format('MMM'),
-              moment().subtract(2, 'months').format('MMM'),
-              moment().subtract(1, 'months').format('MMM'),
-              moment().format('MMM')]
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Okt',
+                'Nov',
+                'Dec',
+            ]
           }
         },
         series: [{
-          name: 'JAN - co2e',
-          data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+          name: 'CO2e/kg per portion',
+          id: 'emission',
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }]
       }
     };
-
-    this.date = {
-      toDate: moment().format('YYYY-MM-DD'),
-      fromDate: moment().subtract(7, 'days').format('YYYY-MM-DD'),
-    };
-
-    this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from="
-        + this.date.fromDate + "&to=" + this.date.toDate;
-    this.statActualUrl = "https://localhost:8443/v1/emission/statistics?from="
-        + this.date.fromDate + "&to=" + this.date.toDate;
-    this.categoriesUrl = "https://localhost:8443/v1/categories/";
-
+    this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=2018-01-01&to=2019-01-01";
+    this.actualUrl = "https://localhost:8443/v1/emission/statistics/year/per/month?year=2018";
   }
 
-  updateChart(actual) {
-    const {categoryStatistics} = actual || {};
-
+  updateChart(fetchData) {
     const {chart} = this.state;
-    //const chart = this.state.chart
+      this.setState({
+        chart: Object.assign({}, chart, {
+          series: chart.series.map((serie, index) => {
 
-    this.setState({
-      // create new immutible object to update state
-      chart: Object.assign({}, chart, {
-        series: chart.series.map((serie, index) => {
-          return Object.assign({}, serie,
-              {data: [categoryStatistics[index].co2e]})
+            if (serie.id === 'emission') {
+              return Object.assign({}, serie,
+                { data: fetchData.map(item => parseFloat(item.emissionPerPortion).toFixed(2))}
+              )
+            }
+            return serie;
+          })
         })
-      })
-    });
-  }
-
-  componentDidUpdate() {
-    console.log('Render');
+      });
   }
 
   componentDidMount() {
-    fetch(this.statActualUrl)
+    fetch(this.actualUrl)
     .then(response => response.json())
     .then(data => {
       console.log('actual: ' + data);
@@ -192,18 +180,10 @@ class StatsTable extends React.Component {
       this.setState({goal: data})
     })
     .catch(err => console.log(err));
-
-    fetch(this.categoriesUrl)
-    .then(response => response.json())
-    .then(data => {
-      console.log('categories: ' + data);
-      this.setState({categories: data})
-    })
-    .catch(err => console.log(err));
   }
 
   render() {
-    const {categories, goal, chart = {}} = this.state;
+    const {chart = {}} = this.state;
     return (
         <div className="statsTable">
           <div id="statsTable">
