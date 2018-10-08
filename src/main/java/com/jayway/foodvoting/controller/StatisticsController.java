@@ -6,7 +6,6 @@ import com.jayway.foodvoting.model.Statistics;
 import com.jayway.foodvoting.service.StatisticsForYearService;
 import com.jayway.foodvoting.service.StatisticsService;
 import com.jayway.foodvoting.service.StatisticsServiceImpl;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -65,7 +64,7 @@ public class StatisticsController {
   @GetMapping(path = "/statistics/year/per/month")
   public ResponseEntity<List<EmissionPerMonthPerPortion>> getStatistics(String year) {
     if (validateYear(year)) {
-      return ResponseEntity.ok(statisticsForYearService.getOneYearEmission(Integer.parseInt(year)));
+      return ResponseEntity.ok(statisticsForYearService.getOneYearEmissionPerMonth(Integer.parseInt(year)));
     } else {
       return ResponseEntity.badRequest().build();
     }
