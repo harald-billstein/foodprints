@@ -202,6 +202,7 @@ const TimeInterval = {
   Month: 3
 }
 
+
 class StatsInfo extends React.Component {
     constructor() {
         super()
@@ -269,6 +270,10 @@ class StatsInfo extends React.Component {
             .catch(err => console.log(err));
     }
 
+    componentDidMount() {
+        this.fetchStats();
+    }
+
     render() {
         return(
           <div className="statOptions">
@@ -288,14 +293,21 @@ class StatsInfo extends React.Component {
                 </li>
               </ul>
             </div>
-            <div id="categoryCo2">
-              {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
+            <div id="co2Stats">
+              <div id="totalCo2">
+                <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
+                <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
+                <p id="coTotalUnderTitle"> carbon footprint </p>
+              </div>
+              <div id="categoryCo2">
+                {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
                   <div key={item.category} id="categoryTitle">
                     <p id="categoryPortions"> {item.numPortions} portions. </p>
                     <p id="categoryTitle"> {Math.floor(item.co2e)} kg. </p>
                     <p id="categoryUnderTitle"> {item.category}. </p>
                   </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         )
