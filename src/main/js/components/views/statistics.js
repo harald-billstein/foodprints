@@ -155,7 +155,7 @@ class StatsTable extends React.Component {
 
             if (serie.id === 'emission') {
               return Object.assign({}, serie,
-                { data: fetchData.map(item => parseFloat(item.emissionPerPortion).toFixed(2))}
+                {data: fetchData.map(item => parseFloat(item.emissionPerPortion).toFixed(2))}
               )
             }
             return serie;
