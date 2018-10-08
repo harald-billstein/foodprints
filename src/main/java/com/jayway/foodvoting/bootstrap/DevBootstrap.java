@@ -51,6 +51,27 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     CollectionOfVotes collectionOfVeganVotes;
     CollectionOfVotes collectionOfPorkVotes;
 
+    collectionOfFishVotes = new CollectionOfVotes();
+    collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(9));
+    collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
+    collectionOfFishVotes.setVotes(1);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
+
+    collectionOfMeatVotes = new CollectionOfVotes();
+    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(8));
+    collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
+    collectionOfMeatVotes.setVotes(1);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
+
+    collectionOfMeatVotes = new CollectionOfVotes();
+    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(7));
+    collectionOfMeatVotes.setCategory(foodTypes.get("VEGAN"));
+    collectionOfMeatVotes.setVotes(1);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
+
+
+
+
     for (int i = 0; i < history; i++) {
       collectionOfMeatVotes = new CollectionOfVotes();
       collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
