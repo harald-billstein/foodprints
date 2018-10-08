@@ -3,14 +3,22 @@ $headerMargin: 40px;
 
 #voteList {
   list-style: none;
-  text-transform: lowercase;
-
-  font-size: 3.5em;
-  font-weight: bold;
-}
-
-#li {
-  margin-bottom: 15px;
+  li {
+    margin-bottom: 15px;
+      button {
+        border: white;
+        font-size: 3.5em;
+        font-weight: bold;
+        text-transform: lowercase;
+        color: black;
+        &:active {
+            color: lightgray;
+        }
+        &:focus {
+            outline: none;
+        }
+      }
+  }
 }
 
 #headerName {

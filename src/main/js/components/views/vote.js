@@ -4,14 +4,31 @@ export default class Vote extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {foods: []};
+        this.state = {
+            foods: [],
+            vote: null,
+            response: null};
         this.url = "https://localhost:8443/v1/categories/";
+        this.postVoteUrl = "https://localhost:8443/v1/votes/";
     }
 
-    postVote(e) {
-        e.preventDefault();
-        // fetch me post ba till den andra
-        // måste göra om listan till en form så man kan skicka input härifrån
+    postVote() {
+        if (this.state.vote !== null) {
+            fetch(this.postVoteUrl, {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    vote: this.state.vote
+                })
+            })
+            .then(response => {
+                response.json();
+                console.log(response);})
+            .catch(err => console.log(err));
+        }
     }
 
     componentDidMount() {
@@ -28,7 +45,7 @@ export default class Vote extends React.Component {
                 <h1 id="headerName"> Unknown. </h1>
                 <ul id="voteList">
                     {this.state.foods.map(food => (
-                    <li id="li"> {food}. </li>))}
+                    <li id="li"><button id="button" onClick={() => { this.setState({vote: food}, () => this.postVote())}}> {food}. </button></li>))}
                 </ul>
             </div>
         )

@@ -47,11 +47,14 @@ $gridMargin: 10px;
 #li {
   button {
     text-transform: lowercase;
-    color: lightgray;
+    font-weight: bold;
     border: white;
     font-size: 1em;
-    &:active {
-        color: black;
+    &:hover{
+        color: gray;
+    }
+    &:focus {
+        outline: none;
     }
   }
 }

@@ -203,73 +203,90 @@ const TimeInterval = {
 }
 
 class StatsInfo extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      stats: [],
-      timeInterval: TimeInterval.All,
-      today: moment().format('YYYY-MM-DD')
-    }
-    this.statsUrl = "https://localhost:8443/v1/emission/statistics";
-  }
-
-  fetchStats() {
-    let from;
-    switch (this.state.timeInterval) {
-      case 0:
-        from = '2018-01-01';
-        break;
-      case 1:
-        from = moment().subtract(1, 'days').format('YYYY-MM-DD')
-        break;
-      case 2:
-        from = moment().subtract(7, 'days').format('YYYY-MM-DD')
-        break;
-      case 3:
-        from = moment().subtract(1, 'month').format('YYYY-MM-DD')
-        break;
-      default:
-        from = '2018-01-01';
-        break;
+    constructor() {
+        super()
+        this.state = {
+            stats: [],
+            timeInterval: TimeInterval.All,
+            today: moment().format('YYYY-MM-DD'),
+            buttonColor: {
+                all: "black",
+                day: "lightgray",
+                week: "lightgray",
+                month: "lightgray"
+            }
+        }
+        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
     }
 
-    fetch(this.statsUrl+ '/?from=' + from +'&to=' + this.state.today)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      this.setState({stats: data})})
-    .catch(err => console.log(err));
+    fetchStats() {
+        let from;
+        switch (this.state.timeInterval) {
+            case 1:
+                this.setState({buttonColor: {
+                                    all: "lightgray",
+                                    day: "black",
+                                    week: "lightgray",
+                                    month: "lightgray"
+                                    }})
+                from = moment().subtract(1, 'days').format('YYYY-MM-DD')
+                break;
+            case 2:
+                this.setState({buttonColor: {
+                                    all: "lightgray",
+                                    day: "lightgray",
+                                    week: "black",
+                                    month: "lightgray"
+                                    }})
+                from = moment().subtract(7, 'days').format('YYYY-MM-DD')
+                break;
+            case 3:
+                this.setState({buttonColor: {
+                                    all: "lightgray",
+                                    day: "lightgray",
+                                    week: "lightgray",
+                                    month: "black"
+                                    }})
+                from = moment().subtract(1, 'month').format('YYYY-MM-DD')
+                break;
+            case 0:
+            default:
+                this.setState({buttonColor: {
+                                    all: "black",
+                                    day: "lightgray",
+                                    week: "lightgray",
+                                    month: "lightgray"
+                                    }})
+                from = '2018-01-01';
+                break;
+        }
 
-  }
-
-  getTotalCo2() {
-    if (this.state.stats.totalCo2e > 1000) {
-      return  (<p> {Math.floor(this.state.stats.totalCo2/1000)} " tons." </p> )
-    } else {
-      return (<p> {Math.floor(this.state.stats.totalCo2)}  " kg." </p> )
+        fetch(this.statsUrl+ '/?from=' + from +'&to=' + this.state.today)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({stats: data})})
+            .catch(err => console.log(err));
     }
-  }
 
-  componentDidMount() {
-    this.fetchStats();
-  }
-
-  render() {
-    return(
-        <div className="statOptions">
-          <div>
-            <ul id="statOptions">
-              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}><button id="button"> all </button> </li>
-              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}><button id="button"> day </button> </li>
-              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}><button id="button"> week </button> </li>
-              <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}><button id="button"> month </button> </li>
-            </ul>
-          </div>
-          <div id="co2Stats">
-            <div id="totalCo2">
-              <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
-              <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
-              <p id="coTotalUnderTitle"> carbon footprint </p>
+    render() {
+        return(
+          <div className="statOptions">
+            <div>
+              <ul id="statOptions">
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}>
+                    <button id="button" style={{color: this.state.buttonColor.all}}> all </button>
+                </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}>
+                    <button id="button" style={{color: this.state.buttonColor.day}}> day </button>
+                </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}>
+                    <button id="button" style={{color: this.state.buttonColor.week}}> week </button>
+                </li>
+                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}>
+                    <button id="button" style={{color: this.state.buttonColor.month}}> month </button>
+                </li>
+              </ul>
             </div>
             <div id="categoryCo2">
               {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
