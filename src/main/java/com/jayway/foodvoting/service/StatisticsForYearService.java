@@ -25,7 +25,6 @@ public class StatisticsForYearService {
       EmissionPerMonthPerPortion emissionPerMonthPerPortion = new EmissionPerMonthPerPortion();
       emissionPerMonthPerPortion.setMonth(i);
       emissionPerMonthPerPortion.setYear(year);
-      emissionPerMonthPerPortion.setTotalPortions(0);
       emissionPerMonthPerPortion.setTotalEmission(0);
       statisticsList.add(emissionPerMonthPerPortion);
     }
@@ -38,140 +37,151 @@ public class StatisticsForYearService {
 
       if (monthVoteWasRegister == Months.JANUARY.getValue() && yearVoteWasRegister == year) {
         int month = Months.JANUARY.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
+
+
 
       if (monthVoteWasRegister == Months.FEBRUARY.getValue() && yearVoteWasRegister == year) {
         int month = Months.FEBRUARY.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
+
       if (monthVoteWasRegister == Months.MARCH.getValue() && yearVoteWasRegister == year) {
         int month = Months.MARCH.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
 
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.APRIL.getValue() && yearVoteWasRegister == year) {
         int month = Months.APRIL.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.MAY.getValue() && yearVoteWasRegister == year) {
         int month = Months.MAY.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
 
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.JUNE.getValue() && yearVoteWasRegister == year) {
         int month = Months.JUNE.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
 
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.JULY.getValue() && yearVoteWasRegister == year) {
         int month = Months.JULY.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.AUGUST.getValue() && yearVoteWasRegister == year) {
         int month = Months.AUGUST.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.SEPTEMBER.getValue() && yearVoteWasRegister == year) {
         int month = Months.SEPTEMBER.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
-
       if (monthVoteWasRegister == Months.OCTOBER.getValue() && yearVoteWasRegister == year) {
         int month = Months.OCTOBER.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.NOVEMBER.getValue() && yearVoteWasRegister == year) {
         int month = Months.NOVEMBER.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
       if (monthVoteWasRegister == Months.DECEMBER.getValue() && yearVoteWasRegister == year) {
         int month = Months.DECEMBER.getValue();
-        double totalEmission = statisticsList.get(month).getTotalEmission();
-        int votes = statisticsList.get(month).getTotalPortions();
 
-        votes += allVote.getVotes();
-        totalEmission += co2ePerKiloToPerPortion(allVote.getCategory().getCo2e());
+        int totalVotes = statisticsList.get(month).getTotalVotes();
+        double totalEmisson = statisticsList.get(month).getTotalEmission();
 
-        statisticsList.get(month).setTotalEmission(totalEmission);
-        statisticsList.get(month).setTotalPortions(votes);
+        totalVotes += allVote.getVotes();
+        totalEmisson += (co2ePerKiloToPerPortion(allVote.getCategory().getCo2e()) * allVote.getVotes());
+
+        statisticsList.get(month).setTotalEmission(totalEmisson);
+        statisticsList.get(month).setTotalVotes(totalVotes);
       }
     }
     return statisticsList;

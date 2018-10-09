@@ -52,7 +52,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     CollectionOfVotes collectionOfPorkVotes;
 
     collectionOfFishVotes = new CollectionOfVotes();
-    collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(9));
+    collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(8));
     collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
     collectionOfFishVotes.setVotes(1);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
@@ -64,7 +64,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
     collectionOfMeatVotes = new CollectionOfVotes();
-    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(7));
+    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(9));
     collectionOfMeatVotes.setCategory(foodTypes.get("VEGAN"));
     collectionOfMeatVotes.setVotes(1);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);

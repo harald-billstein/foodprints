@@ -5,8 +5,10 @@ public class EmissionPerMonthPerPortion {
   private int year;
   private int month;
   private double totalEmission;
-  private int totalPortions;
+  private int totalVotes;
+
   private double emissionPerPortion;
+
 
   public int getYear() {
     return year;
@@ -32,21 +34,26 @@ public class EmissionPerMonthPerPortion {
     this.totalEmission = totalEmission;
   }
 
-  public int getTotalPortions() {
-    return totalPortions;
+  public int getTotalVotes() {
+    return totalVotes;
   }
 
-  public void setTotalPortions(int totalPortions) {
-    this.totalPortions = totalPortions;
+  public void setTotalVotes(int totalVotes) {
+    this.totalVotes = totalVotes;
   }
 
   public double getEmissionPerPortion() {
-    emissionPerPortion = totalEmission / totalPortions;
+    emissionPerPortion = totalEmission / totalVotes;
 
-    if (Double.isNaN(totalEmission / totalPortions)) {
+    if (Double.isNaN(emissionPerPortion)) {
       return 0;
     } else {
-      return totalEmission / totalPortions;
+
+      return emissionPerPortion;
     }
+  }
+
+  public void setEmissionPerPortion(double emissionPerPortion) {
+    this.emissionPerPortion = emissionPerPortion;
   }
 }
