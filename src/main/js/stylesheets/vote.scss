@@ -1,8 +1,18 @@
 $headerSize: 5em;
 $headerMargin: 40px;
 
+#headerName {
+    font-size: $headerSize;
+    margin: $headerMargin;
+}
+
+#voteComponent {
+    display:flex;
+}
+
 #voteList {
   list-style: none;
+  position: absolute;
   li {
     margin-bottom: 15px;
       button {
@@ -21,7 +31,12 @@ $headerMargin: 40px;
   }
 }
 
-#headerName {
-    font-size: $headerSize;
-    margin: $headerMargin;
+#response {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 30px;
+}
+
+#responseLogo {
+  position: relative;
 }

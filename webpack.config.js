@@ -30,16 +30,30 @@ module.exports = {
                 ]
           },
           {
+            test: /\.svg$/,
+            use: [
+              {
+                loader: "babel-loader"
+              },
+              {
+                loader: "react-svg-loader",
+                options: {
+                  jsx: true // true outputs JSX tags
+                }
+              }
+            ]
+          },
+          {
+              test: /\.svg$/,
+              loader: 'svg-inline-loader'
+          },
+          {
             test: /\.(gif|svg|jpg|png)$/,
             loader: "file-loader",
           },
           {
             test: /\.css$/,
             loader: "style-loader!css-loader"
-          },
-          {
-            test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
-            loader: 'url-loader?limit=100000',
           },
           {
               test: /\.(woff2?|ttf|otf|eot|svg)$/,

@@ -4,12 +4,30 @@ export default class Vote extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    render() {
+        return(
+            <div className="voteList">
+                <h1 id="headerName"> Unknown. </h1>
+                <FoodItems />
+            </div>
+        )
+    }
+}
+
+class HandleVote extends React.Component {
+    constructor(props) {
+        super(props)
         this.state = {
-            foods: [],
             vote: null,
-            response: null};
-        this.url = "https://localhost:8443/v1/categories/";
+            showResponse: false
+        }
         this.postVoteUrl = "https://localhost:8443/v1/votes/";
+    }
+
+    toggleResponse() {
+        this.setState({showResponse: !this.state.showResponse})
     }
 
     postVote() {
@@ -27,8 +45,36 @@ export default class Vote extends React.Component {
             .then(response => {
                 response.json();
                 console.log(response);})
+            .then(this.toggleResponse.bind(this))
             .catch(err => console.log(err));
         }
+    }
+
+    render() {
+        console.log(this.props.food);
+        return(
+            <div id="voteComponent">
+                    <li id="li"><button id="button" onClick={() => { this.setState({vote: this.props.food}, () => this.postVote())}}>
+                        {this.props.food}.
+                    </button></li>&nbsp;
+                    { this.state.showResponse ?
+                        <Popup
+                            stopResponse = {this.toggleResponse.bind(this)}
+                        />
+                        : null
+                    }
+            </div>
+        )
+    }
+}
+
+class FoodItems extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            foods: []
+        }
+        this.url = "https://localhost:8443/v1/categories/";
     }
 
     componentDidMount() {
@@ -40,14 +86,30 @@ export default class Vote extends React.Component {
     }
 
     render() {
-        return (
+        let items = this.state.foods.map(item => (<HandleVote food={item} />))
+        return(
             <div className="voteList">
-                <h1 id="headerName"> Unknown. </h1>
-                <ul id="voteList">
-                    {this.state.foods.map(food => (
-                    <li id="li"><button id="button" onClick={() => { this.setState({vote: food}, () => this.postVote())}}> {food}. </button></li>))}
-                </ul>
+                <ul id="voteList"> {items} </ul>
             </div>
         )
     }
 }
+
+class Popup extends React.Component {
+
+    closeResponse() {
+        setTimeout(this.props.stopResponse, 3000);
+    }
+
+    render() {
+        return(
+        <div className="response" id="response">
+            <div id="responseLogo">
+                <img src="./if_checkmark-24_103184.svg" />
+                {this.closeResponse()}
+            </div>
+        </div>
+        )
+    }
+}
+
