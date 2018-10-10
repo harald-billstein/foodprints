@@ -44,16 +44,13 @@ class HandleVote extends React.Component {
                     vote: this.state.vote
                 })
             })
-            .then(response => {
-                response.json();
-                console.log(response);})
+            .then(response => response.json())
             .then(this.toggleResponse.bind(this))
             .catch(err => console.log(err));
         }
     }
 
     render() {
-        console.log(this.props.food);
         return(
             <div id="voteComponent">
                     <li id="li"><button id="button" onClick={() => { this.setState({vote: this.props.food}, () => this.postVote())}}>
@@ -88,7 +85,7 @@ class FoodItems extends React.Component {
     }
 
     render() {
-        let items = this.state.foods.map(item => (<HandleVote food={item} />))
+        let items = this.state.foods.map(item => (<HandleVote key={item} food={item} />))
         return(
             <div className="voteList">
                 <ul id="voteList"> {items} </ul>
