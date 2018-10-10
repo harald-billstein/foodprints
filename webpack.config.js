@@ -7,8 +7,9 @@ module.exports = {
     devtool: 'sourcemaps',
     cache: true,
     output: {
-        path: __dirname,
-        filename: './src/main/resources/static/built/bundle.js'
+        path: path.resolve(__dirname, 'src/main/resources/static/built'),
+        publicPath: '/built/',
+        filename: 'bundle.js'
     },
       module: {
         loaders: [
@@ -30,26 +31,9 @@ module.exports = {
                 ]
           },
           {
-            test: /\.svg$/,
-            use: [
-              {
-                loader: "babel-loader"
-              },
-              {
-                loader: "react-svg-loader",
-                options: {
-                  jsx: true // true outputs JSX tags
-                }
-              }
-            ]
-          },
-          {
-              test: /\.svg$/,
-              loader: 'svg-inline-loader'
-          },
-          {
             test: /\.(gif|svg|jpg|png)$/,
             loader: "file-loader",
+
           },
           {
             test: /\.css$/,
@@ -58,6 +42,7 @@ module.exports = {
           {
               test: /\.(woff2?|ttf|otf|eot|svg)$/,
               exclude: /node_modules/,
+              include: /fonts/,
               loader: 'file-loader',
               options: {
                   name: '[path][name].[ext]',

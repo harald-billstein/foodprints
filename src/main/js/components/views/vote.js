@@ -1,4 +1,6 @@
 import React from 'react';
+import SVG from 'react-inlinesvg';
+import CheckMarkLogo from './verify-sign2.svg';
 
 export default class Vote extends React.Component {
 
@@ -105,7 +107,7 @@ class Popup extends React.Component {
         return(
         <div className="response" id="response">
             <div id="responseLogo">
-                <img src="./if_checkmark-24_103184.svg" />
+                <SVG src={CheckMarkLogo} />
                 {this.closeResponse()}
             </div>
         </div>
