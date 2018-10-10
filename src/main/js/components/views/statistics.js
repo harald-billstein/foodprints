@@ -297,7 +297,7 @@ class StatsInfo extends React.Component {
               <div id="totalCo2">
                 <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
                 <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
-                <p id="coTotalUnderTitle"> carbon footprint </p>
+                <p id="coTotalUnderTitle"> carbon footprint. </p>
               </div>
               <div id="categoryCo2">
                 {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
