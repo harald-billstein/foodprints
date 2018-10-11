@@ -134,7 +134,7 @@ class StatsTable extends React.Component {
                 'Nov',
                 'Dec',
             ]
-          }
+          },colors: ['#ffffff']
         },
         series: [{
           name: 'CO2e/kg per portion',
