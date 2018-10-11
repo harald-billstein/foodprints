@@ -187,8 +187,7 @@ class StatsTable extends React.Component {
     return (
         <div className="statsTable">
           <div id="statsTable">
-              <Chart options={chart.options} series={chart.series} type="bar"
-                     width="90%" height={320}/>
+              <Chart class="chart"  options={chart.options} series={chart.series} type="bar" height={300}/>
           </div>
         </div>
     )
