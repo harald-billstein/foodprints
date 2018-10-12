@@ -201,22 +201,18 @@ class StatsPercent extends React.Component {
             day: moment().date(),
             thisMonth: [],
             lastMonth: [],
-            difference: 0,
+            difference: 1,
             logo: GreenIcon
         }
         this.statsUrl = "https://localhost:8443/v1/emission/statistics";
     }
 
     calculateDiff() {
-        this.setState({difference: (this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/((this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions)*(daysThisMonth/daysLastMonth))})
+        if (this.state.thisMonth.totalCo2e !== 0 && this.state.lastMonth.totalCo2e !== 0) {
+           this.setState({difference: (this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/(this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions)})
+        }
 
-        console.log("this co2:", this.state.thisMonth.totalCo2e);
-        console.log("this port:", this.state.thisMonth.totalPortions);
-        console.log("last co2:", this.state.lastMonth.totalCo2e);
-        console.log("last total:",this.state.lastMonth.totalPortions);
-
-        console.log((this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/(this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions));
-        if (this.state.difference >= 1) {
+        if (this.state.difference > 1) {
             this.setState({
                     logo: RedIcon,
                     difference: (this.state.difference - 1)*100})
@@ -224,12 +220,16 @@ class StatsPercent extends React.Component {
             this.setState({
                     logo: GreenIcon,
                     difference: (1 - this.state.difference)*100})
+        } if (this.state.difference === 1) {
+            this.setState({
+                    logo: GreenIcon,
+                    difference: 0})
         }
     }
 
     componentDidMount() {
         let thisMonthFrom = '2018-10-01';
-        let thisMonthTo = '2018-10-11';
+        let thisMonthTo = '2018-10-12';
 
         let thisMonth = fetch(this.statsUrl+ '/?from=' + thisMonthFrom +'&to=' + thisMonthTo)
             .then(response => response.json());
@@ -249,7 +249,6 @@ class StatsPercent extends React.Component {
     }
 
     render() {
-        console.log(this.state.difference)
         return(
             <div className="statPercent">
                 <p id="statPercent"> <SVG src={this.state.logo} /> {Math.round(this.state.difference * 10)/10} % from last month </p>
