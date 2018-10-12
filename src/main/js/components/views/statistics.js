@@ -85,6 +85,9 @@ class StatsTable extends React.Component {
       categories: [],
       chart: {
         options: {
+          tooltip: {
+            enabled: false,
+          },
           chart: {
             stacked: false,
             id: "cO2 Emission",
@@ -97,9 +100,6 @@ class StatsTable extends React.Component {
           },
           dataLabels: {
             enabled: true,
-            formatter: function (val) {
-              return val
-            },
             textAnchor: 'middle',
             offsetX: 0,
             offsetY: 0,
@@ -107,21 +107,13 @@ class StatsTable extends React.Component {
               fontSize: '10px',
               colors: undefined
             },
-            dropShadow: {
-              enabled: false,
-              top: 1,
-              left: 1,
-              blur: 1,
-              opacity: 0.45
-            }
           },
           fill: {
-            colors: ['#000000', '#222222', '#444444', '#666666', '#888888',
-              '#999999']
+            colors: ['#000000']
           },
           xaxis: {
             categories: [
-                'Jan',
+                'CO2e/kg portion',
                 'Feb',
                 'Mar',
                 'Apr',
@@ -140,7 +132,7 @@ class StatsTable extends React.Component {
           name: 'CO2e/kg per portion',
           id: 'emission',
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        }]
+        }],
       }
     };
     this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=2018-01-01&to=2019-01-01";
@@ -187,7 +179,7 @@ class StatsTable extends React.Component {
     return (
         <div className="statsTable">
           <div id="statsTable">
-              <Chart class="chart"  options={chart.options} series={chart.series} type="bar" height={300}/>
+              <Chart options={chart.options} series={chart.series} type="bar" height={300}/>
           </div>
         </div>
     )
