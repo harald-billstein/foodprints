@@ -72,9 +72,8 @@ public class StatisticsController {
   
   private void validateDates(LocalDate from, LocalDate to) {
     long daysInPeriod = from.until(to, ChronoUnit.DAYS);
-    if (daysInPeriod <= 0) {
+    if (daysInPeriod < 0) {
       throw new IllegalArgumentException("Date to has to be later than date from.");
-
     }
   }
 

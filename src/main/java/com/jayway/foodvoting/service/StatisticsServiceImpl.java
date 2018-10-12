@@ -51,10 +51,12 @@ public class StatisticsServiceImpl implements StatisticsService {
             portions = 0;
 
         List<CategoryStatistics> catstat = voteingRepository.findCategoryStatisticsBetween(from, to);
-        for (CategoryStatistics stat: catstat)
-            stat.setPortionsPercent( (double)stat.getNumPortions() / (double)portions);
+        for (CategoryStatistics stat: catstat) {
+            stat.setPortionsPercent((double) stat.getNumPortions() / (double) portions);
+        }
 
         catstat =  sortResultSoFrontendLikesIt(catstat);
+        catstat = transformCo2StatsFromKgToPortion(catstat);
 
         double totalCo2e = sumCo2e(catstat);
 
@@ -67,6 +69,14 @@ public class StatisticsServiceImpl implements StatisticsService {
         return stat;
     }
 
+    private List<CategoryStatistics> transformCo2StatsFromKgToPortion(List<CategoryStatistics> catstat) {
+
+        for (CategoryStatistics categoryStatistics : catstat) {
+            double perPortion = (categoryStatistics.getCo2e() / 8);
+            categoryStatistics.setCo2e(perPortion);
+        }
+        return catstat;
+    }
 
     private double sumCo2e(List<CategoryStatistics> catstat){
         double totalCo2e = 0D;
