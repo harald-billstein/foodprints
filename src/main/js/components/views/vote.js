@@ -11,7 +11,7 @@ export default class Vote extends React.Component {
     render() {
         return(
             <div className="voteList">
-                <h1 id="headerName"> FoodPrint. </h1>
+                <h1 id="headerName"> foodprint. </h1>
                 <FoodItems />
             </div>
         )
