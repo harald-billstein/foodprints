@@ -73,7 +73,12 @@ $gridMargin: 10px;
 }
 
 #statPercent {
-    display: flex;
+}
+
+#statPercentText {
+    font-size: 14px;
+    margin-top: -15px;
+    color: lightgray;
 }
 
 #statCaretIcon {
@@ -84,7 +89,7 @@ $gridMargin: 10px;
 
 #statsTable {
     position: relative;
-    margin-top: 50px;
+    margin-top: 10px;
     margin-left: $margin;
     margin-right: $margin;
 }
