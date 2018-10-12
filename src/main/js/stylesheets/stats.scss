@@ -59,9 +59,28 @@ $gridMargin: 10px;
   }
 }
 
+#statsTableInfo {
+    font-size: 1em;
+    font-weight: bold;
+    display: flex;
+    position: absolute;
+    right: 0px;
+    margin: $margin;
+}
+
+#statPercent {
+    display: flex;
+}
+
+#statCaretIcon {
+    position: relative;
+    top: 2px;
+    right: 2px;
+}
+
 #statsTable {
-    margin-top: 0px;
-    margin-bottom: 0px;
+    position: relative;
+    margin-top: 50px;
     margin-left: $margin;
     margin-right: $margin;
 }

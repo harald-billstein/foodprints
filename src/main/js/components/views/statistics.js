@@ -2,7 +2,10 @@ import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faStarHalf} from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
-import Chart from 'react-apexcharts'
+import Chart from 'react-apexcharts';
+import GreenIcon from './icons/caret-symbol-green.svg';
+import RedIcon from './icons/caret-symbol-red.svg';
+import SVG from 'react-inlinesvg';
 
 export default class Statistics extends React.Component {
 
@@ -10,8 +13,8 @@ export default class Statistics extends React.Component {
     return (
         <div>
           <Header/>
-          <StatsTable/>
-          <StatsInfo/>
+          <StatsTable />
+          <StatsInfo />
         </div>
     )
   }
@@ -178,12 +181,84 @@ class StatsTable extends React.Component {
     const {chart = {}} = this.state;
     return (
         <div className="statsTable">
+          <div id="statsTableInfo">
+            <StatsPercent />
+          </div>
           <div id="statsTable">
               <Chart options={chart.options} series={chart.series} type="bar" height={300}/>
           </div>
         </div>
     )
   }
+}
+
+class StatsPercent extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            month: moment().month(),
+            day: moment().date(),
+            thisMonth: [],
+            lastMonth: [],
+            difference: 0,
+            logo: GreenIcon
+        }
+        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
+    }
+
+    calculateDiff() {
+        let daysThisMonth = 11;
+        let daysLastMonth = 30;
+        this.setState({difference: (this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/((this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions)*(daysThisMonth/daysLastMonth))})
+
+        console.log("this co2:", this.state.thisMonth.totalCo2e);
+        console.log("this port:", this.state.thisMonth.totalPortions);
+        console.log("last co2:", this.state.lastMonth.totalCo2e);
+        console.log("last total:",this.state.lastMonth.totalPortions);
+
+        console.log((this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/(this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions));
+        if (this.state.difference >= 1) {
+            this.setState({
+                    logo: RedIcon,
+                    difference: (this.state.difference - 1)*100})
+        } if (this.state.difference < 1) {
+            this.setState({
+                    logo: GreenIcon,
+                    difference: (1 - this.state.difference)*100})
+        }
+    }
+
+    componentDidMount() {
+        let thisMonthFrom = '2018-10-01';
+        let thisMonthTo = '2018-10-11';
+
+        let thisMonth = fetch(this.statsUrl+ '/?from=' + thisMonthFrom +'&to=' + thisMonthTo)
+            .then(response => response.json());
+
+        let lastMonthFrom = '2018-09-01';
+        let lastMonthTo = '2018-09-30';
+
+        let lastMonth = fetch(this.statsUrl+ '/?from=' + lastMonthFrom +'&to=' + lastMonthTo)
+            .then(response => response.json());
+
+        Promise.all([thisMonth, lastMonth])
+            .then(response =>
+                this.setState({
+                    thisMonth: response[0],
+                    lastMonth: response[1]}))
+            .then(() => this.calculateDiff());
+    }
+
+    render() {
+        console.log(this.state.difference)
+        return(
+            <div className="statPercent">
+                <p id="statPercent"> <SVG src={this.state.logo} /> {Math.round(this.state.difference * 10)/10} % from last month </p>
+            </div>
+        )
+    }
+
 }
 
 const TimeInterval = {
