@@ -62,7 +62,7 @@ class Header extends React.Component {
     return (
         <div className="header">
           <div id="row">
-            <div><h1 id="headerName"> FoodPrint. </h1></div>
+            <div><h1 id="headerName"> foodprint. </h1></div>
             <div id="headerRestSuggestion">
               <ul id="restList">
 
@@ -116,18 +116,18 @@ class StatsTable extends React.Component {
           },
           xaxis: {
             categories: [
-                'CO2e/kg portion',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Okt',
-                'Nov',
-                'Dec',
+                'jan',
+                'feb',
+                'mar',
+                'apr',
+                'may',
+                'jun',
+                'jul',
+                'aug',
+                'sep',
+                'oct',
+                'nov',
+                'dec',
             ]
           },colors: ['#ffffff']
         },
@@ -186,6 +186,9 @@ class StatsTable extends React.Component {
           </div>
           <div id="statsTable">
               <Chart options={chart.options} series={chart.series} type="bar" height={300}/>
+          </div>
+          <div id="chartText">
+              <p> Co<sub>2</sub>e kg per portion. </p>
           </div>
         </div>
     )
@@ -366,7 +369,7 @@ class StatsInfo extends React.Component {
                 {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
                   <div key={item.category} id="categoryTitle">
                     <p id="categoryPortions"> {item.numPortions} portions. </p>
-                    <p id="categoryTitle"> {Math.floor(item.co2e)} kg. </p>
+                    <p id="categoryTitle"> {Math.floor(item.co2e+0.5)} kg. </p>
                     <p id="categoryUnderTitle"> {item.category}. </p>
                   </div>
                 ))}
