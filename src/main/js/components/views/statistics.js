@@ -62,7 +62,7 @@ class Header extends React.Component {
     return (
         <div className="header">
           <div id="row">
-            <div><h1 id="headerName"> Unknown. </h1></div>
+            <div><h1 id="headerName"> FoodPrint. </h1></div>
             <div id="headerRestSuggestion">
               <ul id="restList">
 
@@ -208,8 +208,6 @@ class StatsPercent extends React.Component {
     }
 
     calculateDiff() {
-        let daysThisMonth = 11;
-        let daysLastMonth = 30;
         this.setState({difference: (this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/((this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions)*(daysThisMonth/daysLastMonth))})
 
         console.log("this co2:", this.state.thisMonth.totalCo2e);
@@ -296,7 +294,7 @@ class StatsInfo extends React.Component {
                                     week: "lightgray",
                                     month: "lightgray"
                                     }})
-                from = moment().subtract(1, 'days').format('YYYY-MM-DD')
+                from = moment().subtract(1, 'days').format('YYYY-MM-DD');
                 break;
             case 2:
                 this.setState({buttonColor: {

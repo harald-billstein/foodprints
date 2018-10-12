@@ -1,6 +1,6 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
-import CheckMarkLogo from './verify-sign2.svg';
+import CheckMarkLogo from './icons/verify-sign2.svg';
 
 export default class Vote extends React.Component {
 
@@ -11,7 +11,7 @@ export default class Vote extends React.Component {
     render() {
         return(
             <div className="voteList">
-                <h1 id="headerName"> Unknown. </h1>
+                <h1 id="headerName"> FoodPrint. </h1>
                 <FoodItems />
             </div>
         )
@@ -97,7 +97,7 @@ class FoodItems extends React.Component {
 class Popup extends React.Component {
 
     closeResponse() {
-        setTimeout(this.props.stopResponse, 3000);
+        setTimeout(this.props.stopResponse, 700);
     }
 
     render() {
