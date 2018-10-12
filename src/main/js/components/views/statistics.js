@@ -66,9 +66,9 @@ class Header extends React.Component {
             <div id="headerRestSuggestion">
               <ul id="restList">
 
-                <li id="liRest"> Featured Restaurant:</li>
-                <li> {this.state.restSuggestion.name} </li>
-                <li> {this.state.restSuggestion.address} </li>
+                <li id="liRestHeader"> featured restaurant </li>
+                <li id="liRest"> {this.state.restSuggestion.name} </li>
+                <li id="liRest"> {this.state.restSuggestion.address} </li>
                 <li> {Header.getStars(this.state.restSuggestion.grade)}</li>
 
               </ul>
@@ -185,7 +185,7 @@ class StatsTable extends React.Component {
             <StatsPercent />
           </div>
           <div id="statsTable">
-              <Chart options={chart.options} series={chart.series} type="bar" height={300}/>
+              <Chart options={chart.options} series={chart.series} type="bar" width="100%" height={300}/>
           </div>
           <div id="chartText">
               <p> Co<sub>2</sub>e kg per portion. </p>
@@ -202,11 +202,14 @@ class StatsPercent extends React.Component {
         this.state = {
             month: moment().month(),
             day: moment().date(),
-            thisMonth: [],
-            lastMonth: [],
+            thisMonthFrom: moment().startOf('month').format('YYYY-MM-DD'),
+            thisMonthTo: moment().format('YYYY-MM-DD'),
+            lastMonthFrom: moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
+            lastMonthTo: moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD'),
             difference: 1,
             logo: GreenIcon
         }
+        this.timer = null;
         this.statsUrl = "https://localhost:8443/v1/emission/statistics";
     }
 
@@ -230,17 +233,11 @@ class StatsPercent extends React.Component {
         }
     }
 
-    componentDidMount() {
-        let thisMonthFrom = '2018-10-01';
-        let thisMonthTo = '2018-10-12';
-
-        let thisMonth = fetch(this.statsUrl+ '/?from=' + thisMonthFrom +'&to=' + thisMonthTo)
+    fetchStats() {
+        let thisMonth = fetch(this.statsUrl+ '/?from=' + this.state.thisMonthFrom +'&to=' + this.state.thisMonthTo)
             .then(response => response.json());
 
-        let lastMonthFrom = '2018-09-01';
-        let lastMonthTo = '2018-09-30';
-
-        let lastMonth = fetch(this.statsUrl+ '/?from=' + lastMonthFrom +'&to=' + lastMonthTo)
+        let lastMonth = fetch(this.statsUrl+ '/?from=' + this.state.lastMonthFrom +'&to=' + this.state.lastMonthTo)
             .then(response => response.json());
 
         Promise.all([thisMonth, lastMonth])
@@ -249,6 +246,10 @@ class StatsPercent extends React.Component {
                     thisMonth: response[0],
                     lastMonth: response[1]}))
             .then(() => this.calculateDiff());
+    }
+
+    componentDidMount() {
+        this.timer = setInterval(() => this.fetchStats(), 10000);
     }
 
     render() {
@@ -275,56 +276,27 @@ class StatsInfo extends React.Component {
         this.state = {
             stats: [],
             timeInterval: TimeInterval.All,
-            today: moment().format('YYYY-MM-DD'),
-            buttonColor: {
-                all: "black",
-                day: "lightgray",
-                week: "lightgray",
-                month: "lightgray"
-            }
+            today: moment().format('YYYY-MM-DD')
         }
+        this.timer = null;
         this.statsUrl = "https://localhost:8443/v1/emission/statistics";
     }
 
-    fetchStats() {
+    fetchStats(timeInterval) {
         let from;
-        switch (this.state.timeInterval) {
+        switch (timeInterval) {
             case 1:
-                this.setState({buttonColor: {
-                                    all: "lightgray",
-                                    day: "black",
-                                    week: "lightgray",
-                                    month: "lightgray"
-                                    }})
-                from = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                from = this.state.today;
                 break;
             case 2:
-                this.setState({buttonColor: {
-                                    all: "lightgray",
-                                    day: "lightgray",
-                                    week: "black",
-                                    month: "lightgray"
-                                    }})
-                from = moment().subtract(7, 'days').format('YYYY-MM-DD')
+                from = moment().startOf('week').format('YYYY-MM-DD');
                 break;
             case 3:
-                this.setState({buttonColor: {
-                                    all: "lightgray",
-                                    day: "lightgray",
-                                    week: "lightgray",
-                                    month: "black"
-                                    }})
-                from = moment().subtract(1, 'month').format('YYYY-MM-DD')
+                from = moment().startOf('month').format('YYYY-MM-DD');
                 break;
             case 0:
             default:
-                this.setState({buttonColor: {
-                                    all: "black",
-                                    day: "lightgray",
-                                    week: "lightgray",
-                                    month: "lightgray"
-                                    }})
-                from = '2018-01-01';
+                from = moment().startOf('year').format('YYYY-MM-DD');
                 break;
         }
 
@@ -332,30 +304,36 @@ class StatsInfo extends React.Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                this.setState({stats: data})})
+                this.setState({
+                        stats: data,
+                        timeInterval})})
             .catch(err => console.log(err));
     }
 
     componentDidMount() {
-        this.fetchStats();
+        this.fetchStats(TimeInterval.All);
+
+        this.timer = setInterval(() => this.fetchStats((this.state.timeInterval + 1) % 4), 7000);
     }
 
     render() {
+        const {timeInterval} = this.state;
+        console.log()
         return(
           <div className="statOptions">
             <div>
               <ul id="statOptions">
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.All}, () => { this.fetchStats() })}}>
-                    <button id="button" style={{color: this.state.buttonColor.all}}> all </button>
+                <li id="li" onClick={() => this.fetchStats(TimeInterval.All) }>
+                    <button id="button" style={{color: timeInterval === TimeInterval.All ? "black" : "lightgray"}}> all </button>
                 </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Day}, () => { this.fetchStats() })}}>
-                    <button id="button" style={{color: this.state.buttonColor.day}}> day </button>
+                <li id="li" onClick={() => this.fetchStats(TimeInterval.Day) }>
+                    <button id="button" style={{color: timeInterval === TimeInterval.Day ? "black" : "lightgray"}}> day </button>
                 </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Week}, () => { this.fetchStats() })}}>
-                    <button id="button" style={{color: this.state.buttonColor.week}}> week </button>
+                <li id="li" onClick={() => this.fetchStats(TimeInterval.Week) }>
+                    <button id="button" style={{color: timeInterval === TimeInterval.Week ? "black" : "lightgray"}}> week </button>
                 </li>
-                <li id="li" onClick={() => { this.setState({timeInterval: TimeInterval.Month}, () => { this.fetchStats() })}}>
-                    <button id="button" style={{color: this.state.buttonColor.month}}> month </button>
+                <li id="li" onClick={() => this.fetchStats(TimeInterval.Month) }>
+                    <button id="button" style={{color: timeInterval === TimeInterval.Month ? "black" : "lightgray"}}> month </button>
                 </li>
               </ul>
             </div>
