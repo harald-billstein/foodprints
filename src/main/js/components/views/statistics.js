@@ -82,6 +82,7 @@ class Header extends React.Component {
 class StatsTable extends React.Component {
   constructor() {
     super();
+    this.timer = null;
 
     this.state = {
       goal: {},
@@ -105,9 +106,9 @@ class StatsTable extends React.Component {
             enabled: true,
             textAnchor: 'middle',
             offsetX: 0,
-            offsetY: 0,
+            offsetY: 2,
             style: {
-              fontSize: '10px',
+              fontSize: '8px',
               colors: undefined
             },
           },
@@ -129,7 +130,7 @@ class StatsTable extends React.Component {
                 'nov',
                 'dec',
             ]
-          },colors: ['#ffffff']
+          },colors: ['#D3D3D3']
         },
         series: [{
           name: 'CO2e/kg per portion',
@@ -159,7 +160,7 @@ class StatsTable extends React.Component {
       });
   }
 
-  componentDidMount() {
+  fetchGrafData(){
     fetch(this.actualUrl)
     .then(response => response.json())
     .then(data => {
@@ -167,14 +168,18 @@ class StatsTable extends React.Component {
       this.updateChart(data)
     })
     .catch(err => console.log(err));
+  }
 
-    fetch(this.statsGoalUrl)
-    .then(response => response.json())
-    .then(data => {
-      console.log('goal: ' + data);
-      this.setState({goal: data})
-    })
-    .catch(err => console.log(err));
+  componentDidMount() {
+    this.fetchGrafData();
+    this.timer = setInterval(() => this.fetchGrafData(), 10000);
+    //fetch(this.statsGoalUrl)
+    //.then(response => response.json())
+    //.then(data => {
+    //  console.log('goal: ' + data);
+    //  this.setState({goal: data})
+    //})
+    //.catch(err => console.log(err));
   }
 
   render() {
@@ -184,6 +189,7 @@ class StatsTable extends React.Component {
           <div id="statsTableInfo">
             <StatsPercent />
           </div>
+
           <div id="statsTable">
               <Chart options={chart.options} series={chart.series} type="bar" width="100%" height={300}/>
           </div>
