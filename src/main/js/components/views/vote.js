@@ -53,7 +53,7 @@ class HandleVote extends React.Component {
     render() {
         return(
             <div id="voteComponent">
-                    <li id="li"><button id="button" onClick={() => { this.setState({vote: this.props.food}, () => this.postVote())}}>
+                    <li id="li"><button id="button" onClick={() => { this.setState({vote: this.props.food}, () => this.postVote())}} disabled={this.state.showResponse}>
                         {this.props.food}.
                     </button></li>&nbsp;
                     { this.state.showResponse ?

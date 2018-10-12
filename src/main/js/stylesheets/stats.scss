@@ -30,8 +30,12 @@ $gridMargin: 10px;
   font-weight: bold;
 }
 
+#liRestHeader {
+    color: lightgray;
+}
+
 #liRest {
-  font-style: italic;
+    text-transform: lowercase;
 }
 
 #statOptions {
