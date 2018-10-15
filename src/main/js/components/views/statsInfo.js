@@ -22,6 +22,10 @@ export default class StatsInfo extends React.Component {
 
     fetchStats(timeInterval) {
         let from;
+        if (this.state.today !== moment().format('YYYY-MM-DD')) {
+            this.setState({today: moment().format('YYYY-MM-DD')})
+        }
+
         switch (timeInterval) {
             case 1:
                 from = this.state.today;

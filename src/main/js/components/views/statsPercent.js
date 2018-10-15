@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import GreenIcon from './icons/caret-symbol-green.svg';
-import RedIcon from './icons/caret-symbol-red.svg';
+import GreenIcon from './icons/caret-symbol.svg';
+import RedIcon from './icons/caret-symbol2.svg';
 import SVG from 'react-inlinesvg';
 
 export default class StatsPercent extends React.Component {
@@ -15,7 +15,7 @@ export default class StatsPercent extends React.Component {
             thisMonthTo: moment().format('YYYY-MM-DD'),
             lastMonthFrom: moment().subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
             lastMonthTo: moment().subtract(1, 'month').endOf('month').format('YYYY-MM-DD'),
-            difference: 1,
+            difference: 0,
             icon: GreenIcon
         }
         this.timer = null;
@@ -25,7 +25,6 @@ export default class StatsPercent extends React.Component {
     calculateDiff() {
         let diff;
         if (this.state.thisMonth.totalCo2e !== 0 && this.state.lastMonth.totalCo2e !== 0) {
-           console.log("här")
            diff = (this.state.thisMonth.totalCo2e/this.state.thisMonth.totalPortions)/(this.state.lastMonth.totalCo2e/this.state.lastMonth.totalPortions);
         } else {
            diff = 1;
@@ -68,8 +67,15 @@ export default class StatsPercent extends React.Component {
     render() {
         return(
             <div className="statPercent">
-                <p id="statPercent"> <SVG src={this.state.icon} /> {Math.round(this.state.difference * 10)/10} %</p>
-                <p id="statPercentText"> Co<sub>2</sub>e kg per portion. </p>
+                <div id ="statPercent">
+                    <div id ="caretLogo">
+                        <SVG src={this.state.icon} />
+                    </div>
+                    <div id="statPercentText">
+                        <p> {Math.round(this.state.difference * 10)/10} % from last month. </p>
+                    </div>
+                </div>
+                <p id="statPercentUnit"> Co<sub>2</sub>e kg per portion. </p>
             </div>
         )
     }

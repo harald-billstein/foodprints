@@ -31,11 +31,12 @@ $gridMargin: 10px;
 }
 
 #liRestHeader {
-    color: lightgray;
+    //color: lightgray;
 }
 
 #liRest {
     text-transform: lowercase;
+    font-style: italic;
 }
 
 #statOptions {
@@ -63,35 +64,46 @@ $gridMargin: 10px;
   }
 }
 
+#statsTable {
+    //position: relative;
+    margin-top: 10px;
+    margin-left: $margin;
+    margin-right: $margin;
+}
+
 #statsTableInfo {
     font-size: 1em;
-    font-weight: bold;
-    display: flex;
     position: absolute;
     right: 0px;
-    margin: $margin;
+    margin-right: 50px;
+    margin-top: 20px;
 }
 
 #statPercent {
+    display: flex;
+}
+
+#caretLogo {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
 }
 
 #statPercentText {
+    font-weight: bold;
+}
+
+#statPercentUnit {
     font-size: 14px;
     margin-top: -15px;
     color: lightgray;
+    text-align: right;
 }
 
 #statCaretIcon {
     position: relative;
     top: 2px;
     right: 2px;
-}
-
-#statsTable {
-    position: relative;
-    margin-top: 10px;
-    margin-left: $margin;
-    margin-right: $margin;
 }
 
 #chartText {

@@ -109,11 +109,11 @@ export default class StatsTable extends React.Component {
   render() {
     const {chart = {}} = this.state;
     return (
-        <div className="statsTable">
+        <div className="statsTable" id="statsTable">
           <div id="statsTableInfo">
             <StatsPercent />
           </div>
-          <div id="statsTable">
+          <div>
               <Chart options={chart.options} series={chart.series} type="bar" width="100%" height={300}/>
           </div>
           <div id="chartText">
