@@ -51,7 +51,7 @@ export default class StatsHeader extends React.Component {
             </div>
             <div id="headerRestSuggestion">
               <ul id="restList">
-                <li id="liRestHeader"> featured restaurant </li>
+                <li id="liRestHeader"> featured restaurant. </li>
                 <li id="liRest"> {this.state.restSuggestion.name}. </li>
                 <li id="liRest"> {this.state.restSuggestion.address}. </li>
                 <li> {StatsHeader.getStars(this.state.restSuggestion.grade)}</li>

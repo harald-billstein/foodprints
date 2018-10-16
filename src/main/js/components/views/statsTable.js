@@ -116,9 +116,6 @@ export default class StatsTable extends React.Component {
           <div>
               <Chart options={chart.options} series={chart.series} type="bar" width="100%" height={300}/>
           </div>
-          <div id="chartText">
-              <p> Co<sub>2</sub>e kg per portion. </p>
-          </div>
         </div>
     )
   }
