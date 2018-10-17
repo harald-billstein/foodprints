@@ -1,4 +1,4 @@
-$headerSize: 5em;
+$headerSize: 7em;
 $margin: 40px;
 $topMargin: 100px;
 $categoryMargin: 20px;
@@ -20,10 +20,10 @@ $gridMargin: 10px;
 }
 
 #jayway {
-    margin-left: 280px;
+    margin-left: 377px;
     margin-top: -60px;
     font-weight: lighter;
-    font-size: 20px;
+    font-size: 28px;
 }
 
 #headerRestSuggestion {
@@ -38,12 +38,13 @@ $gridMargin: 10px;
 }
 
 #liRestHeader {
-    //color: lightgray;
+    font-weight: lighter;
 }
 
 #liRest {
     text-transform: lowercase;
     font-style: italic;
+    font-weight: lighter;
 }
 
 #statOptions {
@@ -97,7 +98,6 @@ $gridMargin: 10px;
 }
 
 #statPercentText {
-    font-weight: bold;
 }
 
 #statPercentUnit {
