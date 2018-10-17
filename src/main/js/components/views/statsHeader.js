@@ -1,7 +1,6 @@
 import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar, faStarHalf} from "@fortawesome/free-solid-svg-icons";
-import SaladIcon from './icons/salad.svg';
 import SVG from 'react-inlinesvg';
 
 export default class StatsHeader extends React.Component {
