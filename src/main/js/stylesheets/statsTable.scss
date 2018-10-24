@@ -1,0 +1,44 @@
+$minWidth: 799px;
+
+// statsTable
+
+#table {
+    @media screen and (min-width: $minWidth) {
+        height: 40vh;
+    }
+}
+
+#tableInfo {
+    font-size: 1em;
+    float: right;
+    @media screen and (max-width: $minWidth) {
+        font-size: 0.8em;
+    }
+}
+
+#tableChart {
+    //height: 30%;
+}
+
+#tablePercent {
+    display: flex;
+}
+
+#tablePercentUnit {
+    font-size: 0.8em;
+    margin-top: -15px;
+    color: lightgray;
+    text-align: right;
+}
+
+#statCaretIcon {
+    position: relative;
+    top: 2px;
+    right: 2px;
+}
+
+#tableCaretLogo {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 5px;
+}
