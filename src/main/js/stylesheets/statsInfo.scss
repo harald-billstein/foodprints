@@ -1,0 +1,140 @@
+$gridMargin: 10%;
+$categoryMargin: 20%;
+$minWidth: 799px;
+
+// statsInfo
+
+#info {
+    @media screen and (min-width: $minWidth) {
+        height: 30vh;
+        margin-top: 2.5vh;
+    }
+    @media screen and (max-width: $minWidth) {
+        margin-top: 20%;
+        margin-bottom: 10%;
+    }
+}
+
+#infoOptionLabels {
+}
+
+#infoOptions {
+    display: flex;
+    list-style: none;
+    text-transform: lowercase;
+    font-size: 1.5em;
+    @media screen and (min-width: $minWidth) {
+        float: right;
+    }
+    @media screen and (max-width: $minWidth) {
+        font-size: 1em;
+        justify-content: center;
+        padding: 0px;
+    }
+}
+
+#li {
+    button {
+        background: white;
+        text-transform: lowercase;
+        font-weight: bold;
+        border: white;
+        font-size: 1em;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+#infoCo2Stats {
+   font-weight: bold;
+   width: 100%;
+   @media screen and (min-width: $minWidth) {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+   }
+}
+
+#infoCategoryCo2 {
+    display: grid;
+    @media screen and (max-width: $minWidth) {
+        grid-template-columns: 20vw 20vw 20vw;
+        margin-top: 10%;
+        margin-left: 10vw;
+    }
+    @media screen and (min-width: $minWidth) {
+        grid-template-columns: 16vw 16vw 16vw;
+    }
+    @media screen and (min-width: 1300px) {
+        grid-template-columns: 10vw 10vw 10vw;
+    }
+}
+
+#infoCoTotalTitle {
+    font-size: 4.5em;
+    margin: 0px;
+    white-space: nowrap;
+    @media screen and (max-width: $minWidth) {
+        font-size: 3.5em;
+        text-align: center;
+    }
+}
+
+#infoTotalPortions {
+    font-size: 1.5em;
+    margin: 0px;
+    text-align: right;
+    @media screen and (max-width: $minWidth) {
+        margin-right: 10%;
+        font-size: 1em;
+        width: 70vw;
+    }
+}
+
+#infoTotalCo2 {
+    @media screen and (max-width: $minWidth) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+#infoCoTotalUnderTitle {
+    font-size: 2.5em;
+    margin: 0px;
+    white-space: nowrap;
+    @media screen and (max-width: $minWidth) {
+        font-size: 1.5em;
+        text-align: center;
+    }
+}
+
+#infoCategoryTitle {
+    font-size: 1.5em;
+    margin: 0px;
+    margin-left: $categoryMargin;
+    white-space: nowrap;
+    @media screen and (max-width: $minWidth) {
+        font-size: 1em;
+        text-align: left;
+    }
+}
+
+#infoCategoryPortions {
+    margin-top: $gridMargin;
+    font-size: 0.5em;
+    margin: 0px;
+    text-align: right;
+}
+
+#infoCategoryUnderTitle {
+    font-size: 1em;
+    margin: 0px;
+    text-transform: lowercase;
+    margin-bottom: $gridMargin;
+    margin-left: $categoryMargin;
+    @media screen and (max-width: $minWidth) {
+        font-size: 0.8em;
+        text-align: left;
+    }
+}

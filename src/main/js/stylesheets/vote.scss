@@ -1,10 +1,4 @@
-$headerSize: 7em;
-$headerMargin: 40px;
-
-#headerName {
-    font-size: $headerSize;
-    margin: $headerMargin;
-}
+$minWidth: 799px;
 
 #voteComponent {
     display:flex;
@@ -13,6 +7,10 @@ $headerMargin: 40px;
 #voteList {
   list-style: none;
   position: absolute;
+  @media screen and (max-width: $minWidth) {
+      padding: 0%;
+      margin-top: 0%;
+  }
   li {
     margin-bottom: 15px;
       button {
@@ -37,12 +35,5 @@ $headerMargin: 40px;
 
 #responseLogo {
   position: relative;
-}
-
-#jayway {
-    margin-left: 377px;
-    margin-top: -60px;
-    font-weight: lighter;
-    font-size: 28px;
 }
 
