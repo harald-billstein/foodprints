@@ -62,7 +62,7 @@ html {
         height: 20vh;
         margin-bottom: 2.5vh;
     }
-    @media screen and (max-height: $heightBP) {
+    @media screen and (max-height: $heightBP) and (min-width: $minWidth) {
         height: 12vh;
     }
 }
