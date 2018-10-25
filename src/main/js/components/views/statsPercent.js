@@ -66,16 +66,13 @@ export default class StatsPercent extends React.Component {
 
     render() {
         return(
-            <div className="statPercent">
-                <div id ="statPercent">
-                    <div id ="caretLogo">
-                        <SVG src={this.state.icon} />
-                    </div>
-                    <div id="statPercentText">
-                        <p> {Math.round(this.state.difference * 10)/10} % from last month. </p>
-                    </div>
+            <div className="tablePercent" id ="tablePercent">
+                <div id ="tableCaretLogo">
+                    <SVG src={this.state.icon} />
                 </div>
-                <p id="statPercentUnit"> Co<sub>2</sub>e kg per portion. </p>
+                <div id="tablePercentText">
+                    <p> {Math.round(this.state.difference * 10)/10} % from last month. </p>
+                </div>
             </div>
         )
     }

@@ -1,6 +1,9 @@
 $font: "San Francisco Display Medium";
-$headerSize: 5em;
-$headerMargin: 40px;
+$marginW: 5%;
+$marginH: 2.5vh;
+$minWidth: 799px;
+$iphone5Width: 400px;
+$heightBP: 899px;
 
 @font-face {
   font-family: "San Francisco Display Medium";
@@ -12,4 +15,98 @@ $headerMargin: 40px;
 body {
   background: white;
   font-family: $font;
+  height: 100vh;
+  margin-left: $marginW;
+  margin-right: $marginW;
+  margin-top: $marginH;
+  margin-bottom: 20px;
+  max-height: 100vh;
+  @media screen and (min-width: $minWidth) {
+    overflow: hidden;
+  }
+}
+
+html {
+    height: 100vh;
+}
+
+#break {
+    @media screen and (min-width: $minWidth) {
+        display: none;
+    }
+    @media screen and (max-width: $minWidth) {
+        width: 98%;
+        border: none;
+        height: 1px;
+        background-color: lightgray;
+    }
+}
+
+#breakWithMargin {
+    @media screen and (min-width: $minWidth) {
+        display: none;
+    }
+    @media screen and (max-width: $minWidth) {
+        width: 98%;
+        border: none;
+        height: 1px;
+        background-color: lightgray;
+        margin-bottom: 10%;
+    }
+}
+
+// foodprint by jayway header
+
+#header {
+    @media screen and (min-width: $minWidth) {
+        height: 20vh;
+        margin-bottom: 2.5vh;
+    }
+    @media screen and (max-height: $heightBP) and (min-width: $minWidth) {
+        height: 12vh;
+    }
+}
+
+#headerTitle {
+    font-size: 7em;
+    margin: 0px;
+    @media screen and (max-width: $minWidth) {
+        font-size: 4.8em;
+    }
+    @media screen and (max-width: $iphone5Width) {
+        font-size: 4em;
+    }
+    @media screen and (max-height: $heightBP) {
+        font-size: 4.8em;
+    }
+}
+
+#headerUnderTitleWFlex {
+    margin-left: 60.5%;
+    margin-top: -5%;
+    font-weight: lighter;
+    font-size: 2em;
+    @media screen and (max-width: $minWidth) {
+        font-size: 1em;
+    }
+    @media screen and (max-height: $heightBP) {
+        font-size: 1em;
+    }
+}
+
+#headerUnderTitleNoFlex {
+    margin-left: 296px;
+    margin-top: -25px;
+    font-weight: lighter;
+    font-size: 2em;
+    @media screen and (max-width: $minWidth) {
+        font-size: 1em;
+        margin-left: 204px;
+        margin-top: -17px;
+    }
+    @media screen and (max-width: $iphone5Width) {
+        font-size: 1em;
+        margin-left: 169px;
+        margin-top: -15px;
+    }
 }

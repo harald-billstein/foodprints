@@ -13,6 +13,8 @@ export default class StatsTable extends React.Component {
       categories: [],
       chart: {
         options: {
+          responsive: false,
+          maintainAspectRatio: true,
           tooltip: {
             enabled: false,
           },
@@ -97,24 +99,18 @@ export default class StatsTable extends React.Component {
   componentDidMount() {
     this.fetchGrafData();
     this.timer = setInterval(() => this.fetchGrafData(), 10000);
-    //fetch(this.statsGoalUrl)
-    //.then(response => response.json())
-    //.then(data => {
-    //  console.log('goal: ' + data);
-    //  this.setState({goal: data})
-    //})
-    //.catch(err => console.log(err));
   }
 
   render() {
     const {chart = {}} = this.state;
     return (
-        <div className="statsTable" id="statsTable">
-          <div id="statsTableInfo">
+        <div className="table" id="table">
+          <div id="tableInfo">
             <StatsPercent />
+            <p id="tablePercentUnit"> Co<sub>2</sub>e kg per portion. </p>
           </div>
-          <div>
-              <Chart options={chart.options} series={chart.series} type="bar" width="100%" height={300}/>
+          <div id="tableChart">
+              <Chart options={chart.options} series={chart.series} type="bar" width="100%" height="250px"/>
           </div>
         </div>
     )

@@ -62,9 +62,10 @@ export default class StatsInfo extends React.Component {
         const {timeInterval} = this.state;
         console.log()
         return(
-          <div className="statOptions">
-            <div>
-              <ul id="statOptions">
+          <div className="info" id="info">
+            <hr id="breakWithMargin" />
+            <div id="infoOptionLabels">
+              <ul id="infoOptions">
                 <li id="li" onClick={() => this.fetchStats(TimeInterval.All) }>
                     <button id="button" style={{color: timeInterval === TimeInterval.All ? "black" : "lightgray"}}> all </button>
                 </li>
@@ -79,18 +80,18 @@ export default class StatsInfo extends React.Component {
                 </li>
               </ul>
             </div>
-            <div id="co2Stats">
-              <div id="totalCo2">
-                <p id="totalPortions"> {this.state.stats.totalPortions} portions. </p>
-                <p id="coTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
-                <p id="coTotalUnderTitle"> carbon footprint. </p>
+            <div id="infoCo2Stats">
+              <div id="infoTotalCo2">
+                <p id="infoTotalPortions"> {this.state.stats.totalPortions} portions. </p>
+                <p id="infoCoTotalTitle"> { Math.floor(this.state.stats.totalCo2e)/1000} tons. </p>
+                <p id="infoCoTotalUnderTitle"> carbon footprint. </p>
               </div>
-              <div id="categoryCo2">
+              <div id="infoCategoryCo2">
                 {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
-                  <div key={item.category} id="categoryTitle">
-                    <p id="categoryPortions"> {item.numPortions} portions. </p>
-                    <p id="categoryTitle"> {Math.floor(item.co2e+0.5)} kg. </p>
-                    <p id="categoryUnderTitle"> {item.category}. </p>
+                  <div key={item.category} id="infoCategoryTitle">
+                    <p id="infoCategoryPortions"> {item.numPortions} portions. </p>
+                    <p id="infoCategoryTitle"> {Math.floor(item.co2e+0.5)} kg. </p>
+                    <p id="infoCategoryUnderTitle"> {item.category}. </p>
                   </div>
                 ))}
               </div>

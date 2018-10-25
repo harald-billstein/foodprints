@@ -42,12 +42,13 @@ export default class StatsHeader extends React.Component {
 
   render() {
     return (
-        <div className="header">
-          <div id="row">
-            <div>
-                <h1 id="headerName"> foodprint. </h1>
-                <h2 id="jayway"> by jayway. </h2>
+        <div className="header" id="header">
+          <div id="headerFlexRows">
+            <div id="headerTogether">
+                <h1 id="headerTitle"> foodprint. </h1>
+                <h2 id="headerUnderTitleWFlex"> by jayway. </h2>
             </div>
+            <hr id="break" />
             <div id="headerRestSuggestion">
               <ul id="restList">
                 <li id="liRestHeader"> featured restaurant. </li>
@@ -56,6 +57,7 @@ export default class StatsHeader extends React.Component {
                 <li> {StatsHeader.getStars(this.state.restSuggestion.grade)}</li>
               </ul>
             </div>
+            <hr id="break" />
           </div>
         </div>
     )

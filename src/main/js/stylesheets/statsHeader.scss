@@ -1,0 +1,48 @@
+$minWidth: 799px;
+
+//statsHeader
+
+#headerFlexRows {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#headerTogether {
+    @media screen and (max-width: $minWidth) {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+#headerRestSuggestion {
+    margin-left: auto;
+    @media screen and (max-width: $minWidth) {
+      width: 100%;
+      margin-right: auto;
+    }
+}
+
+#restList {
+    list-style: none;
+    text-align: right;
+    font-weight: bold;
+    @media screen and (max-width: $minWidth) {
+        font-size: 0.8em;
+        text-align: center;
+        padding: 0%;
+    }
+}
+
+#liRestHeader {
+    font-weight: lighter;
+}
+
+#liRest {
+    text-transform: lowercase;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+
+
