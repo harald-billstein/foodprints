@@ -19,7 +19,7 @@ export default class StatsPercent extends React.Component {
             icon: GreenIcon
         }
         this.timer = null;
-        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
+        this.statsUrl = "/v1/emission/statistics";
     }
 
     calculateDiff() {
