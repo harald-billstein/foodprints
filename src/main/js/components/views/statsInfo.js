@@ -17,7 +17,7 @@ export default class StatsInfo extends React.Component {
             today: moment().format('YYYY-MM-DD')
         }
         this.timer = null;
-        this.statsUrl = "https://localhost:8443/v1/emission/statistics";
+        this.statsUrl = "/v1/emission/statistics";
     }
 
     fetchStats(timeInterval) {

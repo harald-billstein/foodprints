@@ -8,7 +8,7 @@ export default class HandleVote extends React.Component {
             vote: null,
             showResponse: false
         }
-        this.postVoteUrl = "https://localhost:8443/v1/votes/";
+        this.postVoteUrl =  "/v1/votes/";
     }
 
     toggleResponse() {
