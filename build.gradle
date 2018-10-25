@@ -34,8 +34,8 @@ jar {
 
 group = 'com.jayway'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.10
-targetCompatibility = 1.10
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 repositories {
     mavenCentral()
@@ -54,6 +54,8 @@ dependencies {
     testCompile('org.springframework.security:spring-security-test')
     compile 'org.springframework.boot:spring-boot-starter-webflux'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
+    compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
 }
 
 bootRun {
