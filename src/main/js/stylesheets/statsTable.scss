@@ -1,10 +1,14 @@
 $minWidth: 799px;
+$heightBP: 700px;
 
 // statsTable
 
 #table {
     @media screen and (min-width: $minWidth) {
         height: 40vh;
+    }
+    @media screen and (max-height: $heightBP) {
+        height: 50vh;
     }
 }
 

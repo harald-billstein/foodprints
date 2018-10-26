@@ -14,8 +14,7 @@ require('./stylesheets/statsInfo.scss');
 ReactDOM.render((
     <Router>
         <App>
-            <Route exact={true} path="/" component={Vote} />
-            <Route path="/vote" component={Vote} />
+            <Route exact path="/" component={Vote} />
             <Route path="/stats" component={Statistics} />
         </App>
     </Router>

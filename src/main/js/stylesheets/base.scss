@@ -3,7 +3,7 @@ $marginW: 5%;
 $marginH: 2.5vh;
 $minWidth: 799px;
 $iphone5Width: 400px;
-$heightBP: 899px;
+$heightBP: 801px;
 
 @font-face {
   font-family: "San Francisco Display Medium";
@@ -21,7 +21,7 @@ body {
   margin-top: $marginH;
   margin-bottom: 20px;
   max-height: 100vh;
-  @media screen and (min-width: $minWidth) {
+  @media screen and (min-width: $minWidth) and (min-height: $heightBP) {
     overflow: hidden;
   }
 }
@@ -62,9 +62,6 @@ html {
         height: 20vh;
         margin-bottom: 2.5vh;
     }
-    @media screen and (max-height: $heightBP) and (min-width: $minWidth) {
-        height: 12vh;
-    }
 }
 
 #headerTitle {
@@ -76,9 +73,6 @@ html {
     @media screen and (max-width: $iphone5Width) {
         font-size: 4em;
     }
-    @media screen and (max-height: $heightBP) {
-        font-size: 4.8em;
-    }
 }
 
 #headerUnderTitleWFlex {
@@ -87,9 +81,6 @@ html {
     font-weight: lighter;
     font-size: 2em;
     @media screen and (max-width: $minWidth) {
-        font-size: 1em;
-    }
-    @media screen and (max-height: $heightBP) {
         font-size: 1em;
     }
 }
