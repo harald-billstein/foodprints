@@ -65,8 +65,9 @@ export default class StatsTable extends React.Component {
         }],
       }
     };
-    this.statsGoalUrl = "https://localhost:8443/v1/emission/goal?from=2018-01-01&to=2019-01-01";
-    this.actualUrl = "https://localhost:8443/v1/emission/statistics/year/per/month?year=2018";
+    this.statsGoalUrl = "/v1/emission/goal?from=2018-01-01&to=2019-01-01";
+    this.actualUrl = '/v1/emission/statistics/year/per/month?year=' + moment().format('YYYY');
+    console.log(this.actualUrl);
   }
 
   updateChart(fetchData) {

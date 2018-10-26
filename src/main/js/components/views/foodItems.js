@@ -7,7 +7,7 @@ export default class FoodItems extends React.Component {
         this.state = {
             foods: []
         }
-        this.url = "https://localhost:8443/v1/categories/";
+        this.url = "/v1/categories/";
     }
 
     componentDidMount() {
