@@ -2,20 +2,24 @@ import React from 'react';
 import SVG from 'react-inlinesvg';
 import CheckMarkLogo from './icons/verify-sign2.svg';
 
+import CheckMark from './icons/checkmark.svg';
+
 export default class Popup extends React.Component {
 
     closeResponse() {
-        setTimeout(this.props.stopResponse, 700);
+        setTimeout(this.props.stopResponse, 2000);
     }
 
     render() {
         return(
-        <div className="response" id="response">
-            <div id="responseLogo">
-                <SVG src={CheckMarkLogo} />
-                {this.closeResponse()}
+            <div className="popupOuter" id="popupOuter">
+                <div id="popupInner">
+                     <SVG src={CheckMark} />
+                     <h1 id="popupText"> Thanks! </h1>
+                     {this.closeResponse()}
+                </div>
             </div>
-        </div>
         )
     }
 }
+
