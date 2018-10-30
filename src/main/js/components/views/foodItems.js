@@ -10,8 +10,8 @@ export default class FoodItems extends React.Component {
             vote: null,
             showResponse: false
         }
-        this.url = "https://localhost:8443/v1/categories/";
-        this.postVoteUrl = "https://localhost:8443/v1/votes/";
+        this.url = "/v1/categories/";
+        this.postVoteUrl = "/v1/votes/";
     }
 
     toggleResponse() {
