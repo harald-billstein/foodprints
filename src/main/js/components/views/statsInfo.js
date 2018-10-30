@@ -20,6 +20,14 @@ export default class StatsInfo extends React.Component {
         this.statsUrl = "/v1/emission/statistics";
     }
 
+    calcCo(item) {
+        if (item < 10) {
+            return Math.floor((item)*10)/10;
+        } else {
+            return Math.floor(item+0.5);
+        }
+    }
+
     fetchStats(timeInterval) {
         let from;
         if (this.state.today !== moment().format('YYYY-MM-DD')) {
@@ -90,7 +98,7 @@ export default class StatsInfo extends React.Component {
                 {this.state.stats.categoryStatistics !== undefined && this.state.stats.categoryStatistics.map(item => (
                   <div key={item.category} id="infoCategoryTitle">
                     <p id="infoCategoryPortions"> {item.numPortions} portions. </p>
-                    <p id="infoCategoryTitle"> {Math.floor(item.co2e+0.5)} kg. </p>
+                    <p id="infoCategoryTitle"> {this.calcCo(item.co2e)} kg. </p>
                     <p id="infoCategoryUnderTitle"> {item.category}. </p>
                   </div>
                 ))}
