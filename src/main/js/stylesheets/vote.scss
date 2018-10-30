@@ -19,6 +19,9 @@ $minWidth: 799px;
         font-weight: bold;
         text-transform: lowercase;
         color: black;
+        @media screen and (max-width: $minWidth) {
+            font-size: 2.5em;
+        }
         &:active {
             color: lightgray;
         }
@@ -36,4 +39,28 @@ $minWidth: 799px;
 #responseLogo {
   position: relative;
 }
+
+
+#popupOuter {
+    position: fixed;
+    display: flex;
+    width: 90vw;
+    height: 100vh;
+    margin-left: auto;
+    background-color: white;
+}
+
+
+#popupInner {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+
+}
+
+#popupText {
+    text-align: center;
+    font-size: 2em;
+}
+
 
