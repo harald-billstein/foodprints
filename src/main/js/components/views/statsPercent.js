@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import GreenIcon from './icons/caret-symbol.svg';
-import RedIcon from './icons/caret-symbol2.svg';
+import GreenIcon from './icons/arrow-green.svg';
+import RedIcon from './icons/arrow-red.svg';
 import SVG from 'react-inlinesvg';
 
 export default class StatsPercent extends React.Component {
@@ -67,7 +67,7 @@ export default class StatsPercent extends React.Component {
     render() {
         return(
             <div className="tablePercent" id ="tablePercent">
-                <div id ="tableCaretLogo">
+                <div id ="tableCaretLogo" style={{marginTop: this.state.icon === GreenIcon ? "11%" : "9%"}}>
                     <SVG src={this.state.icon} />
                 </div>
                 <div id="tablePercentText">
