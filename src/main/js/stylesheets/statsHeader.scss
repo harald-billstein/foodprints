@@ -17,11 +17,41 @@ $minWidth: 799px;
 
 #headerRestSuggestion {
     margin-left: auto;
+    text-align: right;
     @media screen and (max-width: $minWidth) {
       width: 100%;
       margin-right: auto;
+      font-size: 0.8em;
+      text-align: center;
+      padding: 0%;
     }
 }
+
+#headerRestTitle {
+    text-transform: lowercase;
+    opacity: 0.5;
+    margin: 0px;
+    font-size: 1em;
+}
+
+#headerRestName {
+    text-transform: lowercase;
+    font-size: 1.5em;
+    margin: 0px;
+}
+
+#headerRestAddress {
+    text-transform: lowercase;
+    font-size: 1em;
+    margin: 0px;
+}
+
+#headerRestGrade {
+    margin-bottom: 0px;
+    margin-top: 5px;
+    color: rgb(240, 207, 73);
+}
+
 
 #restList {
     list-style: none;
@@ -36,6 +66,12 @@ $minWidth: 799px;
 
 #liRestHeader {
     font-weight: lighter;
+}
+
+
+#headerRestName {
+    text-transform: lowercase;
+    font-size: 1.5em;
 }
 
 #liRest {

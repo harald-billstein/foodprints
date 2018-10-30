@@ -20,9 +20,7 @@ export default class StatsHeader extends React.Component {
     let gradeDif = grade - gradeFloored;
 
     for (let i = 0; i < gradeFloored; i++) {
-      if (gradeFloored >= i) {
         test.push(<FontAwesomeIcon key={i} icon={faStar}/>);
-      }
     }
 
     if (gradeDif > 0) {
@@ -49,13 +47,12 @@ export default class StatsHeader extends React.Component {
                 <h2 id="headerUnderTitleWFlex"> by jayway. </h2>
             </div>
             <hr id="break" />
+
             <div id="headerRestSuggestion">
-              <ul id="restList">
-                <li id="liRestHeader"> featured restaurant. </li>
-                <li id="liRest"> {this.state.restSuggestion.name}. </li>
-                <li id="liRest"> {this.state.restSuggestion.address}. </li>
-                <li> {StatsHeader.getStars(this.state.restSuggestion.grade)}</li>
-              </ul>
+                <h3 id="headerRestTitle"> featured restaurant. </h3>
+                <h1 id="headerRestName"> {this.state.restSuggestion.name}. </h1>
+                <h2 id="headerRestAddress"> {this.state.restSuggestion.address}. </h2>
+                <h3 id="headerRestGrade"> {StatsHeader.getStars(this.state.restSuggestion.grade)} </h3>
             </div>
             <hr id="break" />
           </div>
