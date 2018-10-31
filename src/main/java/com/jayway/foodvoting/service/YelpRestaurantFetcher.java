@@ -20,7 +20,7 @@ public class YelpRestaurantFetcher {
   private String baseURL = "https://api.yelp.com/v3";
   private String resource = "/businesses";
   private String action = "/search";
-  private String location = "Klara Östra Kyrkogata";
+  private String location = "Klara+Östra+Kyrkogata";
   private String term = "vegetarian";
   private String radius = "500";
   private String categories = "yelpRestaurants";
