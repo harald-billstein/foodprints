@@ -1,6 +1,5 @@
 package com.jayway.foodvoting;
 
-import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.enums.FoodPicks;
 import com.jayway.foodvoting.model.CollectionOfVotes;
 import com.jayway.foodvoting.model.VoteResponse;
@@ -23,7 +22,8 @@ public class VoteHandler {
   //private VoteingRepository voteingRepository;
   private FoodTypeRepository foodTypeRepository;
 
-  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP, FoodTypeRepository foodTypeRepository) {
+  public VoteHandler(VotingRepositoryIMP votingRepositoryIMP,
+      FoodTypeRepository foodTypeRepository) {
     this.votingRepositoryIMP = votingRepositoryIMP;
     //this.voteingRepository = voteingRepository;
     this.foodTypeRepository = foodTypeRepository;
@@ -34,8 +34,10 @@ public class VoteHandler {
 
     if (inputCheck(vote)) {
       CreateVotePickIfNeeded(vote);
+
       CollectionOfVotes collection = votingRepositoryIMP
           .getTodyasVoteCategory(FoodPicks.valueOf(vote));
+
       int votes = collection.getVotes() + 1;
       collection.setVotes(votes);
       votingRepositoryIMP.saveCollectionOfVotes(collection);
@@ -70,13 +72,11 @@ public class VoteHandler {
     List<CollectionOfVotes> categorys = votingRepositoryIMP.getTodaysVoteCategorys();
     boolean foundEntry = false;
 
-    if (categorys.size() <= 5) {
-      for (CollectionOfVotes category : categorys) {
-        LOGGER.info(category.getCategory().getCategory().toString());
-        if (category.getCategory().getCategory().name().equalsIgnoreCase(input)) {
-          LOGGER.info("CREATE NOT NEEDED CATEGORY FOUND");
-          foundEntry = true;
-        }
+    for (CollectionOfVotes category : categorys) {
+      LOGGER.info(category.getCategory().getCategory().toString());
+      if (category.getCategory().getCategory().name().equalsIgnoreCase(input)) {
+        LOGGER.info("CREATE NOT NEEDED CATEGORY FOUND");
+        foundEntry = true;
       }
     }
 
