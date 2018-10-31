@@ -26,6 +26,6 @@ public class VoteEndpoint {
   @PostMapping(value = "/votes/")
   public ResponseEntity<VoteResponse> vote(@RequestBody VoteRequest vote) {
     LOGGER.info("ENDPOINT : VOTE : " + vote.getVote());
-    return voteHandler.registerVote(vote.getVote());
+    return voteHandler.registerVote(vote.getVote().toUpperCase());
   }
 }
