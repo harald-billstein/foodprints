@@ -60,7 +60,7 @@ dependencies {
 
 bootRun {
     systemProperties System.properties
-    systemProperties.remove("java.endorsed.dirs")
+    //systemProperties.remove("java.endorsed.dirs")
 }
 
 
