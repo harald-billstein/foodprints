@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import com.jayway.foodvoting.dao.EmissionGoal;
 import com.jayway.foodvoting.model.CategoryStatistics;
 import com.jayway.foodvoting.model.Statistics;
+import com.jayway.foodvoting.utility.StatisticsFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,7 +76,15 @@ public class StatisticsControllerTest extends IntegrationTest {
         oracle.setDifference(totalCo2e - lastPeriodCo2e);
 
         MultiValueMap<String, String> params = createToFromParams(LocalDate.parse(DATE_FROM), LocalDate.parse(DATE_TO));
-        expectValidResponse(mvcPerformValidGet(STATISTICS_PATH, params), oracle, Statistics.class);
+        Statistics statistics = new StatisticsFactory()
+            .setTotalCo2e(32.5)
+            .setTotalPortions(10)
+            .setDifference(-71.5)
+            .setBeefCo2e(32.5)
+            .setBeefNumPortions(10)
+            .setBeefPortionsProcent(1.0)
+            .build();
+        expectValidResponse(mvcPerformValidGet(STATISTICS_PATH, params), statistics, Statistics.class);
     }
 
     private List<CategoryStatistics> createCategoryStatistics(double co2e, String category, int catQuant){
@@ -95,7 +104,9 @@ public class StatisticsControllerTest extends IntegrationTest {
     public void testStatisticsNoFoundEntries() throws Exception{
         LocalDate to = LocalDate.parse(DATE_NO_ENTIES_BEFORE);
         MultiValueMap<String, String> params = createToFromParams(to.minusDays(5), to);
-        expectValidResponse(mvcPerformValidGet(STATISTICS_PATH, params), new Statistics(), Statistics.class);
+        expectValidResponse(mvcPerformValidGet(STATISTICS_PATH, params), new StatisticsFactory()
+            .build(), Statistics.class);
+
     }
 
     private MultiValueMap<String, String> createToFromParams(LocalDate from, LocalDate to){
