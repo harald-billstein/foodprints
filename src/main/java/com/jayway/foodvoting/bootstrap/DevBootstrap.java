@@ -35,7 +35,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
   }
 
   private void init() {
-    initBeef();
+    //initBeef();
 
     Map<String, Emission> foodTypes = new HashMap<>();
     for (Emission e: foodTypeRepository.findAll()){
@@ -44,6 +44,7 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
 
     var history = 5;
 
+
     CollectionOfVotes collectionOfMeatVotes;
     CollectionOfVotes collectionOfChickenVotes;
     CollectionOfVotes collectionOfFishVotes;
@@ -51,6 +52,8 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     CollectionOfVotes collectionOfVeganVotes;
     CollectionOfVotes collectionOfPorkVotes;
 
+
+    /*
     collectionOfFishVotes = new CollectionOfVotes();
     collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(8));
     collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
@@ -63,13 +66,16 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     collectionOfMeatVotes.setVotes(1);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
-    collectionOfMeatVotes = new CollectionOfVotes();
-    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(9));
-    collectionOfMeatVotes.setCategory(foodTypes.get("VEGAN"));
-    collectionOfMeatVotes.setVotes(1);
-    votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
+    collectionOfVeganVotes = new CollectionOfVotes();
+    collectionOfVeganVotes.setLocalDate(LocalDate.now().minusMonths(9));
+    collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
+    collectionOfVeganVotes.setVotes(1);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
+
+    */
 
 
+    // new Random().nextInt(((10 - 2) + 1) + 2)
 
 
     for (int i = 0; i < history; i++) {
@@ -77,37 +83,37 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
       collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
       collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
       // RANDOM INT 1-10
-      collectionOfMeatVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfMeatVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
       collectionOfChickenVotes = new CollectionOfVotes();
       collectionOfChickenVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
       collectionOfChickenVotes.setCategory(foodTypes.get("CHICKEN"));
-      collectionOfChickenVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfChickenVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfChickenVotes);
 
       collectionOfFishVotes = new CollectionOfVotes();
       collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
       collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
-      collectionOfFishVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfFishVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
 
       collectionOfVegetarianVotes = new CollectionOfVotes();
       collectionOfVegetarianVotes.setLocalDate(LocalDate.now().minusMonths(i+2));
       collectionOfVegetarianVotes.setCategory(foodTypes.get("VEGETARIAN"));
-      collectionOfVegetarianVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfVegetarianVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVegetarianVotes);
 
       collectionOfVeganVotes = new CollectionOfVotes();
       collectionOfVeganVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
       collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
-      collectionOfVeganVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfVeganVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
 
       collectionOfPorkVotes = new CollectionOfVotes();
       collectionOfPorkVotes.setLocalDate(LocalDate.now().minusMonths(i+1));
       collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
-      collectionOfPorkVotes.setVotes(new Random().nextInt(((10 - 2) + 1) + 2));
+      collectionOfPorkVotes.setVotes(1);
       votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
     }
   }
