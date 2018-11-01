@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.5.RELEASE'
+        springBootVersion = '2.1.0.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -60,6 +60,7 @@ dependencies {
 
 bootRun {
     systemProperties System.properties
+    //systemProperties.remove("java.endorsed.dirs")
 }
 
 

@@ -10,8 +10,8 @@ INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 
 -- CREATE EMISSIONS
 INSERT INTO Emission (category, co2e) VALUES ('BEEF', 26.0);
-INSERT INTO Emission (category, co2e) VALUES ('PORK', 3.0);
-INSERT INTO Emission (category, co2e) VALUES ('CHICKEN', 6.0);
+INSERT INTO Emission (category, co2e) VALUES ('PORK', 6.0);
+INSERT INTO Emission (category, co2e) VALUES ('CHICKEN', 3.0);
 INSERT INTO Emission (category, co2e) VALUES ('VEGAN', 1.1);
 INSERT INTO Emission (category, co2e) VALUES ('VEGETARIAN', 1.9);
 INSERT INTO Emission (category, co2e) VALUES ('FISH', 3.0);
