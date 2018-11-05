@@ -1,7 +1,5 @@
 import React from 'react';
 import SVG from 'react-inlinesvg';
-import CheckMarkLogo from './icons/verify-sign2.svg';
-
 import CheckMark from './icons/checkmark.svg';
 
 export default class Popup extends React.Component {
