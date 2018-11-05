@@ -1,6 +1,6 @@
 package com.jayway.foodvoting.service;
 
-import com.jayway.foodvoting.model.CollectionOfVotes;
+import com.jayway.foodvoting.dao.CollectionOfVotes;
 import com.jayway.foodvoting.model.EmissionPerMonthPerPortion;
 import com.jayway.foodvoting.repository.VoteingRepository;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.controller;
+package com.jayway.foodvoting.controller.api;
 
 import com.jayway.foodvoting.dao.EmissionGoal;
 import com.jayway.foodvoting.model.EmissionPerMonthPerPortion;

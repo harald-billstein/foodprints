@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.endpoints;
+package com.jayway.foodvoting.controller.api;
 
 import com.jayway.foodvoting.model.Restaurant;
 import com.jayway.foodvoting.model.RestaurantSuggestionResponse;

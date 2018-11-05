@@ -1,7 +1,7 @@
 package com.jayway.foodvoting.bootstrap;
 
 import com.jayway.foodvoting.dao.Emission;
-import com.jayway.foodvoting.model.CollectionOfVotes;
+import com.jayway.foodvoting.dao.CollectionOfVotes;
 import com.jayway.foodvoting.repository.FoodTypeRepository;
 import com.jayway.foodvoting.repository.VoteingRepository;
 import com.jayway.foodvoting.repository.VotingRepositoryIMP;

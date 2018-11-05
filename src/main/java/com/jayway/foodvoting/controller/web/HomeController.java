@@ -1,4 +1,4 @@
-package com.jayway.foodvoting;
+package com.jayway.foodvoting.controller.web;
 
 
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,5 @@
-package com.jayway.foodvoting;
+package com.jayway.foodvoting.controller.web;
 
-import com.jayway.foodvoting.service.RestaurantService;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

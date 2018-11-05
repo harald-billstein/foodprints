@@ -1,7 +1,7 @@
 package com.jayway.foodvoting.repository;
 
 import com.jayway.foodvoting.enums.FoodPicks;
-import com.jayway.foodvoting.model.CollectionOfVotes;
+import com.jayway.foodvoting.dao.CollectionOfVotes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

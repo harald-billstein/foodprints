@@ -1,4 +1,4 @@
-package com.jayway.foodvoting.model;
+package com.jayway.foodvoting.dao;
 
 import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.enums.FoodPicks;
