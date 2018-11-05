@@ -2,18 +2,14 @@ package com.jayway.foodvoting.service;
 
 import com.jayway.foodvoting.dao.EmissionGoal;
 import com.jayway.foodvoting.model.CategoryStatistics;
-import com.jayway.foodvoting.model.CategorySum;
-import com.jayway.foodvoting.model.CollectionOfVotes;
 import com.jayway.foodvoting.model.Statistics;
 import com.jayway.foodvoting.repository.FoodTypeRepository;
 import com.jayway.foodvoting.repository.VoteingRepository;
-import java.util.ArrayList;
 import java.util.Arrays;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 @Service

@@ -2,8 +2,7 @@ package com.jayway.foodvoting.repository;
 
 import com.jayway.foodvoting.model.CategoryStatistics;
 import com.jayway.foodvoting.model.CategorySum;
-import com.jayway.foodvoting.model.CollectionOfVotes;
-import com.jayway.foodvoting.model.Statistics;
+import com.jayway.foodvoting.dao.CollectionOfVotes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
