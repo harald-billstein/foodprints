@@ -53,8 +53,8 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
     ResultActions firstResult;
     ResultActions secondResult;
 
-    firstResult = this.mvcPerformValidGet(PATH);
-    secondResult = this.mvcPerformValidGet(PATH);
+    firstResult = this.mvcPerformValidGet(PATH, "fetchRestaurantsTest");
+    secondResult = this.mvcPerformValidGet(PATH, "fetchRestaurantsTest");
 
     firstJsonResponse = firstResult.andReturn().getResponse().getContentAsString();
     secondJsonResponse = secondResult.andReturn().getResponse().getContentAsString();
@@ -75,7 +75,7 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   public void fetchRestaurantsNoSuggestionsTest() throws Exception {
     setUpMock(true, null);
 
-    ResultActions result = this.mvcPerformValidGet(PATH);
+    ResultActions result = this.mvcPerformValidGet(PATH, "fetchRestaurantsNoSuggestionsTest");
     HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
     Assert.assertEquals(HttpStatus.NO_CONTENT, response);
   }
@@ -85,7 +85,7 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
     setUpMock(false, RestaurantsResource.getOneRestaurantThatWillPassFilterResource());
     ObjectMapper objectMapper = new ObjectMapper();
 
-    ResultActions result = this.mvcPerformValidGet(PATH);
+    ResultActions result = this.mvcPerformValidGet(PATH, "fetchRestaurantsNoSuggestionsTest");
     String jsonResponse = result.andReturn().getResponse().getContentAsString();
     RestaurantSuggestionResponse resultObject = objectMapper
         .readValue(jsonResponse, RestaurantSuggestionResponse.class);
@@ -99,7 +99,8 @@ public class RestaurantSuggestionsEndpointTest extends IntegrationTest {
   public void fetchRestaurantsSingleResultListNotPassingFilter() throws Exception {
     setUpMock(false, RestaurantsResource.getOneRestaurantThatWontPassFilterResource());
 
-    ResultActions result = this.mvcPerformValidGet(PATH);
+    ResultActions result = this
+        .mvcPerformValidGet(PATH, "fetchRestaurantsSingleResultListNotPassingFilter");
     HttpStatus response = HttpStatus.valueOf(result.andReturn().getResponse().getStatus());
 
     Assert.assertEquals(HttpStatus.NO_CONTENT, response);
