@@ -1,5 +1,4 @@
 import React from 'react';
-import HandleVote from './handleVote';
 import Popup from './popup';
 
 export default class FoodItems extends React.Component {
