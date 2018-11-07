@@ -45,8 +45,9 @@ repositories {
 }
 
 asciidoctor {
-    sourceDir = file('build/generated-snippets')
-    //outputDir "src/main/resources/static/apidocs"
+    sourceDir = file('build/generated-snippets/')
+    sources { include 'api.guide.adoc' }
+    outputDir "src/main/resources/templates"
 }
 
 dependencies {
