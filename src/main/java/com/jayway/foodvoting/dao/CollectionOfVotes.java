@@ -1,7 +1,6 @@
 package com.jayway.foodvoting.dao;
 
 import com.jayway.foodvoting.dao.Emission;
-import com.jayway.foodvoting.enums.FoodPicks;
 import java.time.LocalDate;
 import javax.persistence.*;
 
@@ -24,7 +23,6 @@ public class CollectionOfVotes {
   public CollectionOfVotes(){}
 
   public CollectionOfVotes(LocalDate localDate, Emission category, int votes) {
-    this.ID = ID;
     this.localDate = localDate;
     this.category = category;
     this.votes = votes;
