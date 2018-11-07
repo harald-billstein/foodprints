@@ -1,7 +1,7 @@
 package com.jayway.foodvoting.bootstrap;
 
-import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.dao.CollectionOfVotes;
+import com.jayway.foodvoting.dao.Emission;
 import com.jayway.foodvoting.repository.FoodTypeRepository;
 import com.jayway.foodvoting.repository.VoteingRepository;
 import com.jayway.foodvoting.repository.VotingRepositoryIMP;
@@ -51,63 +51,73 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
     CollectionOfVotes collectionOfPorkVotes;
 
     collectionOfFishVotes = new CollectionOfVotes();
-    collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(8));
+    collectionOfFishVotes.setLocalDate(LocalDate.of(2018, 1, 1));
     collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
-    collectionOfFishVotes.setVotes(1);
+    collectionOfFishVotes.setVotes(11);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
 
     collectionOfMeatVotes = new CollectionOfVotes();
-    collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(8));
+    collectionOfMeatVotes.setLocalDate(LocalDate.of(2018, 2, 1));
     collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
-    collectionOfMeatVotes.setVotes(1);
+    collectionOfMeatVotes.setVotes(12);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
     collectionOfVeganVotes = new CollectionOfVotes();
-    collectionOfVeganVotes.setLocalDate(LocalDate.now().minusMonths(9));
+    collectionOfVeganVotes.setLocalDate(LocalDate.of(2018, 3, 1));
     collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
-    collectionOfVeganVotes.setVotes(1);
+    collectionOfVeganVotes.setVotes(13);
     votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
 
-    // new Random().nextInt(((10 - 2) + 1) + 2)
+    collectionOfMeatVotes = new CollectionOfVotes();
+    collectionOfMeatVotes.setLocalDate(LocalDate.of(2018,4,1));
+    collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
+    // RANDOM INT 1-10
+    collectionOfMeatVotes.setVotes(14);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
 
-    for (int i = 0; i < history; i++) {
-      collectionOfMeatVotes = new CollectionOfVotes();
-      collectionOfMeatVotes.setLocalDate(LocalDate.now().minusMonths(i + 1));
-      collectionOfMeatVotes.setCategory(foodTypes.get("BEEF"));
-      // RANDOM INT 1-10
-      collectionOfMeatVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfMeatVotes);
+    collectionOfChickenVotes = new CollectionOfVotes();
+    collectionOfChickenVotes.setLocalDate(LocalDate.of(2018,5,1));
+    collectionOfChickenVotes.setCategory(foodTypes.get("CHICKEN"));
+    collectionOfChickenVotes.setVotes(15);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfChickenVotes);
 
-      collectionOfChickenVotes = new CollectionOfVotes();
-      collectionOfChickenVotes.setLocalDate(LocalDate.now().minusMonths(i + 1));
-      collectionOfChickenVotes.setCategory(foodTypes.get("CHICKEN"));
-      collectionOfChickenVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfChickenVotes);
+    collectionOfFishVotes = new CollectionOfVotes();
+    collectionOfFishVotes.setLocalDate(LocalDate.of(2018,6,1));
+    collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
+    collectionOfFishVotes.setVotes(16);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
 
-      collectionOfFishVotes = new CollectionOfVotes();
-      collectionOfFishVotes.setLocalDate(LocalDate.now().minusMonths(i + 1));
-      collectionOfFishVotes.setCategory(foodTypes.get("FISH"));
-      collectionOfFishVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfFishVotes);
+    collectionOfVegetarianVotes = new CollectionOfVotes();
+    collectionOfVegetarianVotes.setLocalDate(LocalDate.of(2018,7,1));
+    collectionOfVegetarianVotes.setCategory(foodTypes.get("VEGETARIAN"));
+    collectionOfVegetarianVotes.setVotes(17);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfVegetarianVotes);
 
-      collectionOfVegetarianVotes = new CollectionOfVotes();
-      collectionOfVegetarianVotes.setLocalDate(LocalDate.now().minusMonths(i + 2));
-      collectionOfVegetarianVotes.setCategory(foodTypes.get("VEGETARIAN"));
-      collectionOfVegetarianVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfVegetarianVotes);
+    collectionOfVeganVotes = new CollectionOfVotes();
+    collectionOfVeganVotes.setLocalDate(LocalDate.of(2018,8,1));
+    collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
+    collectionOfVeganVotes.setVotes(18);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
 
-      collectionOfVeganVotes = new CollectionOfVotes();
-      collectionOfVeganVotes.setLocalDate(LocalDate.now().minusMonths(i + 1));
-      collectionOfVeganVotes.setCategory(foodTypes.get("VEGAN"));
-      collectionOfVeganVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfVeganVotes);
+    collectionOfPorkVotes = new CollectionOfVotes();
+    collectionOfPorkVotes.setLocalDate(LocalDate.of(2018,10,1));
+    collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
+    collectionOfPorkVotes.setVotes(19);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
 
-      collectionOfPorkVotes = new CollectionOfVotes();
-      collectionOfPorkVotes.setLocalDate(LocalDate.now().minusMonths(i + 1));
-      collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
-      collectionOfPorkVotes.setVotes(1);
-      votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
-    }
+    collectionOfPorkVotes = new CollectionOfVotes();
+    collectionOfPorkVotes.setLocalDate(LocalDate.of(2018,11,1));
+    collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
+    collectionOfPorkVotes.setVotes(11);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
+
+    collectionOfPorkVotes = new CollectionOfVotes();
+    collectionOfPorkVotes.setLocalDate(LocalDate.of(2018,12,1));
+    collectionOfPorkVotes.setCategory(foodTypes.get("PORK"));
+    collectionOfPorkVotes.setVotes(12);
+    votingRepositoryIMP.saveCollectionOfVotes(collectionOfPorkVotes);
+
+
   }
 
   // FOR TESTS DONT REMOVE

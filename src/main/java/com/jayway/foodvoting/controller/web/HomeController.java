@@ -12,4 +12,10 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping(value = "api.documentation")
+    public String test() {
+
+        return "html5/api.guide.html";
+    }
+
 }

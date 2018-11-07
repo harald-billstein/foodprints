@@ -78,13 +78,13 @@ public class RestaurantService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VoteService.class);
     private VotingRepositoryIMP votingRepositoryIMP;
-    //private VoteingRepository voteingRepository;
+    //private VotingRepository votingRepository;
     private FoodTypeRepository foodTypeRepository;
 
     public VoteService(VotingRepositoryIMP votingRepositoryIMP,
         FoodTypeRepository foodTypeRepository) {
       this.votingRepositoryIMP = votingRepositoryIMP;
-      //this.voteingRepository = voteingRepository;
+      //this.votingRepository = votingRepository;
       this.foodTypeRepository = foodTypeRepository;
     }
 

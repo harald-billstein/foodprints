@@ -37,18 +37,10 @@ Resources exposed
 https://localhost:8443/
 https://localhost:8443/stats
 https://localhost:8443/h2-console/
-```
-
-Api Resources exposed
-```
-"v1/restaurants/suggestion" - GET
-"v1/statistics/year/per/month" - GET
-"v1/statistics" - GET
-"v1/goal" - GET
-"v1/votes/" - POST
-"v1/categories/" - GET
+https://localhost:8443/api.documentation
 
 ```
+
 
 ## Running the tests
 
@@ -81,5 +73,10 @@ See also the list of [contributors](https://github.com/harald-billstein/foodvoti
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
+
+
+## API Documentation
+
+
 
