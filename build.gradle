@@ -5,10 +5,12 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath "com.moowork.gradle:gradle-node-plugin:1.1.1"
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.9.2'
     }
 }
 
@@ -26,6 +28,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.asciidoctor.convert'
 
 jar {
     baseName = 'reactjs-spring-data-rest-gradle'
@@ -39,6 +42,11 @@ targetCompatibility = 1.10
 
 repositories {
     mavenCentral()
+}
+
+asciidoctor {
+    sourceDir = file('build/generated-snippets')
+    //outputDir "src/main/resources/static/apidocs"
 }
 
 dependencies {
@@ -56,6 +64,9 @@ dependencies {
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.22.0'
     compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 bootRun {
@@ -77,3 +88,5 @@ task npmClean (type: Delete) { delete './node_modules' }
 processResources.dependsOn 'webpack'
 
 task cleanAll(dependsOn: [clean, npmClean] )
+
+
