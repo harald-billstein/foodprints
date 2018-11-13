@@ -54,15 +54,32 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requiresChannel().anyRequest().requiresSecure()
-                .and().authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic().realmName("FoodVoting")
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/resources/**").permitAll().anyRequest().permitAll();
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+        http.requiresChannel()
+            .anyRequest()
+            .requiresSecure()
+            .and()
+            .authorizeRequests()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic()
+            .realmName("FoodVoting")
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.authorizeRequests()
+            .antMatchers("/resources/**")
+            .permitAll()
+            .anyRequest()
+            .permitAll();
+
+        http.csrf()
+            .disable();
+
+        http.headers()
+            .frameOptions()
+            .disable();
     }
 
     @Override

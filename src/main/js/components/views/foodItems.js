@@ -11,6 +11,7 @@ export default class FoodItems extends React.Component {
         }
         this.url = "/v1/categories/";
         this.postVoteUrl = "/v1/votes/";
+        this.statsUrl = window.location.origin + "/stats";
     }
 
     toggleResponse() {
@@ -49,7 +50,7 @@ export default class FoodItems extends React.Component {
                 <div>
                 <ul id="voteList">
                     { this.state.foods.map(item =>
-                    <li id="li"><button id="button" onClick={() => { this.setState({vote: item}, () => this.postVote())}} disabled={this.state.showResponse}>
+                    <li id="li" key={item}><button id="button" onClick={() => { this.setState({vote: item}, () => this.postVote())}} disabled={this.state.showResponse}>
                         {item}.
                     </button></li>
                     )}
@@ -63,6 +64,9 @@ export default class FoodItems extends React.Component {
                         : null
                     }
                 </div>
+            <div>
+              <a  id="stats-link" href={this.statsUrl} className="button">Stats</a>
+            </div>
             </div>
         )
     }
